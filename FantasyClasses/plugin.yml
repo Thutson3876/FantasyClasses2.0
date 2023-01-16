@@ -1,0 +1,32 @@
+name: FantasyClasses
+version: 3.0
+author: thutson3876
+main: me.thutson3876.fantasyclasses.FantasyClasses
+description: The spiritual successor to my previous plugin FantasyTools
+api-version: 1.19
+
+commands:
+  openmenu:
+    usage: /<command>
+    description: opens the gui for the user to choose their class and profession abilities
+  bindability:
+    usage: /<command> <ability>
+    description: binds the specified ability to the material held in the player's hand
+  resetskills:
+    usage: /<command>
+    description: resets the player's skill tree and abilities
+  fantasyhelp:
+    usage: /<command>
+    description: informs the user of key information relating to this plugin
+  addskillexp:
+    usage: /<command> <amt> <player>
+    description: add plugin skill experience to a player
+  togglefriendlyfire:
+    usage: /<command>
+    description: toggle damage dealt to other players
+  toggledamagemeters:
+    usage: /<command>
+    description: toggle your damage being relayed back to you
+  generaterandomlore:
+    usage: /<command> <type> <player>
+    description: give a player lore and a skillexp book
