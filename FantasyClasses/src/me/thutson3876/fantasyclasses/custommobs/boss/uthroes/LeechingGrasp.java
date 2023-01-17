@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -42,7 +43,7 @@ public class LeechingGrasp implements MobAbility {
 			if(e instanceof Player)
 				((Player)e).playSound(targetLoc, Sound.BLOCK_CONDUIT_AMBIENT, 5.0f, 0.9f);
 			
-			Particles.drawLine(entity.getEyeLocation(), targetLoc, 0.2);
+			Particles.drawLine(entity.getEyeLocation(), targetLoc, Particle.SONIC_BOOM, 0.2);
 			
 		}
 		
@@ -68,7 +69,7 @@ public class LeechingGrasp implements MobAbility {
 	
 	private void onHit(LivingEntity ent, LivingEntity target) {
 		target.setVelocity(AbilityUtils.getVectorBetween2Points(target.getLocation(), ent.getLocation(), 0.45));
-		Particles.drawLine(ent.getEyeLocation(), target.getEyeLocation(), 0.2);
+		Particles.drawLine(ent.getEyeLocation(), target.getEyeLocation(), Particle.SONIC_BOOM, 0.2);
 		target.addPotionEffect(slowness);
 	}
 	

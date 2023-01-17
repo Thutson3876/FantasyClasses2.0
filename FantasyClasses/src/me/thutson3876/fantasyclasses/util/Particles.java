@@ -189,7 +189,7 @@ public class Particles {
 
 	}
 
-	public static void drawLine(Location point1, Location point2, double space) {
+	public static void drawLine(Location point1, Location point2, Particle particle, double space) {
 		World world = point1.getWorld();
 		Validate.isTrue(point2.getWorld().equals(world), "Lines cannot be in different worlds!");
 		double distance = point1.distance(point2);
@@ -198,7 +198,7 @@ public class Particles {
 		Vector vector = p2.clone().subtract(p1).normalize().multiply(space);
 		double length = 0;
 		for (; length < distance; p1.add(vector)) {
-			world.spawnParticle(Particle.SONIC_BOOM, p1.getX(), p1.getY(), p1.getZ(), 1);
+			world.spawnParticle(particle, p1.getX(), p1.getY(), p1.getZ(), 1);
 			length += space;
 		}
 	}

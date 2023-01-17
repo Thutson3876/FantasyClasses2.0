@@ -52,7 +52,7 @@ public class Leap extends AbstractAbility implements Bindable {
 			newVelocity.add(new Vector(0, yBoost / 1.5, 0));
 			player.setVelocity(newVelocity.multiply(speed));
 			
-			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 0.65f, 1.2f);
+			player.getWorld().playSound(player, Sound.ENTITY_ENDER_DRAGON_FLAP, 0.65f, 1.2f);
 			hasDoubleJumped = true;
 			return;
 		}
@@ -65,7 +65,7 @@ public class Leap extends AbstractAbility implements Bindable {
 		newVelocity.add(new Vector(0, yBoost, 0));
 		player.setVelocity(newVelocity.multiply(speed));
 		
-		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 0.8f, 0.75f);
+		player.getWorld().playSound(player, Sound.ENTITY_ENDER_DRAGON_FLAP, 0.8f, 0.75f);
 		hasDoubleJumped = false;
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
