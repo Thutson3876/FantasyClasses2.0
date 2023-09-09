@@ -8,7 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public enum Collectible {
 

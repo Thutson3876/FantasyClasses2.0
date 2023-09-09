@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerRiptideEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 
 public class RiptideMastery extends AbstractAbility {
 
@@ -24,8 +25,8 @@ public class RiptideMastery extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 6 * 20;
 		this.displayName = "Riptide Mastery";
-		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.skillPointCost = 3;
+		this.maximumLevel = 1;
 
 		this.createItemStack(Material.END_ROD);
 	}
@@ -38,9 +39,14 @@ public class RiptideMastery extends AbstractAbility {
 		if (isOnCooldown())
 			return;
 
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
+		
 		lightningAura();
 		
-		this.onTrigger(true);
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	@Override
@@ -60,14 +66,14 @@ public class RiptideMastery extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		taskDuration = currentLevel - 1;
+
 	}
 
 	private void lightningAura() {
 		taskCounter = 0;
 		new BukkitRunnable() {
 			public void run() {
-				if (taskCounter > taskDuration) {
+				if (taskCounter > taskDuration || !player.isRiptiding()) {
 					taskCounter = 0;
 					cancel();
 					return;

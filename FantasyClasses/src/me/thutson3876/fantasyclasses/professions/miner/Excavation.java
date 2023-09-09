@@ -13,8 +13,8 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.util.Cuboid;
 import me.thutson3876.fantasyclasses.util.MaterialLists;
+import me.thutson3876.fantasyclasses.util.geometry.Cuboid;
 
 public class Excavation extends AbstractAbility {
 

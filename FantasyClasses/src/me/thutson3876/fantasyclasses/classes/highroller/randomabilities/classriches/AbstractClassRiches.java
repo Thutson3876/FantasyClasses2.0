@@ -12,7 +12,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public abstract class AbstractClassRiches {
 

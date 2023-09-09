@@ -7,8 +7,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.status.ApplyCause;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Enrage extends AbstractAbility {
@@ -54,13 +54,7 @@ public class Enrage extends AbstractAbility {
 		if (thisEvent.isCancelled())
 			return;
 
-		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
-		if (!(clazz instanceof Berserker))
-			return;
-
-		Berserker berserker = (Berserker) clazz;
-
-		berserker.setEnrageDurationRemaining(this.duration);
+		Berserker.getEnraged().apply(player, player, 1, duration, ApplyCause.PLAYER_ABILITY);
 
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
@@ -72,7 +66,7 @@ public class Enrage extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "When you land a critical strike on an enemy, you become enraged, gaining Resistance for &6" + this.duration / 20 + " &rseconds";
+		return "When you land a critical strike on an enemy, you become &dEnraged&r, gaining Resistance for &6" + this.duration / 20 + " &rseconds";
 	}
 
 	@Override

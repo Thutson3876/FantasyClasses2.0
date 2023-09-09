@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class Explosion implements RandomAbility {
 

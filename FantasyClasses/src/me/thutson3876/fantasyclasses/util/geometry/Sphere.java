@@ -1,4 +1,4 @@
-package me.thutson3876.fantasyclasses.util;
+package me.thutson3876.fantasyclasses.util.geometry;
 
 import java.util.ArrayList;
 import java.util.List;

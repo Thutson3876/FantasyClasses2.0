@@ -10,8 +10,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class WitchRiches extends AbstractClassRiches {
 

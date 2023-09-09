@@ -3,6 +3,8 @@ package me.thutson3876.fantasyclasses.util;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+
 public class HealthBar {
 	
 	private static final int HEALTHBAR_LIMIT = 30;

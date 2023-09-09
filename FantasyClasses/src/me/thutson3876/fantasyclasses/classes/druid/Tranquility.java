@@ -19,7 +19,7 @@ import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 import me.thutson3876.fantasyclasses.util.Aura;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class Tranquility extends AbstractAbility implements Bindable {
 

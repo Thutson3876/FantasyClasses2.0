@@ -22,7 +22,8 @@ import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class ChiExpulsion extends AbstractAbility implements Bindable {
 
@@ -83,7 +84,7 @@ public class ChiExpulsion extends AbstractAbility implements Bindable {
 			this.taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new UplinkReducingTask(), 1L, 1L);
 		}
 		
-		Particles.helix(player, Particle.SNEEZE, 0.8, 12.554, 5, 0.12);
+		GeneralParticleEffects.helix(player, new CustomParticle(Particle.SNEEZE), 0.8, 12.554, 1000, 5, 0.12);
 		player.getWorld().playSound(player, Sound.ENTITY_PHANTOM_AMBIENT, 1.3f, 1.2f);
 	}
 
@@ -150,7 +151,7 @@ public class ChiExpulsion extends AbstractAbility implements Bindable {
 			}
 			
 			if(remaining % 20 == 0)
-				Particles.helix(player, Particle.SNEEZE, 0.8, 12.554, 5, 0.12);
+				GeneralParticleEffects.helix(player, new CustomParticle(Particle.SNEEZE, 1, 0, 0, 0, 0, null), 0.8, 12.554, 1000, 5, 0.12);
 			
 			remaining--;
 		}
@@ -160,8 +161,9 @@ public class ChiExpulsion extends AbstractAbility implements Bindable {
 		if(this.storedDamage <= 0)
 			return;
 		
-		player.getWorld().playSound(player, Sound.ENTITY_PHANTOM_AMBIENT, 1.3f, 1.2f);
-		Particles.explosion(player.getLocation().add(0, 1, 0), Particle.EXPLOSION_NORMAL, radius, tickRate);
+		player.getWorld().playSound(player, Sound.ENTITY_PHANTOM_AMBIENT, 1.3f, 1.3f);
+		player.getWorld().playSound(player, Sound.ENTITY_GENERIC_EXPLODE, 0.9f, 1.2f);
+		GeneralParticleEffects.explosion(player.getLocation().add(0, 1, 0), new CustomParticle(Particle.SNEEZE), radius, tickRate);
 		
 		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
 		if (!(clazz instanceof Monk))

@@ -15,7 +15,8 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class Rejuvination extends AbstractAbility implements Bindable {
 
@@ -68,7 +69,7 @@ public class Rejuvination extends AbstractAbility implements Bindable {
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
 		AbilityUtils.heal(this.player, healAmt, target);
-		Particles.helix(target, Particle.COMPOSTER, target.getWidth(), 2 * 6.3, 2, 0.1);
+		GeneralParticleEffects.helix(target, new CustomParticle(Particle.COMPOSTER, 1, 0, 0, 0, 0, null), target.getWidth(), 2 * 6.3, duration, 2, 0.1);
 		if(regen != null)
 			target.addPotionEffect(regen);
 			

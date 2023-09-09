@@ -1,7 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.druid;
 
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -16,8 +15,7 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class NaturesBalance extends AbstractAbility implements Bindable {
 
@@ -71,7 +69,7 @@ public class NaturesBalance extends AbstractAbility implements Bindable {
 			if(target instanceof Player)
 				((Player)target).sendMessage(ChatUtils.chat("&6" + player.getDisplayName() + " &3has granted you " + AbilityUtils.doubleRoundToXDecimals(dmgMod * 100.0, 2) + "% &2damage &gREDUCTION for &6" + (duration / 20) + " &3seconds."));
 			
-			Particles.helix(target, Particle.SUSPENDED, target.getWidth(), 2 * 6.3, 2, 0.1);
+			//Particles.helix(target, Particle.SUSPENDED, target.getWidth(), 2 * 6.3, 2, 0.1);
 			
 			new BukkitRunnable() {
 
@@ -87,7 +85,7 @@ public class NaturesBalance extends AbstractAbility implements Bindable {
 			if(target instanceof Player)
 				((Player)target).sendMessage(ChatUtils.chat("&6" + player.getDisplayName() + " &3has granted you " + AbilityUtils.doubleRoundToXDecimals(dmgMod * 100.0, 2) + "% &3damage &4INCREASE for &6" + (duration / 20) + " &3seconds."));
 			
-			Particles.helix(target, Particle.SWEEP_ATTACK, target.getWidth(), 2 * 6.3, 2, 0.1);
+			//Particles.helix(target, Particle.SWEEP_ATTACK, target.getWidth(), 2 * 6.3, 2, 0.1);
 			
 			new BukkitRunnable() {
 

@@ -20,8 +20,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.NoExpDrop;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExpDrop;
 
 public class Parasite extends AbstractCustomMob {
 

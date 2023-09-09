@@ -1,10 +1,11 @@
 package me.thutson3876.fantasyclasses.classes.berserker;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -12,7 +13,12 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
+import me.thutson3876.fantasyclasses.events.DamageModifier;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.math.MathUtils;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.customeffect.TwirlingRing;
 
 public class IgnorePain extends AbstractAbility implements Bindable {
 
@@ -78,20 +84,22 @@ public class IgnorePain extends AbstractAbility implements Bindable {
 		}.runTaskLater(plugin, duration);
 		
 		player.getWorld().playSound(player.getLocation(), Sound.ITEM_FIRECHARGE_USE, 1.0f, 0.9f);
+		TwirlingRing ring = new TwirlingRing(new CustomParticle(Particle.SWEEP_ATTACK, 0.1), 0.1, 1.0, 6.3, duration, 2, 0.1, true);
+		ring.run(player);
 		
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 		
 	}
 	
 	@EventHandler
-	public void onDamageEvent(EntityDamageEvent e) {
-		if(!e.getEntity().equals(player))
+	public void onDamageEvent(CustomLivingEntityDamageEvent e) {
+		if(!e.getVictim().equals(player))
 			return;
 		
 		if(!isOn)
 			return;
 		
-		e.setDamage(e.getDamage() * (1 - this.dmgReduction));
+		e.addModifier(new DamageModifier(displayName, Operation.MULTIPLY_SCALAR_1, -dmgReduction));
 	}
 	
 	@Override
@@ -101,7 +109,7 @@ public class IgnorePain extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "Reduces damage taken by &6" + AbilityUtils.doubleRoundToXDecimals(dmgReduction * 100, 1) + "% &rfor " + this.duration / 20 + " seconds";
+		return "Reduces damage taken by &6" + AbilityUtils.doubleRoundToXDecimals(dmgReduction * 100, 1) + "% &rfor &6" + MathUtils.convertToDurationInSeconds(duration, 0) + " &rseconds";
 	}
 
 	@Override

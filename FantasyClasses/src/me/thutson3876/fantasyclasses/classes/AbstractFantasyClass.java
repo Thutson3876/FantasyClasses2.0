@@ -1,7 +1,6 @@
 package me.thutson3876.fantasyclasses.classes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +19,9 @@ import me.thutson3876.fantasyclasses.gui.AbstractGUI;
 import me.thutson3876.fantasyclasses.gui.GuiItem;
 import me.thutson3876.fantasyclasses.gui.treegui.ClassGUI;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ClassDifficulty;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public abstract class AbstractFantasyClass implements FantasyClass {
 
@@ -32,10 +33,24 @@ public abstract class AbstractFantasyClass implements FantasyClass {
 	protected Player p;
 	protected FantasyPlayer fantasyPlayer;
 	protected Map<Integer, Skill> skillMap = new HashMap<>();
+	
+	protected final ClassDifficulty difficulty;
 
 	public AbstractFantasyClass(FantasyPlayer fantasyPlayer, boolean isProfession) {
 		this.p = fantasyPlayer.getPlayer();
 		this.IS_PROFESSION = isProfession;
+		this.difficulty = ClassDifficulty.MEDIUM;
+
+		this.fantasyPlayer = fantasyPlayer;
+		if (this.fantasyPlayer.calculateNextLevelExpCost() > 2400000) {
+			System.out.println("Player not null");
+		}
+	}
+	
+	public AbstractFantasyClass(FantasyPlayer fantasyPlayer, boolean isProfession, ClassDifficulty difficulty) {
+		this.p = fantasyPlayer.getPlayer();
+		this.IS_PROFESSION = isProfession;
+		this.difficulty = difficulty;
 
 		this.fantasyPlayer = fantasyPlayer;
 		if (this.fantasyPlayer.calculateNextLevelExpCost() > 2400000) {
@@ -80,8 +95,19 @@ public abstract class AbstractFantasyClass implements FantasyClass {
 		ItemStack item = new ItemStack(mat);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatUtils.chat("&6" + name));
-		List<String> list = Arrays.asList(lore);
-		meta.setLore(ChatUtils.splitStringAtLength(list, 33));
+		List<String> list = new ArrayList<>();
+		
+		if(lore.length >= 1) {
+			for(String s : lore)
+				list.add(s);
+				
+			meta.setLore(ChatUtils.splitStringAtLength(list, 33));
+		}
+		
+		if(!this.IS_PROFESSION) {
+			String s = "Difficulty:" + ColorCode.BOLD + " " + difficulty.getColor() + "" + difficulty.name();
+			list.add(s);
+		}
 		item.setItemMeta(meta);
 		this.item = item;
 
@@ -131,32 +157,32 @@ public abstract class AbstractFantasyClass implements FantasyClass {
 			if (has2ChosenProfessions()) {
 				p.getPlayer().playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 0.8f);
 				p.sendMessage(ChatUtils.chat(
-						"&4ERROR: You have already chosen your two professions. You may reset your choices via a drop from Fantasy Bosses."));
+						ColorCode.ERROR.getCode() + "ERROR: You have already chosen your two professions. You may reset your choices via a drop from Fantasy Bosses."));
 				return false;
 			}
 		} else {
 			if (hasAChosenClass()) {
 				p.getPlayer().playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 0.8f);
 				p.sendMessage(ChatUtils.chat(
-						"&4ERROR: You have already chosen your class. You may reset your choices via a drop from Fantasy Mobs."));
+						ColorCode.ERROR.getCode() + "ERROR: You have already chosen your class. You may reset your choices via a drop from Fantasy Mobs."));
 				return false;
 			}
 		}
 
 		if (ability.getCurrentLevel() >= ability.getMaxLevel()) {
 			p.getPlayer().playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 0.8f);
-			p.sendMessage(ChatUtils.chat("&4ERROR: Maximum Level has been reached"));
+			p.sendMessage(ChatUtils.chat(ColorCode.ERROR.getCode() + "ERROR: Maximum Level has been reached"));
 			return false;
 		} else if (skillPoints < ability.getSkillPointCost()) {
 			p.getPlayer().playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 0.8f);
-			p.sendMessage(ChatUtils.chat("&4ERROR: Not enough Skillpoints"));
+			p.sendMessage(ChatUtils.chat(ColorCode.ERROR.getCode() + "ERROR: Not enough Skillpoints"));
 			return false;
 		} else if (skill.getPrev() != null) {
 			Ability a = skill.getPrev().getAbility();
 			if (a.getCurrentLevel() < ((double) a.getMaxLevel()) / 2.0) {
 				p.playSound(p, Sound.ENTITY_VILLAGER_NO, 1.0f, 0.8f);
 				p.getPlayer().sendMessage(ChatUtils
-						.chat("&4Error: You need at least half of the max level invested in the prerequisite skill: &6"
+						.chat(ColorCode.ERROR.getCode() + "Error: You need at least half of the max level invested in the prerequisite skill: &6"
 								+ a.getCommandName()));
 				return false;
 			}

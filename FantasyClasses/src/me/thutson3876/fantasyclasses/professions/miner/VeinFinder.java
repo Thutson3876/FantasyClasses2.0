@@ -17,7 +17,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class VeinFinder extends AbstractAbility {
 

@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_AddSkillExp extends AbstractCommand implements Listener {
 
@@ -19,11 +20,11 @@ public class Command_AddSkillExp extends AbstractCommand implements Listener {
 	@Override
 	protected boolean onInternalCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a player to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return true;
 		}
 		if(!sender.isOp()) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a server operator to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a server operator to use this command"));
 			return true;
 		}
 		if (args.length < 1) {

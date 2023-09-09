@@ -19,36 +19,52 @@ import me.thutson3876.fantasyclasses.abilities.Ability;
 import me.thutson3876.fantasyclasses.abilities.skills.Skill;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.classes.berserker.Berserker;
+import me.thutson3876.fantasyclasses.classes.highroller.HighRoller;
 import me.thutson3876.fantasyclasses.classes.monk.Monk;
 import me.thutson3876.fantasyclasses.classes.ranger.Ranger;
+import me.thutson3876.fantasyclasses.classes.seaguardian.SeaGuardian;
+import me.thutson3876.fantasyclasses.gui.BasicGUI;
 import me.thutson3876.fantasyclasses.gui.MainMenuGUI;
+import me.thutson3876.fantasyclasses.gui.TutorialGUI;
 import me.thutson3876.fantasyclasses.gui.treegui.TreeGUI;
 import me.thutson3876.fantasyclasses.professions.enchanter.Enchanter;
 import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
 import me.thutson3876.fantasyclasses.professions.fisherman.Fisherman;
 import me.thutson3876.fantasyclasses.professions.miner.Miner;
 import me.thutson3876.fantasyclasses.util.ArmorType;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class FantasyPlayer {
 
 	protected static final FantasyClasses plugin = FantasyClasses.getPlugin();
 
 	private static final Map<Material, Integer> ARMOR_VALUES;
+	private static final short MAX_LEVEL = 50;
+	private static final String CURRENCY_NAME = "Ethereal Ethereum";
+	
+	private static final int EXP_COST_BASE = 2;
+	private static final double EXP_COST_MULT = 0.5;
 	
 	private Player bukkitPlayer;
 	private List<AbstractFantasyClass> classes = new ArrayList<>();
 	private List<AbstractFantasyClass> professions = new ArrayList<>();
 	private AbstractFantasyClass chosenClass;
 	private List<AbstractFantasyClass> chosenProfessions = new ArrayList<>();
+	
+	private boolean isFirstTime = true;
 
 	private boolean friendlyFire = true;
-	private boolean damageMeters = false;
+	private boolean damageMeters = true;
+	private boolean damageDetailedMeters = false;
+	private boolean statusMessages = false;
+	private boolean arrowVelocityTracker = false;
 
 	private int classPoints = 0;
 	private int profPoints = 0;
 	private int level = 0;
 	private long skillExp = 0;
+	
+	private int currency = 0;
 
 	private int armorType = 0;
 	private Map<Enchantments, Integer> availableEnchants = new HashMap<>();
@@ -78,11 +94,11 @@ public class FantasyPlayer {
 		classes.add(new Ranger(this));
 		classes.add(new Monk(this));
 		classes.add(new Berserker(this));
+		classes.add(new HighRoller(this));
 		//classes.add(new Druid(this));
 		//classes.add(new Witchcraft(this));
-		//classes.add(new HighRoller(this));
 		//classes.add(new Dungeoneer(this));
-		//classes.add(new SeaGuardian(this));
+		classes.add(new SeaGuardian(this));
 
 		professions.add(new Miner(this));
 		professions.add(new Fisherman(this));
@@ -91,11 +107,16 @@ public class FantasyPlayer {
 		FileConfiguration config = plugin.getConfig();
 		if (!config.contains("players." + uuid)) {
 			config.set("players." + uuid + ".name", p.getDisplayName());
+			config.set("players." + uuid + ".firsttime", this.isFirstTime);
 			config.set("players." + uuid + ".friendlyfire", this.friendlyFire);
 			config.set("players." + uuid + ".damagemeters", this.damageMeters);
+			config.set("players." + uuid + ".detaileddamagemeters", this.damageDetailedMeters);
 			config.set("players." + uuid + ".classPoints", this.classPoints);
+			config.set("players." + uuid + ".statusMessages", this.statusMessages);
+			config.set("players." + uuid + ".arrowvelocitytracker", this.arrowVelocityTracker);
 			config.set("players." + uuid + ".profPoints", this.profPoints);
 			config.set("players." + uuid + ".exp", this.skillExp);
+			config.set("players." + uuid + ".currency", this.currency);
 			// config.set("players." + uuid + ".class.", this.chosenClass);
 			// config.set("players." + uuid + ".professions.", this.chosenProfessions);
 
@@ -131,6 +152,14 @@ public class FantasyPlayer {
 		return false;
 	}
 	
+	public boolean isFirstTime() {
+		return isFirstTime;
+	}
+
+	public void setFirstTime(boolean isFirstTime) {
+		this.isFirstTime = isFirstTime;
+	}
+
 	public boolean hasFriendlyFire() {
 		return friendlyFire;
 	}
@@ -145,6 +174,30 @@ public class FantasyPlayer {
 
 	public void setDamageMeters(boolean damageMeters) {
 		this.damageMeters = damageMeters;
+	}
+
+	public boolean hasDamageDetailedMeters() {
+		return damageDetailedMeters;
+	}
+
+	public void setDamageDetailedMeters(boolean damageDetailedMeters) {
+		this.damageDetailedMeters = damageDetailedMeters;
+	}
+
+	public boolean hasStatusMessages() {
+		return statusMessages;
+	}
+
+	public void setStatusMessages(boolean statusMessages) {
+		this.statusMessages = statusMessages;
+	}
+
+	public boolean hasArrowVelocityTracker() {
+		return arrowVelocityTracker;
+	}
+
+	public void setArrowVelocityTracker(boolean arrowVelocityTracker) {
+		this.arrowVelocityTracker = arrowVelocityTracker;
 	}
 
 	public void addClassPoints(int amt) {
@@ -188,11 +241,15 @@ public class FantasyPlayer {
 	}
 
 	public void addSkillExp(int amt) {
-		if (calculateLevel() >= 50)
+		if (calculateLevel() >= MAX_LEVEL) {
+			currency += amt;
+			
+			bukkitPlayer.sendMessage(ChatUtils.chat("&6Gained &3" + amt + " &6" + CURRENCY_NAME + "!"));
 			return;
+		}
 
-		if (calculateLevel(skillExp + amt) >= 50)
-			skillExp = calculateExperience(51) - 2;
+		if (calculateLevel(skillExp + amt) >= MAX_LEVEL)
+			skillExp = calculateExperience(MAX_LEVEL + 1) - 2;
 		else
 			skillExp += amt;
 		
@@ -231,35 +288,81 @@ public class FantasyPlayer {
 				bukkitPlayer.sendMessage(ChatUtils.chat("&6Profession Skillpoints: &3+" + profPointsGain));
 		}
 	}
+	
+	 //Alternative to alternating level gains; removes professions from gaining EXP
+	/*public void addSkillExp(int amt) {
+		if (calculateLevel() >= MAX_LEVEL)
+			return;
+
+		skillExp += amt;
+		
+		int newLevel = calculateLevel();
+		if (amt > 0)
+			bukkitPlayer.sendMessage(ChatUtils.chat("&6Gained &3" + amt + " &6experience!"));
+
+		if (newLevel > level) {
+			int start = 0;
+			int end = newLevel - level;
+			int classPointsGain = 0;
+				
+			for(int i = start; i < end; i++) {
+				classPointsGain++;
+			}
+			
+			this.classPoints += classPointsGain;
+			level = newLevel;
+
+			bukkitPlayer.playSound(bukkitPlayer.getLocation(), Sound.ENTITY_WANDERING_TRADER_YES, 1.0f, 1.3f);
+			bukkitPlayer.sendMessage(ChatUtils.chat("&6Level Up! Your new level is &3" + newLevel));
+			bukkitPlayer.sendMessage(ChatUtils.chat("&6Use &3/openmenu &6to spend your new skillpoints!"));
+			if(classPointsGain > 0)
+				bukkitPlayer.sendMessage(ChatUtils.chat("&6Class Skillpoints: &3+" + classPointsGain));
+		}
+	}
+	*/
+	
 
 	public int getPlayerLevel() {
 		return level;
 	}
-
+	
 	private int calculateLevel() {
-		// 7,000 xp = lvl 50
-		return (int) (Math.sqrt((0.4 * skillExp) + 9) - 3);
+		return (int) (Math.sqrt((EXP_COST_MULT * skillExp) + Math.pow(EXP_COST_BASE, 2)) - EXP_COST_BASE);
 	}
-
-	public static int calculateLevel(long exp) {
-		return (int) (Math.sqrt((0.4 * exp) + 9) - 3);
-	}
-
-	public static long calculateExperience(int level) {
-		return Math.round((Math.pow(((level) + 3), 2) - 9) / 0.4);
-	}
-
-	/*
-	 * private int calculateLevel(int exp) { return (int) (Math.sqrt((0.4 * exp) +
-	 * 9) - 3); }
-	 */
 
 	public long calculateCurrentLevelExpCost() {
-		return Math.round((Math.pow(((level) + 3), 2) - 9) / 0.4);
+		return Math.round((Math.pow(((level) + EXP_COST_BASE), 2) - Math.pow(EXP_COST_BASE, 2)) / EXP_COST_MULT);
 	}
 
 	public long calculateNextLevelExpCost() {
-		return Math.round((Math.pow(((level + 1) + 3), 2) - 9) / 0.4);
+		return Math.round((Math.pow(((level + 1) + EXP_COST_BASE), 2) - Math.pow(EXP_COST_BASE, 2)) / EXP_COST_MULT);
+	}
+	
+	public static int calculateLevel(long exp) {
+		return (int) (Math.sqrt((EXP_COST_MULT * exp) + Math.pow(EXP_COST_BASE, 2)) - EXP_COST_BASE);
+	}
+
+	public static long calculateExperience(int level) {
+		return Math.round((Math.pow(((level) + EXP_COST_BASE), 2) - Math.pow(EXP_COST_BASE, 2)) / EXP_COST_MULT);
+	}
+	
+	public void addCurrency(int amt) {
+		this.currency += amt;
+	}
+	
+	public boolean spendCurrency(int amt) {
+		if(amt < 0)
+			return false;
+		
+		if(currency < amt)
+			return false;
+		
+		currency -= amt;
+		return true;
+	}
+	
+	public int getCurrency() {
+		return currency;
 	}
 
 	public Player getPlayer() {
@@ -339,7 +442,12 @@ public class FantasyPlayer {
 	}
 
 	public void openMainMenu() {
-		MainMenuGUI menu = new MainMenuGUI(bukkitPlayer);
+		BasicGUI menu;
+		if(this.isFirstTime)
+			menu = new TutorialGUI(bukkitPlayer);
+		else
+			menu = new MainMenuGUI(bukkitPlayer);
+		
 		menu.openInventory(bukkitPlayer);
 	}
 
@@ -512,8 +620,12 @@ public class FantasyPlayer {
 	private void loadFromConfig() {
 		String uuid = this.bukkitPlayer.getUniqueId().toString();
 		FileConfiguration config = plugin.getConfig();
+		this.isFirstTime = config.getBoolean("players." + uuid + ".firsttime", this.isFirstTime);
 		this.friendlyFire = config.getBoolean("players." + uuid + ".friendlyfire");
 		this.damageMeters = config.getBoolean("players." + uuid + ".damagemeters");
+		this.damageDetailedMeters = config.getBoolean("players." + uuid + ".detaileddamagemeters");
+		this.statusMessages = config.getBoolean("players." + uuid + ".statusMessages", this.statusMessages);
+		this.arrowVelocityTracker = config.getBoolean("players." + uuid + ".arrowvelocitytracker", this.arrowVelocityTracker);
 		this.classPoints = config.getInt("players." + uuid + ".classPoints");
 		this.profPoints = config.getInt("players." + uuid + ".profPoints");
 		this.skillExp = config.getInt("players." + uuid + ".exp");
@@ -582,8 +694,13 @@ public class FantasyPlayer {
 		
 		String uuid = bukkitPlayer.getUniqueId().toString();
 		FileConfiguration config = plugin.getConfig();
+		
+		config.set("players." + uuid + ".firsttime", this.isFirstTime);
 		config.set("players." + uuid + ".friendlyfire", this.friendlyFire);
 		config.set("players." + uuid + ".damagemeters", this.damageMeters);
+		config.set("players." + uuid + ".detaileddamagemeters", this.damageDetailedMeters);
+		config.set("players." + uuid + ".statusMessages", this.statusMessages);
+		config.set("players." + uuid + ".arrowvelocitytracker", this.arrowVelocityTracker);
 		config.set("players." + uuid + ".classPoints", this.classPoints);
 		config.set("players." + uuid + ".profPoints", this.profPoints);
 		config.set("players." + uuid + ".exp", this.skillExp);
@@ -625,5 +742,17 @@ public class FantasyPlayer {
 		for (AttributeModifier mod : mods) {
 			p.getAttribute(att).removeModifier(mod);
 		}
+	}
+	
+	public static Map<Material, Integer> getArmorValues() {
+		return ARMOR_VALUES;
+	}
+
+	public static short getMaxLevel() {
+		return MAX_LEVEL;
+	}
+
+	public static String getCurrencyName() {
+		return CURRENCY_NAME;
 	}
 }

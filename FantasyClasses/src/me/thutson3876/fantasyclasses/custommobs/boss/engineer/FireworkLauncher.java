@@ -73,7 +73,6 @@ public class FireworkLauncher implements MobAbility {
 					
 				}.runTaskTimer(FantasyClasses.getPlugin(), 1, 1);
 				
-				
 				count++;
 				if(count >= fwAmt) {
 					this.cancel();

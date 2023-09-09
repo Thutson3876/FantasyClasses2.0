@@ -2,7 +2,6 @@ package me.thutson3876.fantasyclasses.custommobs.boss;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,6 +15,7 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -30,11 +30,13 @@ import org.bukkit.scheduler.BukkitTask;
 
 import me.thutson3876.fantasyclasses.custommobs.AbstractCustomMob;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 
 	protected List<MobAbility> abilities = new ArrayList<>();
+	
+	protected List<Mob> minions = new ArrayList<>();
 
 	protected BossBar bar = null;
 	
@@ -42,13 +44,15 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 
 	protected boolean requiresTarget = true;
 	
+	private int warningDelay = 1 * 20;
+	
 	private int abilityDelay = 7 * 20;
 	
-	private int prevAbilIndex = -1;
+	private int abilIndex = -1;
 
 	//for health regen
 	int count = 0;
-	int timer = 7;
+	int timer = 10;
 	boolean tookDamageWithinTimer = false;
 	protected BukkitTask task = null;
 	
@@ -70,7 +74,7 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 					return;
 				
 				if(count >= timer) {
-					AbilityUtils.heal(ent, 10, ent);
+					AbilityUtils.heal(ent, getMaxHealth() * 0.05, ent);
 					//count = 0;
 					return;
 				}
@@ -94,8 +98,6 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 		if (abilities.isEmpty())
 			return;
 
-		Random rng = new Random();
-
 		new BukkitRunnable() {
 
 			@Override
@@ -108,20 +110,25 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 				//Doesn't run if entity has no targets
 				if(requiresTarget && ent instanceof Mob && ((Mob)ent).getTarget() == null)
 					return;
-
-				int abilsLength = abilities.size();
-				int abilIndex = rng.nextInt(abilsLength);
-				while(abilIndex == prevAbilIndex) {
-					abilIndex = rng.nextInt(abilsLength);
-				}
-				prevAbilIndex = abilIndex;
 				
-				abilities.get(abilIndex).run((Mob) ent);
+				if(abilIndex >= abilities.size())
+					abilIndex = 0;
+				else
+					abilIndex++;
 				
 				//Broadcasts ability name to nearby players
 				for(Player p : AbilityUtils.getNearbyPlayers(ent, 20)){
 					p.sendMessage(ChatUtils.chat(name + " &8cast &4" + abilities.get(abilIndex).getName()));
 				}
+				new BukkitRunnable() {
+
+					@Override
+					public void run() {
+						abilities.get(abilIndex).run((Mob) ent);
+					}
+					
+				}.runTaskLater(plugin, warningDelay);
+				
 			}
 
 		}.runTaskTimer(plugin, getAbilityDelay(), getAbilityDelay());
@@ -210,6 +217,18 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 			player.sendMessage(ChatUtils.chat("&7You dealt &c" + AbilityUtils.doubleRoundToXDecimals(e.getFinalDamage(), 2) + " &7damage"));
 	}
 	
+	public List<Mob> getMinions() {
+		return this.minions;
+	}
+	
+	public void addMinion(Mob ent) {
+		minions.add(ent);
+	}
+	
+	public boolean removeMinion(Mob ent) {
+		return minions.remove(ent);
+	}
+	
 	@EventHandler
 	public void onEntityPotionEffectEvent(EntityPotionEffectEvent e) {
 		if(e.getEntity().equals(ent) && (e.getModifiedType().equals(PotionEffectType.LEVITATION) || e.getModifiedType().equals(PotionEffectType.SLOW)))
@@ -236,6 +255,15 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 				}
 				
 			}.runTaskLater(plugin, 20);
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onEntityDeathEvent(EntityDeathEvent e) {
+		Entity victim = e.getEntity();
+		if(minions.contains(victim)) {
+			minionDied(e);
+			minions.remove(victim);
 		}
 	}
 	
@@ -269,15 +297,18 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 
 	@Override
 	protected void died(EntityDeathEvent e) {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	protected void minionDied(EntityDeathEvent e) {
 		
 	}
 
-	protected int getAbilityDelay() {
+	public int getAbilityDelay() {
 		return abilityDelay;
 	}
 
-	protected void setAbilityDelay(int abilityDelay) {
+	public void setAbilityDelay(int abilityDelay) {
 		this.abilityDelay = abilityDelay;
 	}
 	
@@ -285,4 +316,13 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 	public void resetCount() {
 		this.count = 0;
 	}
+
+	public int getWarningDelay() {
+		return warningDelay;
+	}
+
+	public void setWarningDelay(int warningDelay) {
+		this.warningDelay = warningDelay;
+	}
+	
 }

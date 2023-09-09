@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.collectible.Collectible;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class LostToTheSea extends AbstractAbility {
 

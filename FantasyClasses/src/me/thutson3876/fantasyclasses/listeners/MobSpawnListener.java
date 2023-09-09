@@ -31,8 +31,8 @@ import me.thutson3876.fantasyclasses.custommobs.boss.uthroes.Ahsmi;
 import me.thutson3876.fantasyclasses.custommobs.boss.uthroes.Uthroes;
 import me.thutson3876.fantasyclasses.custommobs.boss.voidremnant.VoidRemnant;
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.Schematic;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.geometry.Schematic;
 
 public class MobSpawnListener implements Listener {
 	private static final FantasyClasses plugin = FantasyClasses.getPlugin();
@@ -123,6 +123,9 @@ public class MobSpawnListener implements Listener {
 			}
 		}
 		
+		//Test Code
+		
+		//Remove this before launching
 		if(block.getType().equals(Material.MYCELIUM)) {
 			if(e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.SLIME_BALL)){
 				loc.getWorld().playSound(loc, Sound.ENTITY_SLIME_SQUISH, 1.5f, 2.0f);

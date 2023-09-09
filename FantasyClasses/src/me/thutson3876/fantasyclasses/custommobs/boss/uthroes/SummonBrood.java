@@ -8,7 +8,7 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.PolarBear;
 
 import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
-import me.thutson3876.fantasyclasses.util.NoExpDrop;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExpDrop;
 
 public class SummonBrood implements MobAbility {
 

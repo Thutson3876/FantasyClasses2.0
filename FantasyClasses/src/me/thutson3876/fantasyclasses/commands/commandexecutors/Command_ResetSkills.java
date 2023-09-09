@@ -7,7 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_ResetSkills extends AbstractCommand implements Listener {
 
@@ -18,11 +19,11 @@ public class Command_ResetSkills extends AbstractCommand implements Listener {
 	@Override
 	protected boolean onInternalCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a player to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return true;
 		}
 		if (args.length != 0) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Improper use of command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Improper use of command"));
 			return false;
 		}
 
@@ -30,7 +31,7 @@ public class Command_ResetSkills extends AbstractCommand implements Listener {
 
 		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(player);
 		if (fplayer == null) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a player to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return false;
 		}
 		player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_BREAK, 1.2f, 1.2f);
@@ -42,7 +43,7 @@ public class Command_ResetSkills extends AbstractCommand implements Listener {
 			fplayer.resetChosenProfessions();
 		// REMOVE THIS UPON SERVER LAUNCH ^
 
-		player.sendMessage(ChatUtils.chat("&5Successfully reset skills!"));
+		player.sendMessage(ChatUtils.chat(ColorCode.SUCCESS + "Successfully reset skills!"));
 		return true;
 	}
 }

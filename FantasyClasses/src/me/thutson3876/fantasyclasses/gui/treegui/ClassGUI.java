@@ -26,7 +26,7 @@ import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.gui.AbstractGUI;
 import me.thutson3876.fantasyclasses.gui.GuiItem;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class ClassGUI extends AbstractGUI {
 

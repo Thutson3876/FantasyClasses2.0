@@ -7,7 +7,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.thutson3876.fantasyclasses.abilities.Ability;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
@@ -40,18 +39,9 @@ public class EndlessFury extends AbstractAbility {
 		if(!e.getDamager().equals(this.player))
 			return;
 		
-		//Why do i need this here???
-		if(fplayer == null || fplayer.getChosenClass() == null)
+		if(!plugin.getStatusManager().contains(player, Berserker.getEnraged())) {
 			return;
-		
-		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
-		if (!(clazz instanceof Berserker))
-			return;
-
-		Berserker berserker = (Berserker) clazz;
-		
-		if(berserker.getEnrageDurationRemaining() <= 0)
-			return;
+		}
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
 
@@ -77,7 +67,7 @@ public class EndlessFury extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Dealing damage while Enraged reduces your class cooldowns by &6"
+		return "Dealing damage while &dEnraged &rreduces your class cooldowns by &6"
 				+ AbilityUtils.doubleRoundToXDecimals(cooldownReduction / 20.0, 2) + " &rseconds";
 	}
 

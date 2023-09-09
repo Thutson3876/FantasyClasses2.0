@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.custommobs.horde.AbstractHordeWave;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class StoneWave3 extends AbstractHordeWave {
 

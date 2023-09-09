@@ -61,8 +61,13 @@ public class Ahsmi extends AbstractBoss {
 		((PolarBear) ent).setAdult();
 		this.rider = rider;
 		ent.setCustomNameVisible(false);
-		if (rider == null)
+		if (rider == null) {
 			this.setBossBar("&bAhsmi", BarColor.BLUE, BarStyle.SOLID, new BarFlag[0]);
+			
+			abilities.add(new SummonBrood());
+			abilities.add(new WinteryGrasp());
+			abilities.add(new FrozenPrison());
+		}
 
 		Collection<ItemStack> loot = new HashSet<>();
 
@@ -77,18 +82,13 @@ public class Ahsmi extends AbstractBoss {
 		loot.add(Collectible.generateProfessionResetDrop());
 
 		for(Horde horde : Horde.values()) {
-			if(rng.nextDouble() < horde.getDropRate() * 2) {
+			if(rng.nextDouble() < horde.getDropRate() * 4) {
 				loot.add(horde.generateDrop());
 				break;
 			}	
 		}
 		
 		this.setDrops(loot);
-
-		abilities.add(new WinteryGrasp());
-		abilities.add(new FrozenPrison());
-		abilities.add(new SummonBrood());
-		//abilities.add(new PlagueUnleashed());
 
 		new BukkitRunnable() {
 
@@ -119,7 +119,7 @@ public class Ahsmi extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(500);
-		this.setAttackDamage(32);
+		this.setAttackDamage(30);
 		this.setSkillExpReward(30);
 		// this.setMoveSpeed(0.16f);
 	}
@@ -194,6 +194,10 @@ public class Ahsmi extends AbstractBoss {
 		
 		if (e.getEntity().equals(rider)) {
 			this.setBossBar("&bAhsmi", BarColor.BLUE, BarStyle.SOLID, new BarFlag[0]);
+			
+			abilities.add(new SummonBrood());
+			abilities.add(new WinteryGrasp());
+			abilities.add(new FrozenPrison());
 			return;
 		}
 

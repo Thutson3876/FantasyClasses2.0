@@ -1,4 +1,4 @@
-package me.thutson3876.fantasyclasses.util;
+package me.thutson3876.fantasyclasses.util.geometry;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +22,9 @@ import me.thutson3876.fantasyclasses.custommobs.boss.SpawnCue;
 import me.thutson3876.fantasyclasses.custommobs.boss.engineer.Engineer;
 import me.thutson3876.fantasyclasses.custommobs.boss.skeletonlord.SkeletonLord;
 import me.thutson3876.fantasyclasses.custommobs.boss.voidremnant.VoidRemnant;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public enum Schematic {
 
@@ -67,7 +70,7 @@ public enum Schematic {
 			List<Location> locs = Sphere.generateCircle(loc, 3, true);
 			World world = loc.getWorld();
 	
-			Particles.twirlingRing(loc, Particle.FLAME, 1.6, 12.6, 7);
+			GeneralParticleEffects.twirlingRing(loc, new CustomParticle(Particle.FLAME), 1.6, 12.6, 1000, 7);
 	
 			for (Location l : locs) {
 				new BukkitRunnable() {
@@ -113,7 +116,7 @@ public enum Schematic {
 			List<Location> locs = Sphere.generateCircle(loc, 3, true);
 			World world = loc.getWorld();
 	
-			Particles.twirlingRing(loc, Particle.ELECTRIC_SPARK, 1.6, 12.6, 7);
+			GeneralParticleEffects.twirlingRing(loc, new CustomParticle(Particle.ELECTRIC_SPARK), 1.6, 12.6, 1000, 7);
 	
 			for (Location l : locs) {
 				new BukkitRunnable() {

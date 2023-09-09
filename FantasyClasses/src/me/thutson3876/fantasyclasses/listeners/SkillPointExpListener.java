@@ -37,8 +37,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.NoExpDrop;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExpDrop;
 
 public class SkillPointExpListener implements Listener {
 

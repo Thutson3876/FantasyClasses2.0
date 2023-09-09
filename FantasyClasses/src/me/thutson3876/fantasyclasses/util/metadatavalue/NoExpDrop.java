@@ -1,4 +1,4 @@
-package me.thutson3876.fantasyclasses.util;
+package me.thutson3876.fantasyclasses.util.metadatavalue;
 
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;

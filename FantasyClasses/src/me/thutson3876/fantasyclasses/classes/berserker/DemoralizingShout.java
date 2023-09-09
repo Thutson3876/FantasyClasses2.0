@@ -14,7 +14,8 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class DemoralizingShout extends AbstractAbility implements Bindable {
 
@@ -65,7 +66,7 @@ public class DemoralizingShout extends AbstractAbility implements Bindable {
 		}
 
 		player.getWorld().playSound(player, Sound.ENTITY_WARDEN_ROAR, 1.5f, 1.2f);
-		Particles.pulsingCircle(player.getLocation().add(0, 1.0, 0), range, 0.25, 2, Particle.CRIT_MAGIC);
+		GeneralParticleEffects.pulsingCircle(player.getLocation().add(0, 1.0, 0), new CustomParticle(Particle.CRIT, 1, 0.2, 0.2, 0.2, 0.1, null), range, 0.2, duration, 2);
 		
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}

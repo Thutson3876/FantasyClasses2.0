@@ -1,16 +1,20 @@
 package me.thutson3876.fantasyclasses.classes.seaguardian;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
+import me.thutson3876.fantasyclasses.events.DamageModifier;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class PolearmMastery extends AbstractAbility {
 
-	private double dmg = 0.4;
+	private double dmg = 1.0;
 	
 	public PolearmMastery(Player p) {
 		super(p);
@@ -21,13 +25,13 @@ public class PolearmMastery extends AbstractAbility {
 		this.coolDowninTicks = 30;
 		this.displayName = "Polearm Mastery";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.TRIDENT);
 	}
 
 	@EventHandler
-	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+	public void onCustomLivingEntityDamageEvent(CustomLivingEntityDamageEvent e) {
 		if(e.isCancelled())
 			return;
 		
@@ -39,9 +43,14 @@ public class PolearmMastery extends AbstractAbility {
 		if(trident.getShooter() == null || !trident.getShooter().equals(player))
 			return;
 		
-		e.setDamage(e.getDamage() + (dmg * (AbilityUtils.isInWaterOrRain(player) ? 2 : 1)));
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
 		
-		this.onTrigger(true);
+		e.addModifier(new DamageModifier(displayName, Operation.ADD_NUMBER, dmg));
+		
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	@Override
@@ -51,7 +60,7 @@ public class PolearmMastery extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Your thrown tridents strike with precision, dealing &6" + AbilityUtils.doubleRoundToXDecimals(dmg, 2) + " &r bonus damage. This extra damage is doubled if you are in water";
+		return "Your thrown tridents strike with precision, dealing &6" + AbilityUtils.doubleRoundToXDecimals(dmg, 2) + "&r bonus damage.";
 	}
 
 	@Override
@@ -61,7 +70,7 @@ public class PolearmMastery extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmg = 0.4 * currentLevel;
+		dmg = 1.0 * currentLevel;
 	}
 
 }

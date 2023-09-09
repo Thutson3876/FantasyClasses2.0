@@ -23,7 +23,7 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 import me.thutson3876.fantasyclasses.util.MaterialLists;
-import me.thutson3876.fantasyclasses.util.NoExpDrop;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExpDrop;
 
 public class UndyingServitude extends AbstractAbility {
 

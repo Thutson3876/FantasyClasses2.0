@@ -1,18 +1,20 @@
 package me.thutson3876.fantasyclasses.custommobs.boss.uthroes;
 
 import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
-import org.bukkit.entity.PolarBear;
-import org.bukkit.entity.Snowball;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class WinteryGrasp implements MobAbility {
 
+	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 4 * 20, 3);
+	private final int freezeAmt = 160;
+	
 	@Override
 	public String getName() {
 		return "Wintery Grasp";
@@ -22,22 +24,21 @@ public class WinteryGrasp implements MobAbility {
 	public void run(Mob entity) {
 		entity.getWorld().playSound(entity, Sound.ENTITY_SNOW_GOLEM_AMBIENT, 5.0f, 0.8f);
 		
-		new BukkitRunnable() {
+		Player target = AbilityUtils.getFurthestPlayer(entity, 30);
+		if(target == null)
+			return;
+		
+		target.setVelocity(AbilityUtils.getVectorBetween2Points(target.getLocation(), entity.getLocation(), 0.25));
 
-			@Override
-			public void run() {
-				double addedHeight = 0;
-				if(entity instanceof PolarBear)
-					addedHeight = 1.0;
-				
-				entity.getWorld().playSound(entity, Sound.ENTITY_SNOW_GOLEM_SHOOT, 5.0f, 0.8f);
-				Vector velocity = AbilityUtils.getVectorBetween2Points(entity.getLocation().add(0, addedHeight, 0), entity.getTarget().getEyeLocation(), 1.0);
-				Snowball snowball = (Snowball) entity.getWorld().spawnEntity(entity.getEyeLocation().add(velocity.multiply(0.4)).add(0, addedHeight, 0), EntityType.SNOWBALL);
-				snowball.setVelocity(velocity.multiply(1.0));
-				snowball.setShooter(entity);
-			}
-			
-		};
+		if (target instanceof LivingEntity) {
+			LivingEntity livingTarget = (LivingEntity) target;
+			livingTarget.addPotionEffect(slowness);
+			livingTarget.setFreezeTicks(livingTarget.getFreezeTicks() + freezeAmt);
+			livingTarget.damage(16.0, entity);
+		}
+
+		entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 10.0f, 0.8f);
+		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 10.0f, 0.5f);
 		
 	}
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -53,13 +54,19 @@ public class CooldownManager {
 		}
 	}
 
-	public void setCooldown(Player player, Ability ability, int time) {
+	public void setCooldown(Player player, Ability ability, double time) {
 		synchronized (this.cooldownList) {
 			if (time <= 0) {
 				this.cooldownList.remove(player, ability);
 			} else {
 				this.cooldownList.add(player, ability, time);
 			}
+		}
+	}
+	
+	public void modifyAllCooldowns(Player player, double amt) {
+		for(Entry<Ability, Double> cd : getAllCooldownsForPlayer(player).entrySet()){
+			setCooldown(player, cd.getKey(), cd.getValue() + amt);
 		}
 	}
 

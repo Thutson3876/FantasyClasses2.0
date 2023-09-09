@@ -1,6 +1,8 @@
 package me.thutson3876.fantasyclasses.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +19,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.collectible.Collectible;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.vanity.wings.WingType;
+import me.thutson3876.fantasyclasses.util.particles.vanity.wings.Wings;
 
 public class PlayerRegistryListener implements Listener {
 
@@ -31,6 +36,10 @@ public class PlayerRegistryListener implements Listener {
 	public void onPlayerJoinEvent(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		plugin.getPlayerManager().addPlayer(p);
+		
+		//new Halo(new CustomParticle(Particle.FLAME)).run(p);
+		new Wings(WingType.BUG, new CustomParticle(Particle.REDSTONE, 1, 0, 1.2, Color.PURPLE), 2).run(p);
+		//new Wings(WingType.BUTTERFLY, new CustomParticle(Particle.WAX_ON), 2);
 		
 		ChatUtils.welcomeMessage(p);
 	}

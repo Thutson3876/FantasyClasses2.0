@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.thutson3876.fantasyclasses.collectible.Collectible;
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExplodeBlocks;
 
 public class FailedExperiment extends AbstractCustomMob {
 
@@ -65,6 +66,7 @@ public class FailedExperiment extends AbstractCustomMob {
 		tnt.setTicksLived(5);
 		tnt.setFuseTicks(4 * 20);
 		tnt.setSource(ent);
+		tnt.setMetadata("noexplodeblocks", new NoExplodeBlocks());
 		ent.addPassenger(tnt);
 	}
 	

@@ -1,10 +1,12 @@
-package me.thutson3876.fantasyclasses.util;
+package me.thutson3876.fantasyclasses.util.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
+
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class LocationList {
 
@@ -31,4 +33,5 @@ public class LocationList {
 		
 		return list;
 	}
+	
 }

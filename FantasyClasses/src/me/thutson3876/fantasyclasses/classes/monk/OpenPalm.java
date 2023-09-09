@@ -72,13 +72,18 @@ public class OpenPalm extends AbstractAbility {
 		if(fplayer == null || fplayer.getChosenClass() == null)
 			return;
 		
-		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
+		AbstractFantasyClass clazz = fplayer.getChosenClass();
 		if (!(clazz instanceof Monk))
 			return;
 
 		Monk monk = (Monk) clazz;
 		
 		monk.setUnarmedDmgMod(damageMod);
+	}
+	
+	@Override
+	protected void init() {
+		
 	}
 	
 	@Override

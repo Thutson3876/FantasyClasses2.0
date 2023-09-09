@@ -32,9 +32,9 @@ public class CooldownList extends LinkedList<CooldownContainer> {
 		return container;
 	}
 
-	public void add(Player player, Ability ability, int cooldownTime) {
+	public void add(Player player, Ability ability, double time) {
 		remove(player, ability);
-		add(new CooldownContainer(player, ability, cooldownTime));
+		add(new CooldownContainer(player, ability, time));
 	}
 
 	public void tickAll() {

@@ -27,6 +27,15 @@ commands:
   toggledamagemeters:
     usage: /<command>
     description: toggle your damage being relayed back to you
+  toggledetailedmeters:
+    usage: /<command>
+    description: toggle your damage being relayed back to you with more detail
+  togglestatuseffectmessages:
+    usage: /<command>
+    description: toggle receiving messages relaying information about statuses received
+  togglearrowtracker:
+    usage: /<command>
+    description: toggle receiving messages about arrow values when firing a bow
   generaterandomlore:
     usage: /<command> <type> <player>
     description: give a player lore and a skillexp book

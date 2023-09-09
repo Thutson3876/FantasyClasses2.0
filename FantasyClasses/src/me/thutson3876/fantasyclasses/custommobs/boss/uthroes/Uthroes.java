@@ -39,12 +39,13 @@ import me.thutson3876.fantasyclasses.collectible.Collectible;
 import me.thutson3876.fantasyclasses.custommobs.boss.AbstractBoss;
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.NoExpDrop;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExpDrop;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class Uthroes extends AbstractBoss {
 
-	private final PolarBear ahsmi;
+	private final Ahsmi ahsmi;
 	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 5 * 20, 3);
 
 	private static final List<EntityType> safeEntityTypes;
@@ -78,24 +79,20 @@ public class Uthroes extends AbstractBoss {
 			loot.add(Collectible.generateProfessionResetDrop());
 
 		Random rng = new Random();
-		for(Horde horde : Horde.values()) {
-			if(rng.nextDouble() < horde.getDropRate() * 2) {
-				loot.add(horde.generateDrop());
-				break;
-			}	
-		}
+		loot.add(Horde.values()[rng.nextInt(Horde.values().length)].generateDrop());
 		
 		this.setDrops(loot);
 
 		this.setGear();
 
-		ahsmi = (PolarBear) (new Ahsmi(loc, ent)).getEntity();
-		ahsmi.addPassenger(ent);
-
-		abilities.add(new RemorselessWinter());
-		abilities.add(new WinteryGrasp());
+		ahsmi = new Ahsmi(loc, ent);
+		ahsmi.getEntity().addPassenger(ent);
+		
 		abilities.add(new SummonUndead());
+		abilities.add(new RemorselessWinter());
 		abilities.add(new LeechingGrasp());
+		abilities.add(new WinteryGrasp());
+		abilities.add(new FrozenPrison());
 		//abilities.add(new PlagueUnleashed());
 
 		this.startAbilityTick();
@@ -118,7 +115,7 @@ public class Uthroes extends AbstractBoss {
 
 	@Override
 	protected void applyDefaults() {
-		this.setMaxHealth(400);
+		this.setMaxHealth(600);
 		this.setAttackDamage(35);
 		this.setSkillExpReward(120);
 		this.setMoveSpeed(0.3f);
@@ -127,7 +124,7 @@ public class Uthroes extends AbstractBoss {
 	@Override
 	protected void targeted(EntityTargetEvent e) {
 		if (e.getTarget() instanceof LivingEntity)
-			ahsmi.setTarget((LivingEntity) e.getTarget());
+			ahsmi.getEntity().setTarget((LivingEntity) e.getTarget());
 	}
 
 	@Override
@@ -135,7 +132,7 @@ public class Uthroes extends AbstractBoss {
 		if (e.getFinalDamage() < 1.0 || !(e.getEntity() instanceof LivingEntity))
 			return;
 
-		AbilityUtils.heal(this.ent, e.getFinalDamage(), ahsmi);
+		AbilityUtils.heal(this.ent, e.getFinalDamage(), ahsmi.getEntity());
 		e.getEntity().setFreezeTicks(e.getEntity().getFreezeTicks() + freezeAmt);
 	}
 
@@ -168,8 +165,8 @@ public class Uthroes extends AbstractBoss {
 			LivingEntity livingTarget = (LivingEntity) target;
 			livingTarget.addPotionEffect(slowness);
 			livingTarget.setFreezeTicks(livingTarget.getFreezeTicks() + freezeAmt);
-			livingTarget.damage(16.0, ent);
-		}
+			livingTarget.damage(8.0, ent);
+		} 
 
 		ent.getWorld().playSound(ent.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 10.0f, 0.8f);
 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_FISHING_BOBBER_RETRIEVE, 10.0f, 0.5f);
@@ -281,7 +278,7 @@ public class Uthroes extends AbstractBoss {
 										}
 										
 										world.playSound(loc, Sound.BLOCK_CONDUIT_AMBIENT, 1.5f, 0.9f);
-										Particles.helix(loc, Particle.NAUTILUS, 1.6, 2 * 6.3, 5, 3);
+										GeneralParticleEffects.helix(loc, new CustomParticle(Particle.DRIP_LAVA, 1, 0, 0, 0, 0, null), 1.6, 2 * 6.3, 10000, 5, 2D);
 									}
 									
 								}.runTaskTimer(plugin, 1, 40);

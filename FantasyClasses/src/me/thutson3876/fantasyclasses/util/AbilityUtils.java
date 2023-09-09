@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
@@ -23,17 +24,23 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.entity.Tameable;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import me.thutson3876.fantasyclasses.classes.witch.WitchBrewRecipe;
 import me.thutson3876.fantasyclasses.events.HealEvent;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
+import me.thutson3876.fantasyclasses.util.item.LoreEntry;
 
 public class AbilityUtils {
 
@@ -59,43 +66,93 @@ public class AbilityUtils {
 
 		WITCHES_BREW = witchTemp;
 	}
-	
+
 	public static ItemStack setDisplayName(String name, ItemStack item) {
 		ItemMeta meta = item.getItemMeta();
-		
+
 		meta.setDisplayName(ChatUtils.chat(name));
 		item.setItemMeta(meta);
-		
+
 		return item;
 	}
-	
+
 	public static ItemStack setLore(List<String> lore, ItemStack item) {
 		ItemMeta meta = item.getItemMeta();
-		
+
 		meta.setLore(lore);
 		item.setItemMeta(meta);
-		
+
 		return item;
 	}
-	
+
+	@SuppressWarnings("unlikely-arg-type")
+	public static boolean isTrueCause(Entity suspect, Entity accused) {
+		if (accused.equals(suspect))
+			return true;
+
+		else if (accused instanceof Projectile && suspect instanceof ProjectileSource) {
+			return suspect.equals(((Projectile) accused).getShooter());
+		} else if (accused instanceof TNTPrimed) {
+			return suspect.equals(((TNTPrimed) accused).getSource());
+		}
+
+		return false;
+	}
+
+	public static Entity getTrueCause(Entity damager) {
+		if (damager instanceof Projectile) {
+			ProjectileSource shooter = ((Projectile) damager).getShooter();
+			if (shooter != null && shooter instanceof Entity)
+				return (Entity) shooter;
+		} else if (damager instanceof TNTPrimed) {
+			Entity shooter = ((TNTPrimed) damager).getSource();
+			if (shooter != null && shooter instanceof Entity)
+				return (Entity) shooter;
+		}
+
+		return damager;
+	}
+
 	public static ItemStack createItem(String displayName, List<String> lore, Material material, int stackSize) {
 		ItemStack item = new ItemStack(material, stackSize);
 		ItemMeta meta = item.getItemMeta();
-		
+
 		meta.setDisplayName(ChatUtils.chat(displayName));
 		meta.setLore(lore);
 		item.setItemMeta(meta);
-		
+
 		return item;
 	}
-	
+
+	public static ItemStack createItem(String displayName, Material material, int stackSize,
+			List<LoreEntry> loreEntries) {
+		ItemStack item = new ItemStack(material, stackSize);
+		ItemMeta meta = item.getItemMeta();
+		List<String> lore = new ArrayList<>();
+		for(LoreEntry entry : loreEntries) {
+			for(String s : ChatUtils.splitSingleString(entry.getLore(), ChatUtils.getDefaultSplitLength(), entry.getColor().toString())) {
+				lore.add(ChatUtils.chat(s));
+			}
+		}
+
+		meta.setDisplayName(ChatUtils.chat(displayName));
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+
+		return item;
+	}
+
+	public static boolean isAbove(Entity ent1, Entity ent2) {
+		return ent1.getLocation().getY() > ent2.getLocation().getY() + (ent2.getHeight() / 2.0);
+	}
+
 	public static Location getMidpoint(Location l1, Location l2) {
 		double x = (l1.getX() + l2.getX()) / 2.0;
 		double y = (l1.getY() + l2.getY()) / 2.0;
 		double z = (l1.getZ() + l2.getZ()) / 2.0;
 		return new Location(l1.getWorld(), x, y, z);
 	}
-	
+
 	public static LivingEntity getLivingTarget(LivingEntity ent, double range) {
 		for (Entity e : getNearbyLivingEntities(ent, range, range, range)) {
 			if (e.getLocation().distance(ent.getEyeLocation()) < 0.1) {
@@ -108,25 +165,26 @@ public class AbilityUtils {
 
 	public static LivingEntity rayTraceTarget(LivingEntity source, double maxDistance) {
 		Predicate<Entity> notSource = (e) -> !e.equals(source) && e instanceof LivingEntity;
-		RayTraceResult result = source.getWorld().rayTraceEntities(source.getEyeLocation(), source.getEyeLocation().getDirection(), maxDistance, notSource);
-		
-		if(result == null || result.getHitEntity() == null)
+		RayTraceResult result = source.getWorld().rayTraceEntities(source.getEyeLocation(),
+				source.getEyeLocation().getDirection(), maxDistance, notSource);
+
+		if (result == null || result.getHitEntity() == null)
 			return null;
-		
+
 		return (LivingEntity) result.getHitEntity();
 	}
-	
-	public static List<LivingEntity> getEntitiesInLineOfSight(LivingEntity entity, double range){
+
+	public static List<LivingEntity> getEntitiesInLineOfSight(LivingEntity entity, double range) {
 		List<LivingEntity> targets = new ArrayList<>();
-		
-		for(Entity e : entity.getNearbyEntities(range, range, range)) {
-			if(entity.hasLineOfSight(e) && e instanceof LivingEntity)
-				targets.add((LivingEntity)e);
+
+		for (Entity e : entity.getNearbyEntities(range, range, range)) {
+			if (entity.hasLineOfSight(e) && e instanceof LivingEntity)
+				targets.add((LivingEntity) e);
 		}
-		
+
 		return targets;
 	}
-	
+
 	public static List<LivingEntity> onlyLiving(List<Entity> entities) {
 		List<LivingEntity> result = new ArrayList<>();
 		for (Entity ent : entities) {
@@ -146,7 +204,7 @@ public class AbilityUtils {
 
 		return livingEntities;
 	}
-	
+
 	public static List<LivingEntity> getNearbyLivingEntities(Location loc, double x, double y, double z) {
 		List<LivingEntity> livingEntities = new ArrayList<>();
 		for (Entity e : loc.getWorld().getNearbyEntities(loc, x, y, z)) {
@@ -156,7 +214,7 @@ public class AbilityUtils {
 
 		return livingEntities;
 	}
-	
+
 	public static float getAngleOfPlayerEyeDirectionAndLocation(Player p, Location loc) {
 		Vector eyeDirection = p.getEyeLocation().getDirection();
 		return eyeDirection.angle(p.getLocation().toVector());
@@ -211,15 +269,75 @@ public class AbilityUtils {
 		}
 		return;
 	}
-	
-	public static List<Player> getNearbyPlayers(Entity ent, double range){
+
+	public static List<Player> getNearbyPlayers(Entity ent, double range) {
 		List<Player> list = new ArrayList<>();
-		for(Entity e : ent.getNearbyEntities(range, range, range)) {
-			if(e instanceof Player)
-				list.add((Player)e);
+
+		Location entLoc = ent.getLocation();
+		World world = ent.getWorld();
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			Location loc = p.getLocation();
+			if (loc.getWorld().equals(world) && loc.distance(entLoc) <= range)
+				list.add(p);
 		}
-		
+
 		return list;
+	}
+
+	public static Player getFurthestPlayer(Entity ent, double range) {
+		List<Player> near = getNearbyPlayers(ent, range);
+
+		Location entLoc = ent.getLocation();
+		double distance = -1;
+		Player furthest = null;
+
+		for (Player p : near) {
+			double newDist = p.getLocation().distance(entLoc);
+			if (newDist > distance)
+				distance = newDist;
+		}
+
+		return furthest;
+	}
+
+	public static void addHunger(Player player, int hungerToAdd) {
+		int newFoodLevel = player.getFoodLevel() + hungerToAdd;
+		int foodLevelMax = 20;
+
+		if (newFoodLevel > foodLevelMax)
+			newFoodLevel = foodLevelMax;
+		else if (newFoodLevel < 0)
+			newFoodLevel = 0;
+
+		player.setFoodLevel(newFoodLevel);
+	}
+
+	public static void addSaturation(Player player, float saturationToAdd) {
+		float newSatLevel = player.getSaturation() + saturationToAdd;
+		int satMax = player.getFoodLevel();
+
+		if (newSatLevel > satMax)
+			newSatLevel = satMax;
+		else if (newSatLevel < 0)
+			newSatLevel = 0;
+
+		player.setSaturation(newSatLevel);
+	}
+
+	public static void addExhaustion(Player player, float exhaustionToAdd) {
+		float newExhaustLevel = player.getExhaustion() + exhaustionToAdd;
+
+		if (newExhaustLevel > 4)
+			newExhaustLevel = 4;
+		else if (newExhaustLevel < 0)
+			newExhaustLevel = 0;
+
+		player.setExhaustion(newExhaustLevel);
+	}
+
+	public static double getMaxHealth(LivingEntity ent) {
+		return ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 	}
 
 	public static void heal(LivingEntity source, double amt, LivingEntity target) {
@@ -232,13 +350,14 @@ public class AbilityUtils {
 
 		HealEvent event = new HealEvent(source, amt, target);
 		Bukkit.getPluginManager().callEvent(event);
-		
+
 		double newhp = target.getHealth() + event.getHealAmt();
 		if (newhp > maxhp)
 			newhp = maxhp;
 
 		target.setHealth(newhp);
-		target.getWorld().spawnParticle(Particle.COMPOSTER, target.getLocation().add(0, target.getHeight() / 2.0, 0), 8);
+		target.getWorld().spawnParticle(Particle.COMPOSTER, target.getLocation().add(0, target.getHeight() / 2.0, 0),
+				8);
 		target.getWorld().playSound(target.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 5.0f, 1.1f);
 	}
 
@@ -259,9 +378,9 @@ public class AbilityUtils {
 	}
 
 	public static void setAttackDamage(LivingEntity e, AttributeModifier mod) {
-		if(e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE) == null)
+		if (e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE) == null)
 			return;
-		
+
 		if (e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getModifiers().contains(mod))
 			return;
 
@@ -380,6 +499,7 @@ public class AbilityUtils {
 				angle = dirToDestination.angle(playerDirection);
 
 				if (angle < maxAngle && angle > -maxAngle) {
+					p.sendMessage("Entity Angle to Cursor: " + angle);
 					targets.add(e);
 				}
 			}
@@ -387,32 +507,32 @@ public class AbilityUtils {
 
 		return targets;
 	}
-	
+
 	public static boolean isInWaterOrRain(Entity ent) {
 		double y = ent.getLocation().getY();
-		boolean isInRain = ent.getWorld().getHighestBlockAt(ent.getLocation()).getY() < y && !ent.getWorld().isClearWeather();
-		
-		
+		boolean isInRain = ent.getWorld().getHighestBlockAt(ent.getLocation()).getY() < y
+				&& !ent.getWorld().isClearWeather();
+
 		return ent.isInWater() || isInRain;
 	}
 
-	public static List<Entity> getEntitiesInAngle(Player p, double maxAngle, double maxDistance, double offset) {
-		Vector dirToDestination;
-		Vector playerDirection;
-		double angle;
+	public static List<Entity> getEntitiesInAngle(Player p, double minDot, double maxDistance, double offset) {
+		Vector playerDirection = p.getEyeLocation().getDirection();
+		// double angle = Math.cos(maxAngle);
+		Location eyeLocation = p.getEyeLocation().subtract(playerDirection.clone().multiply(offset));
+
 		List<Entity> enemies = p.getNearbyEntities(maxDistance, maxDistance, maxDistance);
 		List<Entity> targets = new LinkedList<>();
 
-		playerDirection = p.getEyeLocation().getDirection();
-		playerDirection.setX(playerDirection.getX() - offset);
-		playerDirection.setZ(playerDirection.getZ() - offset);
-
 		for (Entity e : enemies) {
 			if (p.hasLineOfSight(e)) {
-				dirToDestination = e.getLocation().toVector().subtract(p.getEyeLocation().toVector());
-				angle = dirToDestination.angle(playerDirection);
-
-				if (angle < maxAngle && angle > -maxAngle) {
+				Location entBodyCenter = e.getLocation(); // .add(0, e.getHeight() / 2.0, 0);
+				Vector toEntity = entBodyCenter.toVector().subtract(eyeLocation.toVector()).normalize();
+				double dot = toEntity.dot(playerDirection);
+				p.sendMessage(
+						e.getType().name() + "'s Angle to Cursor: " + AbilityUtils.doubleRoundToXDecimals(dot, 3));
+				p.sendMessage("Min Dot Allowed: " + minDot);
+				if (dot >= minDot) {
 					targets.add(e);
 				}
 			}
@@ -434,13 +554,21 @@ public class AbilityUtils {
 	}
 
 	public static Vector getVectorBetween2Points(Location loc1, Location loc2, double distanceScaling) {
+		Vector returnVector = loc2.toVector().subtract(loc1.toVector());
+		if (distanceScaling != 0)
+			returnVector.multiply(distanceScaling);
+
+		return returnVector;
+	}
+	
+	/*public static Vector getVectorBetween2Points(Location loc1, Location loc2, double distanceScaling) {
 		Vector returnVector = loc2.toVector().subtract(loc1.toVector()).normalize();
 		double distance = loc2.distance(loc1);
 		if (distanceScaling != 0 && distance != 0)
 			returnVector.multiply(distanceScaling * distance);
 
 		return returnVector;
-	}
+	}*/
 
 	public static void moveToward(Entity entity, Location to, double speed) {
 		entity.setVelocity(to.subtract(entity.getLocation()).toVector().normalize().multiply(speed));
@@ -491,8 +619,8 @@ public class AbilityUtils {
 		return -999;
 	}
 
-	public static boolean isCritical(Player p) {
-		return p.getVelocity().getY() < -0.1;
+	public static boolean isCritical(Entity ent) {
+		return ent.getVelocity().getY() < -0.1;
 	}
 
 	public static boolean hasArmor(Player p) {
@@ -535,9 +663,9 @@ public class AbilityUtils {
 
 		PotionEffect currentEffect = entity.getPotionEffect(effect.getType());
 		int effectAmp = effect.getAmplifier();
-		if(effectAmp == 0)
+		if (effectAmp == 0)
 			effectAmp = 1;
-		
+
 		int newAmp = currentEffect.getAmplifier() + effectAmp;
 		if (newAmp > maxAmp)
 			newAmp = maxAmp;

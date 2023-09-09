@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class FrozenPrison implements MobAbility {
 	

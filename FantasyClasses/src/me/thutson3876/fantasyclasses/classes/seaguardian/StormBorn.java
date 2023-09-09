@@ -1,46 +1,55 @@
 package me.thutson3876.fantasyclasses.classes.seaguardian;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
+import me.thutson3876.fantasyclasses.events.DamageModifier;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
-public class Conductive extends AbstractAbility {
+public class StormBorn extends AbstractAbility {
 
-	private double dmgMod = 0.12;
+	private static final double BASE_DAMAGE = 0.15;
+	private double dmgMod = BASE_DAMAGE;
 	
-	public Conductive(Player p) {
+	public StormBorn(Player p) {
 		super(p);
 	}
 
 	@Override
 	public void setDefaults() {
 		this.coolDowninTicks = 0;
-		this.displayName = "Conductive";
+		this.displayName = "Stormborn";
 		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.COPPER_INGOT);
 	}
 
 	@EventHandler
-	public void onEntityDamageEvent(EntityDamageEvent e) {
+	public void onEntityDamageEvent(CustomLivingEntityDamageEvent e) {
 		if(e.isCancelled())
 			return;
 		
-		if(!e.getEntity().equals(player))
+		if(!e.getVictim().equals(player))
 			return;
 		
 		if(!e.getCause().equals(DamageCause.LIGHTNING))
 			return;
 		
-		e.setDamage(e.getDamage() * (1 - dmgMod));
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
 		
-		this.onTrigger(true);
+		e.addModifier(new DamageModifier(displayName, Operation.MULTIPLY_SCALAR_1, -dmgMod));
+		
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	@Override
@@ -60,7 +69,7 @@ public class Conductive extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmgMod = 0.12 * currentLevel;
+		dmgMod = BASE_DAMAGE * currentLevel;
 	}
 
 }

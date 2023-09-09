@@ -19,7 +19,7 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.cooldowns.CooldownContainer;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public abstract class AbstractAbility implements Ability, Listener {
 
@@ -218,10 +218,10 @@ public abstract class AbstractAbility implements Ability, Listener {
 		lore.add("Level: &6" + this.currentLevel + "&r/&6" + this.maximumLevel);
 		lore.add("Cost: &6" + this.skillPointCost);
 		temp.add(this.getDescription());
-		lore.addAll(ChatUtils.splitStringAtLength(temp, 38, "&r"));
+		lore.addAll(ChatUtils.splitStringAtLength(temp, ChatUtils.getDefaultSplitLength(), "&r"));
 		temp = new ArrayList<>();
 		temp.add(this.getInstructions());
-		lore.addAll(ChatUtils.splitStringAtLength(temp, 38, "&r&3"));
+		lore.addAll(ChatUtils.splitStringAtLength(temp, ChatUtils.getDefaultSplitLength(), "&r&3"));
 		
 		if(this instanceof Bindable) {
 			Bindable bindable = (Bindable)this;
@@ -235,7 +235,6 @@ public abstract class AbstractAbility implements Ability, Listener {
 		lore.add("Prerequisite: &6" + this.prerequisite);
 		
 		List<String> loreFinal = new ArrayList<>();
-		//lore = ChatUtils.splitStringAtLength(lore, 35);
 		
 		for(String s : lore) {
 			loreFinal.add(ChatUtils.chat(s));

@@ -2,6 +2,7 @@ package me.thutson3876.fantasyclasses.gui;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class BasicGUI extends AbstractGUI {
@@ -20,6 +21,10 @@ public class BasicGUI extends AbstractGUI {
 
 	@Override
 	protected void initializeItems() {
+		defaultOrganization();
+	}
+	
+	protected void defaultOrganization() {
 		int halfway = Math.round((getInv().getSize() - 1) / 2);
 		List<GuiItem> itemList = this.items;
 		
@@ -58,6 +63,8 @@ public class BasicGUI extends AbstractGUI {
 				startIndex++;
 			}
 		}
+		
+		fillGaps(createGuiItem(null, Material.BLACK_STAINED_GLASS_PANE, " ").getItem());
 	}
 
 }

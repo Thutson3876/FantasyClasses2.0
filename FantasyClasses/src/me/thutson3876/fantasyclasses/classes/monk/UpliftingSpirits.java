@@ -15,8 +15,9 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
 import me.thutson3876.fantasyclasses.util.PotionList;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class UpliftingSpirits extends AbstractAbility implements Bindable {
 
@@ -75,7 +76,7 @@ public class UpliftingSpirits extends AbstractAbility implements Bindable {
 			return;
 		
 		AbilityUtils.heal(this.player, healAmt, target);
-		Particles.helix(target, Particle.SCULK_CHARGE_POP, target.getWidth(), 2 * 6.3, 2, 0.1);
+		GeneralParticleEffects.helix(target, new CustomParticle(Particle.SOUL), target.getWidth(), 2 * 6.3, 1000, 2, 0.1);
 		target.addPotionEffect(slowFall);
 		
 		if(removesDebuffs) {

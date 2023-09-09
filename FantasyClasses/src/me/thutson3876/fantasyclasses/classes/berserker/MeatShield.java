@@ -3,15 +3,19 @@ package me.thutson3876.fantasyclasses.classes.berserker;
 import java.util.Random;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class MeatShield extends AbstractAbility {
 
@@ -36,7 +40,7 @@ public class MeatShield extends AbstractAbility {
 	}
 
 	@EventHandler
-	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+	public void onEntityDamageByEntityEvent(CustomLivingEntityDamageEvent e) {
 		if(e.isCancelled())
 			return;
 		
@@ -55,6 +59,10 @@ public class MeatShield extends AbstractAbility {
 			return;
 		
 		AbilityUtils.applyStackingPotionEffect(absorb, player, maxAmp, maxDuration);
+		
+		player.getWorld().playSound(player, Sound.ENTITY_PILLAGER_CELEBRATE, 1.0f, 0.85f);
+		GeneralParticleEffects.explosion(player.getLocation().add(0, 1.0, 0), new CustomParticle(Particle.FALLING_HONEY), 0.8, 1);
+		
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 	

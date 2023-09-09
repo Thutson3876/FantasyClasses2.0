@@ -1,14 +1,16 @@
 package me.thutson3876.fantasyclasses.classes.berserker;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
+import me.thutson3876.fantasyclasses.events.DamageModifier;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class BattleHardened extends AbstractAbility {
@@ -31,7 +33,7 @@ public class BattleHardened extends AbstractAbility {
 	}
 	
 	@EventHandler
-	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+	public void onCustomLivingEntityDamageEvent(CustomLivingEntityDamageEvent e) {
 		if(e.isCancelled())
 			return;
 		
@@ -50,18 +52,14 @@ public class BattleHardened extends AbstractAbility {
 			if (thisEvent.isCancelled())
 				return;
 			
-			this.reductionAmt = e.getDamage() * this.conversionRate;
+			this.reductionAmt = e.getInitialDamage() * this.conversionRate;
 			this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 		}
-		else if(e.getEntity().equals(player) && this.reductionAmt > 0) {
+		else if(e.getVictim().equals(player) && this.reductionAmt > 0) {
 			if(this.reductionAmt <= 0)
 				return;
 			
-			double newDmg = e.getDamage() - reductionAmt;
-			if(newDmg < 0)
-				newDmg = 0;
-			
-			e.setDamage(newDmg);
+			e.addModifier(new DamageModifier("Battle Hardened", Operation.ADD_NUMBER, -reductionAmt));
 		}
 	}
 

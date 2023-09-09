@@ -7,7 +7,8 @@ import org.bukkit.event.Listener;
 
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_ToggleFriendlyFire extends AbstractCommand implements Listener {
 
@@ -24,17 +25,17 @@ public class Command_ToggleFriendlyFire extends AbstractCommand implements Liste
 				boolean ff = !fplayer.hasFriendlyFire();
 				
 				if(ff) {
-					sender.sendMessage(ChatUtils.chat("&aFriendly Fire has been toggled on!"));
+					sender.sendMessage(ChatUtils.chat(ColorCode.SUCCESS + "Friendly Fire has been toggled on!"));
 				}
 				else {
-					sender.sendMessage(ChatUtils.chat("&4Friendly Fire has been toggled off!"));
+					sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Friendly Fire has been toggled off!"));
 				}
 				fplayer.setFriendlyFire(ff);
 				return true;
 			}
 		}
 		
-		sender.sendMessage("Error: Must be player to use this command");
+		sender.sendMessage(ColorCode.ERROR + "Error: Must be player to use this command");
 		return true;
 	}
 

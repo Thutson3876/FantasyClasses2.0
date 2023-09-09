@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.status.ApplyCause;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class AngerManagement extends AbstractAbility {
@@ -49,13 +49,9 @@ public class AngerManagement extends AbstractAbility {
 		if(rng.nextDouble() > this.procChance)
 			return;
 		
-		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
-		if (!(clazz instanceof Berserker))
-			return;
-
-		Berserker berserker = (Berserker) clazz;
-
-		berserker.setEnrageDurationRemaining(this.duration);
+		Berserker.getEnraged().apply(player, player, 1, duration, ApplyCause.PLAYER_ABILITY);
+		
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	@Override
@@ -66,7 +62,7 @@ public class AngerManagement extends AbstractAbility {
 	@Override
 	public String getDescription() {
 		return "Upon taking damage, you have a &6" + AbilityUtils.doubleRoundToXDecimals(procChance * 100, 1)
-				+ "% &rto become &6Enraged &rfor &6" + duration / 20 + " &rseconds";
+				+ "% &rto become &dEnraged &rfor &6" + duration / 20 + " &rseconds";
 	}
 
 	@Override

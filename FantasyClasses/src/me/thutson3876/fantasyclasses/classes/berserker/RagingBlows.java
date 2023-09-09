@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
-import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
@@ -53,14 +52,9 @@ public class RagingBlows extends AbstractAbility {
 		if(!e.getCause().equals(DamageCause.ENTITY_ATTACK))
 			return;
 		
-		AbstractFantasyClass clazz = this.getFantasyPlayer().getChosenClass();
-		if (!(clazz instanceof Berserker))
+		if(!plugin.getStatusManager().contains(player, Berserker.getEnraged())) {
 			return;
-
-		Berserker berserker = (Berserker) clazz;
-
-		if(berserker.getEnrageDurationRemaining() <= 0)
-			return;
+		}
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
 

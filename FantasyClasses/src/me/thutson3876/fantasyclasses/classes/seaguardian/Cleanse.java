@@ -15,15 +15,17 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
 import me.thutson3876.fantasyclasses.util.PotionList;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class Cleanse extends AbstractAbility implements Bindable {
 
 	private static final List<PotionEffectType> DEBUFFS = PotionList.DEBUFF.getPotList();
 
-	private double healAmt = 0.4;
+	private double healAmt = 3.0;
 	private double maxDistance = 8.0;
 	private Material type = null;
 	
@@ -36,7 +38,7 @@ public class Cleanse extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 16 * 20;
 		this.displayName = "Cleanse";
 		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.MILK_BUCKET);	
 	}
@@ -68,6 +70,11 @@ public class Cleanse extends AbstractAbility implements Bindable {
 			return;
 		}
 		
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
+		
 		for(int i = 0; i < 2; i++) {
 			for(PotionEffect effect : target.getActivePotionEffects()) {
 				if(DEBUFFS.contains(effect.getType())) {
@@ -78,9 +85,11 @@ public class Cleanse extends AbstractAbility implements Bindable {
 		}
 			
 		AbilityUtils.heal(player, toHeal, target);
-		Particles.helix(target, Particle.NAUTILUS, target.getWidth(), 2 * 6.3, 2, 0.1);
+		GeneralParticleEffects.helix(target, new CustomParticle(Particle.NAUTILUS), target.getWidth(), 2 * 6.3, 1000, 2, 0.1);
 		target.getWorld().playSound(target, Sound.ITEM_TOTEM_USE, 1.1f, 1.3f);
 		target.getWorld().spawnParticle(Particle.NAUTILUS, target.getLocation(), 8);
+		
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	@Override
@@ -90,7 +99,7 @@ public class Cleanse extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "Cleanse the impurities from your target, removing all debuffs. Heals for &6" + healAmt + "&r. Heals for more when used on another target";
+		return "Cleanse the impurities from your target, removing all debuffs. Heals for &6" + AbilityUtils.doubleRoundToXDecimals(healAmt, 1) + "&r. Heals for more when used on another target";
 	}
 
 	@Override
@@ -100,8 +109,7 @@ public class Cleanse extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		healAmt = 0.4 * currentLevel;
-		this.coolDowninTicks = (18 - (2 * currentLevel)) * 20;
+		healAmt = 3.0 * this.currentLevel;
 	}
 
 	@Override

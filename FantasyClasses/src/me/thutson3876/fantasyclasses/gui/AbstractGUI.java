@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public abstract class AbstractGUI implements Listener {
 	private final Inventory inv;
@@ -68,8 +68,25 @@ public abstract class AbstractGUI implements Listener {
 		items.add(this.back);
 	}
 
+	public GuiItem getBack() {
+		return back;
+	}
+
+	public void setBack(AbstractGUI back) {
+		this.initializeBackItem(back);
+	}
+
+	public GuiItem getForward() {
+		return forward;
+	}
+
+	public void setForward(AbstractGUI forward) {
+		this.initializeForwardItem(forward);
+	}
+
 	public void setItems(List<GuiItem> items) {
 		this.items = items;
+		reInitializeForwardBack();
 		initializeItems();
 	}
 	
@@ -129,7 +146,6 @@ public abstract class AbstractGUI implements Listener {
 
 	public void openInventory(final HumanEntity ent) {
 		refresh();
-		//ent.openInventory(getInv());
 	}
 	
 	public void refresh() {
@@ -209,6 +225,21 @@ public abstract class AbstractGUI implements Listener {
 			getInv().setItem(i, item);
 		}
 	}
+	
+	protected void generateCurrencyBar() {
+		List<String> lore = new ArrayList<>();
+		lore.add(ChatUtils.chat(FantasyPlayer.getCurrencyName() + ": &6" + player.getCurrency()));
+		
+		ItemStack item = new ItemStack(Material.EMERALD_BLOCK);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(ChatUtils.chat("&3Player Level: &6" + player.getPlayerLevel()));
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		
+		for(int i = 0; i < 9; i++) {
+			getInv().setItem(i, item);
+		}
+	}
 
 	@EventHandler
 	public void onInventoryClick(final InventoryClickEvent e) {
@@ -232,7 +263,7 @@ public abstract class AbstractGUI implements Listener {
 			if(clickedItem.equals(item.getItem())) {
 				if(item.getLinkedInventory() == null)
 					break;
-				item.getLinkedInventory().refresh();
+				item.getLinkedInventory().openInventory(p);
 				break;
 			}
 		}

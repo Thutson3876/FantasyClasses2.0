@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public enum DamageCauseList {
+public enum DamageType {
 
 	MAGICAL, PHYSICAL, ENVIRONMENTAL, FIRE, EXPLOSION;
 	

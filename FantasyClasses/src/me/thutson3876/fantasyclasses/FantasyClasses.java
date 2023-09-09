@@ -19,6 +19,7 @@ import me.thutson3876.fantasyclasses.listeners.SkillPointExpListener;
 import me.thutson3876.fantasyclasses.listeners.WitchesBrewListener;
 import me.thutson3876.fantasyclasses.playermanagement.PlayerManager;
 import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
+import me.thutson3876.fantasyclasses.status.StatusManager;
 
 public class FantasyClasses extends JavaPlugin {
 
@@ -32,9 +33,12 @@ public class FantasyClasses extends JavaPlugin {
 
 	private CustomMobManager mobManager;
 	
+	private StatusManager statusManager;
+	
 	@Override
 	public void onEnable() {
 		plugin = this;
+		statusManager = new StatusManager();
 		playerManager = new PlayerManager();
 		playerManager.init();
 		cooldownManager = new CooldownManager();
@@ -51,11 +55,13 @@ public class FantasyClasses extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		statusManager.deInit();
 		playerManager.deInit();
-		mobManager.deInit();
-		cooldownManager.deInit();
 		
 		this.saveConfig();
+		cooldownManager.deInit();
+		mobManager.deInit();
+		
 		log("FantasyClasses has been disabled!");
 	}
 
@@ -99,6 +105,10 @@ public class FantasyClasses extends JavaPlugin {
 	
 	public CustomMobManager getMobManager() {
 		return mobManager;
+	}
+	
+	public StatusManager getStatusManager() {
+		return statusManager;
 	}
 
 	public PlayerManager getPlayerManager() {

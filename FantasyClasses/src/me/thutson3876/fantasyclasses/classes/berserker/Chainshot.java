@@ -24,7 +24,7 @@ public class Chainshot extends AbstractAbility {
 
 	@Override
 	public String getInstructions() {
-		return "Use &6Deep Dive";
+		return "Use &6Cannonball";
 	}
 
 	@Override

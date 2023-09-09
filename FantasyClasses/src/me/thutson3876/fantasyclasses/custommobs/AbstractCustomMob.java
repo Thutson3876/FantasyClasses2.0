@@ -8,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,7 +31,7 @@ import org.bukkit.util.Vector;
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.custommobs.boss.Boss;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public abstract class AbstractCustomMob implements Listener {
 
@@ -43,11 +43,11 @@ public abstract class AbstractCustomMob implements Listener {
 
 	private int skillExpReward = 0;
 
-	protected final LivingEntity ent;
+	protected final Mob ent;
 	protected double maxHealth;
 
 	protected AbstractCustomMob(Location loc) {
-		this.ent = (LivingEntity) loc.getWorld().spawnEntity(loc, this.getEntityType());
+		this.ent = (Mob) loc.getWorld().spawnEntity(loc, this.getEntityType());
 		applyDefaults();
 		ent.setMetadata(getMetadataTag(), new FixedMetadataValue(plugin, this));
 		plugin.registerEvents(this);
@@ -64,7 +64,7 @@ public abstract class AbstractCustomMob implements Listener {
 
 	}
 
-	public LivingEntity getEntity() {
+	public Mob getEntity() {
 		return ent;
 	}
 

@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.DamageCauseList;
+import me.thutson3876.fantasyclasses.util.DamageType;
 
 public class MagicalTolerance extends AbstractAbility {
 
@@ -32,7 +32,7 @@ public class MagicalTolerance extends AbstractAbility {
 		if(!e.getEntity().equals(player))
 			return;
 		
-		if(!DamageCauseList.MAGICAL.getDamageCauseList().contains(e.getCause()))
+		if(!DamageType.MAGICAL.getDamageCauseList().contains(e.getCause()))
 			return;
 		
 		e.setDamage(e.getDamage() * (1.0 - resist));

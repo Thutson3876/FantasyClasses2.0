@@ -3,13 +3,18 @@ package me.thutson3876.fantasyclasses.classes.ranger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 
 import me.thutson3876.fantasyclasses.abilities.skills.Skill;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class Ranger extends AbstractFantasyClass {
 
@@ -90,8 +95,15 @@ public class Ranger extends AbstractFantasyClass {
 	}
 	
 	public void addTrickArrow(Arrow arrow) {
-		if(!this.trickArrows.contains(arrow))
+		if(!this.trickArrows.contains(arrow)) {
 			this.trickArrows.add(arrow);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0.1, 0.1, Color.RED), 12 * 20, 1);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0.1, 0.1, Color.YELLOW), 12 * 20, 1);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0, 0.3, Color.WHITE), 12 * 20, 1);
+			
+			arrow.getWorld().playSound(arrow, Sound.BLOCK_NOTE_BLOCK_GUITAR, 0.6f, 1.2f);
+		}
+			
 	}
 	
 	public boolean removeTrickArrow(Arrow arrow) {

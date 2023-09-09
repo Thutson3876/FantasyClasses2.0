@@ -15,7 +15,8 @@ import org.bukkit.util.Vector;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExplodeBlocks;
 
 public class Bombardment implements MobAbility {
 
@@ -68,6 +69,7 @@ public class Bombardment implements MobAbility {
 					tnt.setYield(3.0f);
 					tnt.setSource(entity);
 					tnt.setVelocity(launchVector);
+					tnt.setMetadata("noexplodeblocks", new NoExplodeBlocks());
 				}
 
 				world.playSound(entity.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 5.0f, 1.3f);

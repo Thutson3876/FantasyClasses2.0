@@ -9,7 +9,8 @@ public enum MaterialLists {
 	
 	MELEE_WEAPON, RANGE_WEAPON, SWORD, AXE, HOE, PICKAXE, SHIELD, FISHING, EXOTIC_WEAPON, TOOL, ARMOR,
 	HELMET, CHESTPLATE, LEGGINGS, BOOTS,
-	POTION, ALCHEMICAL_INGREDIENT, DRUID_FOOD, CROP, LEAVES, ICE;
+	POTION, ALCHEMICAL_INGREDIENT, DRUID_FOOD, CROP, 
+	LEAVES, DIRT, WOOD, STONE, AQUATIC, ICE, NETHER, END, DECORATION, MISC;
 	
 	private List<Material> matList = new ArrayList<>();
 	
@@ -182,11 +183,67 @@ public enum MaterialLists {
 		LEAVES.matList.add(Material.OAK_LEAVES);
 		LEAVES.matList.add(Material.SPRUCE_LEAVES);
 		LEAVES.matList.add(Material.MANGROVE_LEAVES);
+		//Dirt
+		DIRT.matList.add(Material.DIRT);
+		DIRT.matList.add(Material.MUD);
+		DIRT.matList.add(Material.CLAY);
+		DIRT.matList.add(Material.COARSE_DIRT);
+		DIRT.matList.add(Material.ROOTED_DIRT);
+		DIRT.matList.add(Material.MYCELIUM);
+		DIRT.matList.add(Material.PODZOL);
+		DIRT.matList.add(Material.GRASS_BLOCK);
+		DIRT.matList.add(Material.GRAVEL);
+		DIRT.matList.add(Material.SAND);
+		DIRT.matList.add(Material.RED_SAND);
+		//Wood
+		WOOD.matList.add(Material.ACACIA_LOG);
+		WOOD.matList.add(Material.BIRCH_LOG);
+		WOOD.matList.add(Material.OAK_LOG);
+		WOOD.matList.add(Material.DARK_OAK_LOG);
+		WOOD.matList.add(Material.JUNGLE_LOG);
+		WOOD.matList.add(Material.MANGROVE_LOG);
+		WOOD.matList.add(Material.SPRUCE_LOG);
+		//Stone
+		STONE.matList.add(Material.STONE);
+		STONE.matList.add(Material.SANDSTONE);
+		STONE.matList.add(Material.RED_SANDSTONE);
+		STONE.matList.add(Material.TERRACOTTA);
+		STONE.matList.add(Material.GRANITE);
+		STONE.matList.add(Material.ANDESITE);
+		STONE.matList.add(Material.DIORITE);
+		STONE.matList.add(Material.TUFF);
+		STONE.matList.add(Material.BASALT);
+		STONE.matList.add(Material.DEEPSLATE);
+		STONE.matList.add(Material.BONE_BLOCK);
+		STONE.matList.add(Material.OBSIDIAN);
+		//Aquatic
+		AQUATIC.matList.add(Material.PRISMARINE);
+		AQUATIC.matList.add(Material.DARK_PRISMARINE);
+		AQUATIC.matList.add(Material.SEA_LANTERN);
+		//End
+		END.matList.add(Material.END_STONE);
+		END.matList.add(Material.END_ROD);
+		END.matList.add(Material.CHORUS_PLANT);
+		END.matList.add(Material.CHORUS_FLOWER);
+		END.matList.add(Material.ENDER_PEARL);
+		END.matList.add(Material.CHORUS_FRUIT);
+		//Nether
+		NETHER.matList.add(Material.NETHERRACK);
+		NETHER.matList.add(Material.NETHER_BRICKS);
+		NETHER.matList.add(Material.MAGMA_BLOCK);
+		NETHER.matList.add(Material.NETHER_QUARTZ_ORE);
+		NETHER.matList.add(Material.WARPED_FUNGUS);
+		NETHER.matList.add(Material.CRIMSON_FUNGUS);
 		//Ice
 		ICE.matList.add(Material.ICE);
 		ICE.matList.add(Material.BLUE_ICE);
 		ICE.matList.add(Material.FROSTED_ICE);
 		ICE.matList.add(Material.PACKED_ICE);
+		//Misc
+		MISC.matList.add(Material.STRING);
+		MISC.matList.add(Material.COBWEB);
+		MISC.matList.add(Material.SPORE_BLOSSOM);
+		MISC.matList.add(Material.LEATHER);
 	}
 	
 	public List<Material> getMaterials(){

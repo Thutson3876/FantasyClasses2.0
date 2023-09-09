@@ -13,7 +13,8 @@ import me.thutson3876.fantasyclasses.abilities.Ability;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_BindAbility extends AbstractCommand implements Listener {
 
@@ -24,7 +25,7 @@ public class Command_BindAbility extends AbstractCommand implements Listener {
 	@Override
 	protected boolean onInternalCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a player to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return true;
 		}
 		if (args.length != 1) {
@@ -34,7 +35,7 @@ public class Command_BindAbility extends AbstractCommand implements Listener {
 		Player player = (Player) sender;
 		List<String> values = boundAbilityNames(player);
 		if(values.isEmpty()) {
-			sender.sendMessage(ChatUtils.chat("&4Error: You have no abilities that require binding"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: You have no abilities that require binding"));
 			return true;
 		}
 		
@@ -45,13 +46,13 @@ public class Command_BindAbility extends AbstractCommand implements Listener {
 					if(abil.getCurrentLevel() > 0 && s.equalsIgnoreCase(abil.getCommandName())) {
 						Material type = player.getInventory().getItemInMainHand().getType();
 						if(type == null || type.equals(Material.AIR)) {
-							sender.sendMessage(ChatUtils.chat("&6" + s + " &bhas been unbound"));
+							sender.sendMessage(ChatUtils.chat(ColorCode.DEFAULT_HIGHLIGHT + s + ColorCode.BINDABLE + " has been unbound"));
 							((Bindable)abil).setBoundType(null);
 							return true;
 						}
 							
 						((Bindable)abil).setBoundType(type);
-						sender.sendMessage(ChatUtils.chat("&bSuccessfully bound &6" + s + " &bto &6" + type));
+						sender.sendMessage(ChatUtils.chat(ColorCode.BINDABLE + "Successfully bound " + ColorCode.BINDABLE + s + ColorCode.BINDABLE + " to " + ColorCode.DEFAULT_HIGHLIGHT + type));
 						return true;
 					}
 				}
@@ -60,20 +61,20 @@ public class Command_BindAbility extends AbstractCommand implements Listener {
 					if(abil.getCurrentLevel() > 0 && s.equalsIgnoreCase(abil.getCommandName())) {
 						Material type = player.getInventory().getItemInMainHand().getType();
 						if(type == null || type.equals(Material.AIR)) {
-							sender.sendMessage(ChatUtils.chat("&6" + s + " &bhas been unbound"));
+							sender.sendMessage(ChatUtils.chat(ColorCode.DEFAULT_HIGHLIGHT + s + ColorCode.BINDABLE + " has been unbound"));
 							((Bindable)abil).setBoundType(null);
 							return true;
 						}
 							
 						((Bindable)abil).setBoundType(type);
-						sender.sendMessage(ChatUtils.chat("&bSuccessfully bound &6" + s + " &bto &6" + type));
+						sender.sendMessage(ChatUtils.chat(ColorCode.BINDABLE + "Successfully bound " + ColorCode.DEFAULT_HIGHLIGHT + s + ColorCode.BINDABLE + " to " + ColorCode.DEFAULT_HIGHLIGHT + type));
 						return true;
 					}
 				}
 			}
 		}
 
-		sender.sendMessage(ChatUtils.chat("&4ERROR: Not a Bindable Ability"));
+		sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "ERROR: Not a Bindable Ability"));
 		return true;
 	}
 

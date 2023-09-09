@@ -12,7 +12,8 @@ import org.bukkit.event.Listener;
 
 import me.thutson3876.fantasyclasses.collectible.Collectible;
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_GenerateRandomLore extends AbstractCommand implements Listener {
 
@@ -23,17 +24,17 @@ public class Command_GenerateRandomLore extends AbstractCommand implements Liste
 	@Override
 	protected boolean onInternalCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a player to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return true;
 		}
 		if (!sender.isOp()) {
-			sender.sendMessage(ChatUtils.chat("&4Error: Must be a server operator to use this command"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a server operator to use this command"));
 			return true;
 		}
 		
 		//Remove when testing is over vvv
 		if(sender instanceof HumanEntity) {
-			sender.sendMessage(ChatUtils.chat("&4Nice try"));
+			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Nice try"));
 			return true;
 			
 		}
@@ -53,7 +54,7 @@ public class Command_GenerateRandomLore extends AbstractCommand implements Liste
 				}
 			}
 			if(c == null) {
-				sender.sendMessage(ChatUtils.chat("&4Error: Invalid collectible type"));
+				sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Invalid collectible type"));
 				return true;
 			}
 			if(args.length > 1) {

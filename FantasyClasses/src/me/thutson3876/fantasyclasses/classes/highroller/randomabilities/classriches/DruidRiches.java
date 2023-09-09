@@ -12,9 +12,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.collectible.Collectible;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
 import me.thutson3876.fantasyclasses.util.MaterialLists;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 
 public class DruidRiches extends AbstractClassRiches {
 

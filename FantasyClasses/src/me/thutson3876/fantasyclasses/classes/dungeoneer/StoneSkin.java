@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.DamageCauseList;
+import me.thutson3876.fantasyclasses.util.DamageType;
 
 public class StoneSkin extends AbstractAbility {
 
@@ -38,7 +38,7 @@ public class StoneSkin extends AbstractAbility {
 		if(!e.getEntity().equals(player))
 			return;
 		
-		if(!DamageCauseList.PHYSICAL.contains(e.getCause()))
+		if(!DamageType.PHYSICAL.contains(e.getCause()))
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();

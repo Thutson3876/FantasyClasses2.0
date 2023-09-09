@@ -7,7 +7,8 @@ import org.bukkit.event.Listener;
 
 import me.thutson3876.fantasyclasses.commands.AbstractCommand;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Command_ToggleDamageMeters extends AbstractCommand implements Listener {
 
@@ -24,16 +25,16 @@ public class Command_ToggleDamageMeters extends AbstractCommand implements Liste
 				boolean dps = !fplayer.hasDamageMeters();
 
 				if (dps) {
-					sender.sendMessage(ChatUtils.chat("&aDamage Meters have been toggled on!"));
+					sender.sendMessage(ChatUtils.chat(ColorCode.SUCCESS + "Damage Meters have been toggled on!"));
 				} else {
-					sender.sendMessage(ChatUtils.chat("&4Damage Meters have been toggled off!"));
+					sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Damage Meters have been toggled off!"));
 				}
 				fplayer.setDamageMeters(dps);
 				return true;
 			}
 		}
 
-		sender.sendMessage("Error: Must be player to use this command");
+		sender.sendMessage(ColorCode.ERROR + "Error: Must be player to use this command");
 		return true;
 	}
 

@@ -13,22 +13,53 @@ public class HighRoller extends AbstractFantasyClass {
 		super(player, false);
 		
 		Player p = player.getPlayer();
+		
 		name = "High Roller";
 
-		this.setItemStack(Material.BELL, name, "A class based entirely on luck");
+		this.setItemStack(Material.SKELETON_SKULL, name, "A brawling class that utilizes skill with a crossbow, a sword, and an unhealthy dose of luck to deal damage");
 
-		skillTree = new Skill(new WondrousMagic(p));
-	
-		setSkillInMap(9 + 7, skillTree);
-		setSkillInMap(27 + 0, skillTree.getNext().get(8));
-		setSkillInMap(27 + 1, skillTree.getNext().get(0));
-		setSkillInMap(27 + 2, skillTree.getNext().get(1));
-		setSkillInMap(27 + 3, skillTree.getNext().get(2));
-		setSkillInMap(27 + 4, skillTree.getNext().get(3));
-		setSkillInMap(27 + 5, skillTree.getNext().get(4));
-		setSkillInMap(27 + 6, skillTree.getNext().get(5));
-		setSkillInMap(27 + 7, skillTree.getNext().get(6));
-		setSkillInMap(27 + 8, skillTree.getNext().get(7));
+		skillTree = new Skill(new Roller_Proficiencies(p));
+		
+		Skill blindside = new Skill(new Blindside(p));
+		
+		blindside.addChild(new Acrobat(p));
+		blindside.addChild(new PreciseStrikes(p));
+		
+		skillTree.addChild(blindside);
+		
+		Skill broadside = new Skill(new Broadside(p));
+		
+		broadside.addChild(new Feint(p)).addChild(new Vanish(p));
+		broadside.addChild(new SneakAttack(p)).addChild(new GhostlyStrike(p));
+		
+		skillTree.addChild(broadside);
+		
+		Skill rollTheBones = new Skill(new RollTheBones(p));
+		
+		rollTheBones.addChild(new RollToPort(p));
+		rollTheBones.addChild(new RollToStarboard(p));
+		
+		skillTree.addChild(rollTheBones);
+		
+		//
+		setSkillInMap(4, skillTree);
+		
+		//Blindside branch //Total Cost: 15 (1 + 5 + 6 = 12)
+		setSkillInMap(2, blindside);
+		setSkillInMap(0, blindside.getNext().get(0));
+		setSkillInMap(9 + 1, blindside.getNext().get(1));
+		
+		//Broadside branch //Total Cost: 15 (1 + 5 + 6 = 12)
+		setSkillInMap(6, broadside);
+		setSkillInMap(7, broadside.getNext().get(0));
+		setSkillInMap(9 + 8, broadside.getNext().get(0).getNext().get(0));
+		setSkillInMap(9 + 6, broadside.getNext().get(1));
+		setSkillInMap(18 + 6, broadside.getNext().get(1).getNext().get(0));
+		
+		//Roll the Bones branch //Total Cost: 15 (1 + 5 + 6 = 12)
+		setSkillInMap(9 + 4, rollTheBones);
+		setSkillInMap(18 + 3, rollTheBones.getNext().get(0));
+		setSkillInMap(18 + 5, rollTheBones.getNext().get(1));
 		
 		this.setPrerequisites();
 	}

@@ -14,15 +14,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class SummonPretzel extends AbstractAbility implements Bindable {
 	
 	private Material type = null;
 	
 	private int counter = 0;
-	private double healAmt = 0.25;
+	private double healAmt = 0.3;
 	private int tickRate = 10;
 	private int duration = 4 * 20;
 	private double range = 6;
@@ -36,7 +37,7 @@ public class SummonPretzel extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 18 * 20;
 		this.displayName = "Summon Pretzel";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.TROPICAL_FISH);	
 	}
@@ -63,9 +64,14 @@ public class SummonPretzel extends AbstractAbility implements Bindable {
 		if(!correctType)
 			return;
 		
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
+		
 		spawnPretzel();
 		
-		this.onTrigger(true);
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
 	private void spawnPretzel() {
@@ -85,7 +91,7 @@ public class SummonPretzel extends AbstractAbility implements Bindable {
 					this.cancel();
 				}
 				
-				for(LivingEntity ent : AbilityUtils.getNearbyLivingEntities(pretzel, range, range, range)) {
+				for(LivingEntity ent : AbilityUtils.getNearbyPlayers(pretzel, range)) {
 					if(ent instanceof Mob)
 						continue;
 					
@@ -121,8 +127,8 @@ public class SummonPretzel extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		healAmt = 0.1 * currentLevel;
-		duration = (1 + currentLevel) * 20;
+		healAmt = 0.3 * currentLevel;
+		duration = (3 + currentLevel) * 20;
 	}
 
 	@Override

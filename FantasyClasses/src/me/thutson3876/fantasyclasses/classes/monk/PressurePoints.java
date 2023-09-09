@@ -26,7 +26,7 @@ public class PressurePoints extends AbstractAbility {
 	@Override
 	public void setDefaults() {
 		this.coolDowninTicks = 12 * 20;
-		this.displayName = "Disarm";
+		this.displayName = "Pressure Points";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
 

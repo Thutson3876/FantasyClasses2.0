@@ -14,11 +14,15 @@ import org.bukkit.scheduler.BukkitTask;
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.skills.Skill;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
+import me.thutson3876.fantasyclasses.classes.berserker.statuses.Enraged;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.util.Particles;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class Berserker extends AbstractFantasyClass {
 
+	private static final Enraged enraged = new Enraged();
+	
 	private BukkitTask task = null;
 	private double tauntRange = 0.0;
 	
@@ -135,7 +139,7 @@ public class Berserker extends AbstractFantasyClass {
 					return;
 				}
 				else
-					Particles.helix(p, Particle.DRIP_LAVA, 1.0, 12.5664, 5, 0.2);
+					GeneralParticleEffects.helix(p, new CustomParticle(Particle.DRIP_LAVA, 1, 0, 0, 0, 0, null), 1.0, 12.5664, enrageDurationMax, 5, 0.2);
 			}
 			
 		}.runTaskTimer(FantasyClasses.getPlugin(), tickRate, tickRate);
@@ -164,6 +168,10 @@ public class Berserker extends AbstractFantasyClass {
 				((Mob)ent).setTarget(p);
 			}
 		}
+	}
+
+	public static Enraged getEnraged() {
+		return enraged;
 	}
 
 }

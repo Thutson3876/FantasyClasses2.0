@@ -28,7 +28,7 @@ import me.thutson3876.fantasyclasses.collectible.Collectible;
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class UndeadMiner extends AbstractCustomMob {
 

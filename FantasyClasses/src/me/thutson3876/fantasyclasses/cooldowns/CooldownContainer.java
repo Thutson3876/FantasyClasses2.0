@@ -13,10 +13,10 @@ public class CooldownContainer {
 	
 	private double reductionPerTick = 1.00;
 
-	public CooldownContainer(Player player, Ability ability, int cooldownTime) {
+	public CooldownContainer(Player player, Ability ability, double time) {
 		this.player = player;
 		this.ability = ability;
-		this.cooldownTime = cooldownTime;
+		this.cooldownTime = time;
 	}
 	
 	public CooldownContainer(Player player, Ability ability, double cooldown, double reductionPerTick) {

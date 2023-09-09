@@ -9,8 +9,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
 import me.thutson3876.fantasyclasses.util.PotionList;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 
 public class PlagueUnleashed implements MobAbility {
 

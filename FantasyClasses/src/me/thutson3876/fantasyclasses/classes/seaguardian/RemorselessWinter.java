@@ -3,7 +3,6 @@ package me.thutson3876.fantasyclasses.classes.seaguardian;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -22,6 +21,9 @@ import org.bukkit.util.Vector;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
+import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.particles.customeffect.Snowstorm;
 
 public class RemorselessWinter extends AbstractAbility implements Bindable {
 
@@ -29,20 +31,23 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 	private BukkitTask task = null;
 	private int taskID = 0;
 	
-	private double dmg = 3.0;
+	private double dmg = 0.25;
 	private int freezeAmt = 20;
 	private static int tickRate = 10;
 	private int counter = 0;
-	private int radius = 2;
+	private int radius = 3;
 	private int durationInTicks = 3 * 20;
 	//private double speed = 1.0;
 	//private int count = 3;
 	private Snowball snow = null;
+	private Snowstorm stormParticle = new Snowstorm(radius, durationInTicks, 5);
 	
 	private int duration = 20;
 	private int amp = 1;
 	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, amp);
 	private PotionEffect fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+	
+	private boolean stackFrostFever = false;
 	
 	public RemorselessWinter(Player p) {
 		super(p);
@@ -61,7 +66,7 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 16 * 20;
 		this.displayName = "Remorseless Winter";
 		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.POWDER_SNOW_BUCKET);
 	}
@@ -72,9 +77,9 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 			spawnSnowStorm(snow.getLocation(), radius);
 			if(e.getHitEntity() instanceof LivingEntity) {
 				LivingEntity ent = (LivingEntity) e.getHitEntity();
-				ent.damage(dmg * 2);
+				ent.damage(dmg * 2, player);
 				ent.setFreezeTicks(ent.getFreezeTicks() + freezeAmt);
-				ent.getWorld().playSound(ent.getLocation(), Sound.BLOCK_GLASS_HIT, 1.3f, 0.8f);
+				ent.getWorld().playSound(ent.getLocation(), Sound.BLOCK_GLASS_HIT, 1.4f, 0.8f);
 			}
 				
 			snow = null;
@@ -92,11 +97,16 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 		if(!e.getItemDrop().getItemStack().getType().equals(type))
 			return;
 		
+		AbilityTriggerEvent thisEvent = this.callEvent();
+
+		if (thisEvent.isCancelled())
+			return;
+		
 		e.setCancelled(true);
 		
 		throwSnow();
 		
-		this.onTrigger(true);
+		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 	
 	@Override
@@ -106,7 +116,7 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "Hurl a snowball at your foe that deals &6" + dmg + " &rdamage, freezes them, and spawns a snowstorm for &6" + durationInTicks / 20 + " &6seconds";
+		return "Hurl a snowball at your foe that deals &6" + AbilityUtils.doubleRoundToXDecimals(dmg, 1) + " &rdamage, freezes them, and spawns a snowstorm for &6" + AbilityUtils.doubleRoundToXDecimals(durationInTicks / 20, 1)  + " &6seconds";
 	}
 
 	@Override
@@ -116,10 +126,8 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmg = 0.33 * currentLevel;
-		durationInTicks = (2 * currentLevel) * 20;
-		freezeAmt = 30 + 10 * currentLevel;
-		radius = 1 * currentLevel;
+		dmg = 0.25 * currentLevel;
+		freezeAmt = 20 + 20 * currentLevel;
 	}
 
 	@Override
@@ -162,7 +170,7 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 
 	private void spawnSnowStorm(Location loc, int radius) {
 		World world = loc.getWorld();
-		//List<Location> sphere = Sphere.generateSphere(loc, Math.round(radius / 1.5f), false);
+		stormParticle.run(loc);
 		
 		counter = 0;
 		task = new BukkitRunnable() {
@@ -174,18 +182,22 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 					return;
 				}
 				
-				world.playSound(loc, Sound.ITEM_ELYTRA_FLYING, ((float)radius) / 4.3f, 1.0f);
-				world.spawnParticle(Particle.SNOWFLAKE, loc, 20 * currentLevel);
-				/*for(Location l : sphere) {
-					world.spawnParticle(Particle.SNOWFLAKE, l, 10);
-				}*/
+				world.playSound(loc, Sound.ITEM_ELYTRA_FLYING, ((float)radius) / 4.5f, 1.0f);
+				
+				
 				for(Entity e : world.getNearbyEntities(loc, radius, radius, radius)){
 					if(e instanceof LivingEntity && !e.isDead()) {
 						LivingEntity ent = (LivingEntity) e;
 						ent.addPotionEffect(fatigue);
 						ent.addPotionEffect(slow);
-						ent.damage(dmg);
+						ent.damage(dmg, player);
 						ent.setFreezeTicks(ent.getFreezeTicks() + freezeAmt);
+						
+						if(stackFrostFever) {
+							
+							
+							
+						}
 					}
 				}
 				
@@ -194,5 +206,9 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 			
 		}.runTaskTimer(plugin, 1, tickRate);
 		taskID = task.getTaskId();
+	}
+	
+	public void setStackFrostFever() {
+		
 	}
 }

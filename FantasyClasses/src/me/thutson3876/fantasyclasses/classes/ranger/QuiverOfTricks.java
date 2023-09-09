@@ -1,7 +1,10 @@
 package me.thutson3876.fantasyclasses.classes.ranger;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -16,6 +19,8 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.customeffect.Helix;
 
 public class QuiverOfTricks extends AbstractAbility implements Bindable {
 
@@ -30,6 +35,10 @@ public class QuiverOfTricks extends AbstractAbility implements Bindable {
 	private BossBar bar = null;
 
 	private int duration = 4 * 20;
+	
+	private Helix auraHelix = new Helix(new CustomParticle(Particle.FIREWORKS_SPARK, 1, 0.0, 0.3, null), 1.0, 0, 6.3, duration * 2, 2, 0.1, true);
+	
+	private UUID uuid = UUID.randomUUID();
 
 	public QuiverOfTricks(Player p) {
 		super(p);
@@ -140,6 +149,8 @@ public class QuiverOfTricks extends AbstractAbility implements Bindable {
 	protected void init() {
 		this.taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new UplinkReducingTask(), 1L, 1L);
 		
+		uuid = this.auraHelix.run(player);
+		
 		/*bar = Bukkit.createBossBar(this.getName(), BarColor.WHITE, BarStyle.SEGMENTED_12, new org.bukkit.boss.BarFlag[0]);
 		bar.addPlayer(player);
 		bar.setVisible(false);*/
@@ -153,6 +164,7 @@ public class QuiverOfTricks extends AbstractAbility implements Bindable {
 		}
 		
 		this.remaining = 0;
+		this.auraHelix.cancel(uuid);
 	}
 
 	@Override

@@ -24,9 +24,10 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.ChatUtils;
-import me.thutson3876.fantasyclasses.util.Particles;
-import me.thutson3876.fantasyclasses.util.Sphere;
+import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
+import me.thutson3876.fantasyclasses.util.geometry.Sphere;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class WebTrap extends AbstractAbility implements Bindable {
 
@@ -93,7 +94,7 @@ public class WebTrap extends AbstractAbility implements Bindable {
 				}
 
 				if (timer - 1 % 10 == 0)
-					Particles.pulsingCircle(trapLoc, radius - 1, 0.25, 1, Particle.CAMPFIRE_COSY_SMOKE);
+					GeneralParticleEffects.pulsingCircle(trapLoc, new CustomParticle(Particle.CAMPFIRE_COSY_SMOKE), radius - 1, 0.25, durationOfTrap, 1);
 
 			}
 
