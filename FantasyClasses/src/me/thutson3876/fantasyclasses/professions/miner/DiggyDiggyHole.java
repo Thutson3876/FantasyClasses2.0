@@ -27,7 +27,7 @@ public class DiggyDiggyHole extends AbstractAbility implements Bindable {
 		this.displayName = "Diggy Diggy Hole";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
-		haste = new PotionEffect(PotionEffectType.FAST_DIGGING, duration, 1);
+		haste = new PotionEffect(PotionEffectType.HASTE, duration, 1);
 
 		this.createItemStack(Material.CRACKED_STONE_BRICKS);
 	}
@@ -72,7 +72,7 @@ public class DiggyDiggyHole extends AbstractAbility implements Bindable {
 	@Override
 	public void applyLevelModifiers() {
 		duration = (4 * currentLevel) * 20;
-		haste = new PotionEffect(PotionEffectType.FAST_DIGGING, duration, currentLevel);
+		haste = new PotionEffect(PotionEffectType.HASTE, duration, currentLevel);
 	}
 
 	@Override

@@ -19,12 +19,13 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Crippling extends Enchantment implements Listener {
 	//Weapon - landing a crit applies weakness to target
+	private NamespacedKey key;
 	
 	private static PotionEffect weak = new PotionEffect(PotionEffectType.WEAKNESS, 3 * 20, 0);
 	
 	public Crippling(NamespacedKey key) {
-		super(key);
-		
+		super();
+		this.key = key;
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
 
@@ -68,7 +69,7 @@ public class Crippling extends Enchantment implements Listener {
 
 	@Override
 	public boolean conflictsWith(Enchantment enchant) {
-		if(enchant.equals(Enchantment.DAMAGE_ALL))
+		if(enchant.equals(Enchantment.SHARPNESS))
 			return true;
 		
 		return Enchantments.CUSTOM.getEnchants().contains(enchant);
@@ -102,5 +103,17 @@ public class Crippling extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

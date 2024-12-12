@@ -21,7 +21,7 @@ import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 public class RapidFire extends AbstractAbility {
 
 	private int duration = 2 * 20;
-	private PotionEffect haste = new PotionEffect(PotionEffectType.FAST_DIGGING, duration, 0);
+	private PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, duration, 0);
 	private int maxStacks = 3;
 	
 	public RapidFire(Player p) {
@@ -47,7 +47,7 @@ public class RapidFire extends AbstractAbility {
 		if (!(e.getProjectile() instanceof AbstractArrow))
 			return;
 		
-		if(!player.hasPotionEffect(PotionEffectType.FAST_DIGGING))
+		if(!player.hasPotionEffect(PotionEffectType.HASTE))
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
@@ -55,7 +55,7 @@ public class RapidFire extends AbstractAbility {
 		if(thisEvent.isCancelled())
 			return;
 		
-		int stackAmt = player.getPotionEffect(PotionEffectType.FAST_DIGGING).getAmplifier();
+		int stackAmt = player.getPotionEffect(PotionEffectType.HASTE).getAmplifier();
 
 		AbstractArrow arrow = (AbstractArrow) e.getProjectile();
 		

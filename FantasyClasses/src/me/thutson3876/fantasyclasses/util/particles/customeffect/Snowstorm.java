@@ -11,7 +11,7 @@ public class Snowstorm extends CustomEffect {
 	private CustomParticle snow;
 
 	public Snowstorm(double radius, int maxDuration, int tickRate) {
-		super(new CustomParticle(Particle.REDSTONE, 1, 0, 0.2, Color.WHITE), radius / 2D, radius * 1.5, 12.6,
+		super(new CustomParticle(Particle.DUST, 1, 0, 0.2, Color.WHITE), radius / 2D, radius * 1.5, 12.6,
 				maxDuration, tickRate, -0.1 * radius, true);
 		
 		snow = new CustomParticle(Particle.SNOWFLAKE, 10 + (int)(3 * radius), 0);

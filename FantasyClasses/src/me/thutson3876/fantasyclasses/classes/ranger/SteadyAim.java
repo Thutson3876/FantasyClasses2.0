@@ -19,7 +19,7 @@ public class SteadyAim extends AbstractAbility {
 	private boolean isDisabled = false;
 	private boolean isDrawing = false;
 	private int amp = 6;
-	private PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 7, 3);
+	private PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, 7, 3);
 
 	public SteadyAim(Player p) {
 		super(p, Priority.LOW);
@@ -114,7 +114,7 @@ public class SteadyAim extends AbstractAbility {
 	@Override
 	public void applyLevelModifiers() {		
 		this.amp = 6 * this.currentLevel - 1;
-		this.slowness = new PotionEffect(PotionEffectType.SLOW, 7, amp);
+		this.slowness = new PotionEffect(PotionEffectType.SLOWNESS, 7, amp);
 	}
 
 }

@@ -19,7 +19,7 @@ public class Ruthlessness extends HighRollerStatus {
 	public Ruthlessness() {
 		super("Ruthlessness", 99, null, (host, duration, stacks) -> {
 			
-			host.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) duration, 0));
+			host.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 0));
 			
 		});
 	}

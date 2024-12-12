@@ -69,17 +69,17 @@ public abstract class AbstractCustomMob implements Listener {
 	}
 
 	public void setMaxHealth(double newMax) {
-		ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(newMax);
+		ent.getAttribute(Attribute.MAX_HEALTH).setBaseValue(newMax);
 		maxHealth = newMax;
 		AbilityUtils.heal(ent, newMax, ent);
 	}
 
 	public void setAttackDamage(double newDmg) {
-		ent.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(newDmg);
+		ent.getAttribute(Attribute.ATTACK_DAMAGE).setBaseValue(newDmg);
 	}
 
 	public void setMoveSpeed(float newSpeed) {
-		ent.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(newSpeed);
+		ent.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(newSpeed);
 	}
 
 	public void giveItems(ItemStack[] armorContents, ItemStack mainHand, float dropChance) {

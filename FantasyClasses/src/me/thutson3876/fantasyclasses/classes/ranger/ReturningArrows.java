@@ -85,7 +85,7 @@ public class ReturningArrows extends AbstractAbility implements Bindable {
 				newArrow.setCritical(arr.isCritical());
 				newArrow.setFireTicks(arr.getFireTicks());
 				newArrow.setShooter(arr.getShooter());
-				newArrow.setKnockbackStrength(arr.getKnockbackStrength());
+				// Deprecated - newArrow.setKnockbackStrength(arr.getKnockbackStrength());
 				newArrow.setDamage(arr.getDamage());
 				newArrow.setPickupStatus(PickupStatus.CREATIVE_ONLY);
 				arr.remove();

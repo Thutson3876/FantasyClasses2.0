@@ -37,8 +37,8 @@ public class AnvilAdept extends AbstractAbility {
 		
 		if(!isViewing)
 			return;
-		
-		e.getInventory().setRepairCost(newRepairCost(e.getInventory().getRepairCost()));
+		e.getView().setRepairCost(newRepairCost(e.getView().getRepairCost()));
+		// Deprecated - e.getInventory().setRepairCost(newRepairCost(e.getInventory().getRepairCost()));
 	}
 	
 	private int newRepairCost(int currentCost) {

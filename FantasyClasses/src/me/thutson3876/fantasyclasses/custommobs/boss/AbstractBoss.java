@@ -141,7 +141,7 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 
 	protected void setBossBar(String title, BarColor color, BarStyle style, BarFlag... flags) {
 		this.bar = Bukkit.createBossBar(ChatUtils.chat(title), color, style, flags);
-		double maxHealth = ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		double maxHealth = ent.getAttribute(Attribute.MAX_HEALTH).getValue();
 		this.bar.setVisible(true);
 
 		new BukkitRunnable() {
@@ -231,7 +231,7 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 	
 	@EventHandler
 	public void onEntityPotionEffectEvent(EntityPotionEffectEvent e) {
-		if(e.getEntity().equals(ent) && (e.getModifiedType().equals(PotionEffectType.LEVITATION) || e.getModifiedType().equals(PotionEffectType.SLOW)))
+		if(e.getEntity().equals(ent) && (e.getModifiedType().equals(PotionEffectType.LEVITATION) || e.getModifiedType().equals(PotionEffectType.SLOWNESS)))
 			e.setCancelled(true);
 	}
 	

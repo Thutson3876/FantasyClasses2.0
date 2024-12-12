@@ -155,7 +155,7 @@ public enum MaterialLists {
 		ALCHEMICAL_INGREDIENT.matList.add(Material.GOLDEN_CARROT);
 		ALCHEMICAL_INGREDIENT.matList.add(Material.PUFFERFISH);
 		ALCHEMICAL_INGREDIENT.matList.add(Material.MAGMA_CREAM);
-		ALCHEMICAL_INGREDIENT.matList.add(Material.SCUTE);
+		ALCHEMICAL_INGREDIENT.matList.add(Material.TURTLE_SCUTE);
 		//Druid Food
 		DRUID_FOOD.matList.add(Material.APPLE);
 		DRUID_FOOD.matList.add(Material.CARROT);

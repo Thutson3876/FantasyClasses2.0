@@ -25,7 +25,7 @@ public class HookLineAnd extends AbstractAbility {
 
 	static {
 		// Good rolls
-		goodRolls.add(EntityType.BOAT);
+		goodRolls.add(EntityType.DARK_OAK_BOAT);
 		goodRolls.add(EntityType.DOLPHIN);
 		goodRolls.add(EntityType.COD);
 		goodRolls.add(EntityType.SALMON);
@@ -33,9 +33,9 @@ public class HookLineAnd extends AbstractAbility {
 		goodRolls.add(EntityType.TURTLE);
 		goodRolls.add(EntityType.AXOLOTL);
 		goodRolls.add(EntityType.CAT);
-		goodRolls.add(EntityType.DROPPED_ITEM);
+		goodRolls.add(EntityType.ITEM);
 		// Bad rolls
-		badRolls.add(EntityType.PRIMED_TNT);
+		badRolls.add(EntityType.TNT);
 		badRolls.add(EntityType.CREEPER);
 		badRolls.add(EntityType.DROWNED);
 		badRolls.add(EntityType.GUARDIAN);
@@ -90,7 +90,7 @@ public class HookLineAnd extends AbstractAbility {
 			e.getCaught().remove();
 			newEntity = player.getWorld().spawnEntity(e.getHook().getLocation(),
 					goodRolls.get(rng.nextInt(goodRolls.size())));
-			if (newEntity.getType().equals(EntityType.DROPPED_ITEM)) {
+			if (newEntity.getType().equals(EntityType.ITEM)) {
 				Material type = goodItemRolls.get(rng.nextInt(goodItemRolls.size()));
 				((Item) newEntity).setItemStack(new ItemStack(type));
 			}

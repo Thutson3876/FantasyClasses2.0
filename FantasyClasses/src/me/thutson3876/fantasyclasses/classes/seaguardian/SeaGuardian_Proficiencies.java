@@ -1,12 +1,15 @@
 package me.thutson3876.fantasyclasses.classes.seaguardian;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.inventory.EquipmentSlotGroup;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.events.DamageModifier;
@@ -48,7 +51,7 @@ public class SeaGuardian_Proficiencies extends AbstractAbility {
 		if(fplayer == null)
 			return;
 		
-		AbilityUtils.setMaxHealth(player, new AttributeModifier("seaguardianproficiencies", healthBonus, Operation.ADD_NUMBER));
+		AbilityUtils.setMaxHealth(player, new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), "seaguardianproficiencies"), healthBonus, Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
 		this.fplayer.setArmorType(5);
 	}
 	

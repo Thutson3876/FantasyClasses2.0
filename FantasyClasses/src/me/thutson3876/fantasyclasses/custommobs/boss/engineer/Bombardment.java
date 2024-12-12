@@ -64,7 +64,7 @@ public class Bombardment implements MobAbility {
 						continue;
 					
 					Vector launchVector = loc.toVector().subtract(entity.getLocation().toVector()).multiply(0.07).add(new Vector(0, 0.93, 0));
-					TNTPrimed tnt = (TNTPrimed) world.spawnEntity(entity.getEyeLocation().add(0, 0.4, 0), EntityType.PRIMED_TNT);
+					TNTPrimed tnt = (TNTPrimed) world.spawnEntity(entity.getEyeLocation().add(0, 0.4, 0), EntityType.TNT);
 					tnt.setFuseTicks(tickRate + fuseTicks + (int)(launchVector.length() / 2));
 					tnt.setYield(3.0f);
 					tnt.setSource(entity);

@@ -128,7 +128,7 @@ public enum CursedLegendary {
 			return;
 		
 		if(e.getHitEntity() instanceof LivingEntity) {
-			AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 2 * 20, 0), owner, 4, 3 * 20);
+			AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 2 * 20, 0), owner, 4, 3 * 20);
 		}
 	}, MaterialLists.RANGE_WEAPON.getMaterials(), 
 			"Grants you stacking strength for each arrow landed into a target"),
@@ -229,7 +229,7 @@ public enum CursedLegendary {
 			return;
 		
 		if(e.getEntity() instanceof LivingEntity)
-			((LivingEntity)e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 2 * 20, 1));
+			((LivingEntity)e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 2 * 20, 1));
 		
 	}, MaterialLists.MELEE_WEAPON.getMaterials(), 
 			"Slows your target on hit"),
@@ -344,7 +344,7 @@ public enum CursedLegendary {
 		if(!(damager instanceof LivingEntity))
 			return;
 		
-		AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 15, 0), owner, 5, 10 * 20);
+		AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 15, 0), owner, 5, 10 * 20);
 		
 	}, MaterialLists.ARMOR.getMaterials(), 
 			"Strengthens you for each strike you suffer in a short time"),

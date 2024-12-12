@@ -19,11 +19,12 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 public class Blaze extends Enchantment implements Listener {
 	//Bow - your arrows are fire balls instead
 	
+	private NamespacedKey key;
 	private float yield = 2.0f;
 	
 	public Blaze(NamespacedKey key) {
-		super(key);
-		
+		super();
+		this.key = key;
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
 
@@ -96,5 +97,15 @@ public class Blaze extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		return key.getNamespace();
 	}
 }

@@ -46,7 +46,7 @@ public class VoidRemnant extends AbstractBoss {
 		
 		onHitEffects.add(new PotionEffect(PotionEffectType.WITHER, 2 * 20, 1));
 		onHitEffects.add(new PotionEffect(PotionEffectType.BLINDNESS, 2 * 20, 1));
-		onHitEffects.add(new PotionEffect(PotionEffectType.SLOW, 2 * 20, 1));
+		onHitEffects.add(new PotionEffect(PotionEffectType.SLOWNESS, 2 * 20, 1));
 		
 		abilities.add(new Barrage());
 		abilities.add(new SummonTar());

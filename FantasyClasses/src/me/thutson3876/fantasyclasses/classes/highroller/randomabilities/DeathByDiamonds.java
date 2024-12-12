@@ -38,8 +38,8 @@ public class DeathByDiamonds implements RandomAbility {
 		
 		b.setType(Material.AIR);
 	
-		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, 4));
-		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 4));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 4));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 120, 4));
 		
 		p.sendMessage(ChatUtils.chat("&aYummy yummy carbon"));
 	}

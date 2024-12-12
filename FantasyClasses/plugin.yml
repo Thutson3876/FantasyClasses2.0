@@ -3,7 +3,7 @@ version: 3.0
 author: thutson3876
 main: me.thutson3876.fantasyclasses.FantasyClasses
 description: The spiritual successor to my previous plugin FantasyTools
-api-version: 1.19
+api-version: 1.21
 
 commands:
   openmenu:

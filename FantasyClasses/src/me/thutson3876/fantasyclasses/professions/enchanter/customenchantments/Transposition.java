@@ -25,11 +25,15 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 public class Transposition extends Enchantment implements Listener {
 	//Bow - 50% chance to swap your position with your target upon arrow hitting entity
 	private static Random rng = new Random();
+	
+	private NamespacedKey key;
+	
 	private double chance = 0.5;
 	Map<AbstractArrow, LivingEntity> arrowMap = new HashMap<>();
 	
 	public Transposition(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -123,5 +127,17 @@ public class Transposition extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

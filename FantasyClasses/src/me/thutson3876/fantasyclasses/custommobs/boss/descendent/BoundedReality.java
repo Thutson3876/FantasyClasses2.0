@@ -50,10 +50,10 @@ public class BoundedReality extends BossAbility {
 			        Location current1 = new Location(world, center.getX() + x, center.getY(), center.getZ() + z);
 			        Location current2 = new Location(world, center.getX() - x, center.getY(), center.getZ() - z);
 			        
-			        world.spawnParticle(Particle.SMOKE_LARGE, current1, 1);
+			        world.spawnParticle(Particle.LARGE_SMOKE, current1, 1);
 			        world.playEffect(current1, Effect.END_PORTAL_FRAME_FILL, 4, 2);
 			        
-			        world.spawnParticle(Particle.SMOKE_LARGE, current2, 1);
+			        world.spawnParticle(Particle.LARGE_SMOKE, current2, 1);
 			        world.playEffect(current2, Effect.END_PORTAL_FRAME_FILL, 4, 2);
 			        
 					currentRadii += 0.1;

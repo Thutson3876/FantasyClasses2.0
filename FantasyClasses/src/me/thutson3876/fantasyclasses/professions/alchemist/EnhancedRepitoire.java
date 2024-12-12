@@ -62,7 +62,7 @@ public class EnhancedRepitoire extends AbstractAbility{
 		Collection<Entity> entities =  block.getWorld().getNearbyEntities(block.getBoundingBox());
 		Collection<ItemStack> ingredients = new ArrayList<>();
 		for(Entity ent : entities) {
-			if(ent.getType().equals(EntityType.DROPPED_ITEM)) {
+			if(ent.getType().equals(EntityType.ITEM)) {
 				Item i = (Item) ent;
 				ingredients.add(i.getItemStack());
 			}
@@ -93,7 +93,7 @@ public class EnhancedRepitoire extends AbstractAbility{
 			return;
 		
 		for(Entity ent : entities) {
-			if(ent.getType().equals(EntityType.DROPPED_ITEM)) {
+			if(ent.getType().equals(EntityType.ITEM)) {
 				((Item)ent).remove();
 			}
 		}

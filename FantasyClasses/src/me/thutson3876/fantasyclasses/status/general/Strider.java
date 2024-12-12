@@ -15,7 +15,7 @@ public class Strider extends StatusType {
 		super("Strider", 99, 1, null, (host, duration, stacks) -> {
 			
 			host.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (int)duration, DEFAULT_AMP));
-			host.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, (int)duration + 20, DEFAULT_AMP));
+			host.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, (int)duration + 20, DEFAULT_AMP));
 			host.getWorld().playSound(host, Sound.ENTITY_RABBIT_JUMP, 3.0f, 1.0f);
 			
 		});

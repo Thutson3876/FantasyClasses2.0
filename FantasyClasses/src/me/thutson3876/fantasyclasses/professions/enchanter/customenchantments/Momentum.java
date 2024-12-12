@@ -20,11 +20,13 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 
 public class Momentum extends Enchantment implements Listener {
 	//Weapon - increase damage done based on velocity and if sprinting increase it by flat 20%
+	private NamespacedKey key;
 	
 	private double dmgMod = 0.4;
 	
 	public Momentum(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -66,7 +68,7 @@ public class Momentum extends Enchantment implements Listener {
 		Entity ent = e.getEntity();
 		
 		world.playSound(ent, Sound.BLOCK_ANCIENT_DEBRIS_BREAK, (float)(1.0 + speed * 2.0), 0.85f);
-		world.spawnParticle(Particle.CRIT_MAGIC, ent.getLocation().add(0, ent.getHeight() / 2.0, 0), 4 + (int)(15 * speed));
+		world.spawnParticle(Particle.CRIT, ent.getLocation().add(0, ent.getHeight() / 2.0, 0), 4 + (int)(15 * speed));
 	}
 	
 	@Override
@@ -81,7 +83,7 @@ public class Momentum extends Enchantment implements Listener {
 
 	@Override
 	public boolean conflictsWith(Enchantment enchant) {
-		if(enchant.equals(Enchantment.DAMAGE_ALL) || enchant.equals(Enchantment.DAMAGE_ARTHROPODS) || enchant.equals(Enchantment.DAMAGE_UNDEAD))
+		if(enchant.equals(Enchantment.SHARPNESS) || enchant.equals(Enchantment.BANE_OF_ARTHROPODS) || enchant.equals(Enchantment.SMITE))
 			return true;
 		
 		return Enchantments.CUSTOM.getEnchants().contains(enchant);
@@ -115,5 +117,17 @@ public class Momentum extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

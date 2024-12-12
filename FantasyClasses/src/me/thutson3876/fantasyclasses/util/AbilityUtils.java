@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -27,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.entity.Tameable;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -36,6 +38,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.classes.witch.WitchBrewRecipe;
 import me.thutson3876.fantasyclasses.events.HealEvent;
 import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
@@ -337,14 +340,14 @@ public class AbilityUtils {
 	}
 
 	public static double getMaxHealth(LivingEntity ent) {
-		return ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		return ent.getAttribute(Attribute.MAX_HEALTH).getValue();
 	}
 
 	public static void heal(LivingEntity source, double amt, LivingEntity target) {
 		if (target == null || target.isDead())
 			return;
 
-		double maxhp = target.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		double maxhp = target.getAttribute(Attribute.MAX_HEALTH).getValue();
 		if (target.hasPotionEffect(PotionEffectType.UNLUCK) || target.hasPotionEffect(PotionEffectType.WITHER))
 			amt *= 0.5;
 
@@ -366,25 +369,25 @@ public class AbilityUtils {
 			return;
 
 		LivingEntity ent = (LivingEntity) e;
-		AttributeModifier mod = new AttributeModifier("maxhealth", amt, op);
-		ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).addModifier(mod);
+		AttributeModifier mod = new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), "maxhealth"), amt, op, EquipmentSlotGroup.ANY);
+		ent.getAttribute(Attribute.MAX_HEALTH).addModifier(mod);
 	}
 
 	public static void setMaxHealth(LivingEntity e, AttributeModifier mod) {
-		if (e.getAttribute(Attribute.GENERIC_MAX_HEALTH).getModifiers().contains(mod))
+		if (e.getAttribute(Attribute.MAX_HEALTH).getModifiers().contains(mod))
 			return;
 
-		e.getAttribute(Attribute.GENERIC_MAX_HEALTH).addModifier(mod);
+		e.getAttribute(Attribute.MAX_HEALTH).addModifier(mod);
 	}
 
 	public static void setAttackDamage(LivingEntity e, AttributeModifier mod) {
-		if (e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE) == null)
+		if (e.getAttribute(Attribute.ATTACK_DAMAGE) == null)
 			return;
 
-		if (e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getModifiers().contains(mod))
+		if (e.getAttribute(Attribute.ATTACK_DAMAGE).getModifiers().contains(mod))
 			return;
 
-		e.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).addModifier(mod);
+		e.getAttribute(Attribute.ATTACK_DAMAGE).addModifier(mod);
 	}
 
 	public static void setAttackDamage(Entity e, double amt, Operation op) {
@@ -392,8 +395,8 @@ public class AbilityUtils {
 			return;
 
 		LivingEntity ent = (LivingEntity) e;
-		AttributeModifier mod = new AttributeModifier("atkdamage", amt, op);
-		ent.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).addModifier(mod);
+		AttributeModifier mod = new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), "atkdamage"), amt, op, EquipmentSlotGroup.ANY);
+		ent.getAttribute(Attribute.ATTACK_DAMAGE).addModifier(mod);
 	}
 
 	// Measures the distance between player and all nearby entities and selects the

@@ -20,8 +20,8 @@ public class SpookReal implements RandomAbility {
 	@Override
 	public void run(Player p) {
 		p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2));
-		p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 2));
-		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 300, 2));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 300, 2));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
 		
 		p.playSound(p.getLocation(), Sound.AMBIENT_CAVE, 1.0f, 1.0f);
 		

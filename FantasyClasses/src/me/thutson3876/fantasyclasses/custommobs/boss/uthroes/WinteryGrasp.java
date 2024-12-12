@@ -12,7 +12,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class WinteryGrasp implements MobAbility {
 
-	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 4 * 20, 3);
+	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, 4 * 20, 3);
 	private final int freezeAmt = 160;
 	
 	@Override

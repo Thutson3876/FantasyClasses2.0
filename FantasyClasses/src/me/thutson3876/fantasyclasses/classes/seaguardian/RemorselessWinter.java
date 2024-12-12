@@ -44,8 +44,8 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 	
 	private int duration = 20;
 	private int amp = 1;
-	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, amp);
-	private PotionEffect fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, amp);
+	private PotionEffect fatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 	
 	private boolean stackFrostFever = false;
 	

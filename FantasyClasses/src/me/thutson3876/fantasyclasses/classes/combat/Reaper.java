@@ -61,7 +61,7 @@ public class Reaper extends AbstractAbility {
 		if(!(MaterialLists.HOE.getMaterials().contains(player.getInventory().getItemInMainHand().getType())))
 			return;
 		
-		if(ent.getHealth() > ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 0.25)
+		if(ent.getHealth() > ent.getAttribute(Attribute.MAX_HEALTH).getValue() * 0.25)
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();

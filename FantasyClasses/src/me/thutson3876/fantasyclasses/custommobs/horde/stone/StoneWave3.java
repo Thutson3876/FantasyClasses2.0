@@ -37,7 +37,7 @@ public class StoneWave3 extends AbstractHordeWave {
 		
 		loc.add(0, 0.3, 0);
 		loc.getWorld().playSound(loc, Sound.EVENT_RAID_HORN, 2.7f, 0.7f);
-		loc.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, loc, 15);
+		loc.getWorld().spawnParticle(Particle.ENCHANT, loc, 15);
 		new BukkitRunnable(){
 
 			@Override
@@ -56,7 +56,7 @@ public class StoneWave3 extends AbstractHordeWave {
 		
 		ItemStack arrows = new ItemStack(Material.TIPPED_ARROW, 64);
 		PotionMeta meta = (PotionMeta)arrows.getItemMeta();
-		PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 0, 22 * 20);
+		PotionEffect effect = new PotionEffect(PotionEffectType.SLOWNESS, 0, 22 * 20);
 		
 		meta.addCustomEffect(effect, true);
 		

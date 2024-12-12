@@ -17,10 +17,14 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 public class RockEater extends Enchantment implements Listener {
 	
 	private static Random rng = new Random();
+	
+	private NamespacedKey key;
+	
 	private double chance = 0.1;
 	
 	public RockEater(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -87,5 +91,17 @@ public class RockEater extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

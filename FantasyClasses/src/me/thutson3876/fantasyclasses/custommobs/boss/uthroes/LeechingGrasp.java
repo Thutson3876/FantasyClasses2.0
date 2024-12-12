@@ -27,7 +27,7 @@ public class LeechingGrasp implements MobAbility {
 	private final int delay = 2 * 20;
 	private final double damage = 15.0;
 	
-	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 4 * 20, 3);
+	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, 4 * 20, 3);
 	
 	@Override
 	public String getName() {
@@ -45,7 +45,7 @@ public class LeechingGrasp implements MobAbility {
 			if(e instanceof Player)
 				((Player)e).playSound(targetLoc, Sound.BLOCK_CONDUIT_AMBIENT, 5.0f, 0.9f);
 			
-			GeneralParticleEffects.drawLine(entity.getEyeLocation(), targetLoc, new CustomParticle(Particle.REDSTONE, 1, 0.1, 0.1, 0.1, 0.8, Color.RED), 0.2);
+			GeneralParticleEffects.drawLine(entity.getEyeLocation(), targetLoc, new CustomParticle(Particle.DUST, 1, 0.1, 0.1, 0.1, 0.8, Color.RED), 0.2);
 			
 		}
 		

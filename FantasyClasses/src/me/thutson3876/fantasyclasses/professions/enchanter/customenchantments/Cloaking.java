@@ -20,6 +20,8 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 
 public class Cloaking extends Enchantment implements Listener {
 	//Armor - 20% chance to gain speed and stealth when hit
+	private NamespacedKey key;
+	
 	private static Random rng = new Random();
 	
 	private double chance = 0.2;
@@ -29,7 +31,8 @@ public class Cloaking extends Enchantment implements Listener {
 	private PotionEffect invis = new PotionEffect(PotionEffectType.INVISIBILITY, duration, 0);
 	
 	public Cloaking(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -104,6 +107,18 @@ public class Cloaking extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 	
 }

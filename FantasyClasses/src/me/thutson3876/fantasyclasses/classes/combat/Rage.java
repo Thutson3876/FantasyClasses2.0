@@ -43,7 +43,7 @@ public class Rage extends AbstractAbility {
 		if(!e.getEntity().equals(this.player))
 			return;
 		
-		if(player.getHealth() > player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 0.7) {
+		if(player.getHealth() > player.getAttribute(Attribute.MAX_HEALTH).getValue() * 0.7) {
 			return;
 		}
 		
@@ -76,8 +76,8 @@ public class Rage extends AbstractAbility {
 	@Override
 	public void applyLevelModifiers() {
 		this.absorb = new PotionEffect(PotionEffectType.ABSORPTION, duration, 0);
-		this.resist = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 0);
-		this.strength = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, 0);
+		this.resist = new PotionEffect(PotionEffectType.RESISTANCE, duration, 0);
+		this.strength = new PotionEffect(PotionEffectType.STRENGTH, duration, 0);
 	}
 
 }

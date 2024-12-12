@@ -23,7 +23,7 @@ public class DemoralizingShout extends AbstractAbility implements Bindable {
 	private int duration = 5 * 20;
 	private double range = 8.0;
 	private PotionEffect weak = new PotionEffect(PotionEffectType.WEAKNESS, duration, 0);
-	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, 0);
+	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, 0);
 	
 	public DemoralizingShout(Player p) {
 		super(p);

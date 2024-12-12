@@ -62,7 +62,7 @@ public class FailedExperiment extends AbstractCustomMob {
 			return;
 		
 		//Not spawning with TNT on head
-		TNTPrimed tnt = (TNTPrimed) ent.getWorld().spawnEntity(ent.getEyeLocation(), EntityType.PRIMED_TNT);
+		TNTPrimed tnt = (TNTPrimed) ent.getWorld().spawnEntity(ent.getEyeLocation(), EntityType.TNT);
 		tnt.setTicksLived(5);
 		tnt.setFuseTicks(4 * 20);
 		tnt.setSource(ent);

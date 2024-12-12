@@ -17,7 +17,7 @@ public class ThickWebbing extends AbstractAbility {
 	private int duration = 3 * 20;
 
 	private PotionEffect blindness = new PotionEffect(PotionEffectType.BLINDNESS, duration, amp);
-	private PotionEffect miningFatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+	private PotionEffect miningFatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 	private PotionEffect unluck = new PotionEffect(PotionEffectType.UNLUCK, duration, amp);
 
 	public ThickWebbing(Player p) {
@@ -70,7 +70,7 @@ public class ThickWebbing extends AbstractAbility {
 		this.amp = this.currentLevel;
 
 		blindness = new PotionEffect(PotionEffectType.BLINDNESS, duration, amp);
-		miningFatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+		miningFatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 		unluck = new PotionEffect(PotionEffectType.UNLUCK, duration, amp);
 
 		potionEffects.add(blindness);

@@ -192,7 +192,7 @@ public class UndyingServitude extends AbstractAbility {
 		Random rng = new Random();
 
 		loc.getWorld().playSound(loc, Sound.EVENT_RAID_HORN, 1.0f, 1.1f);
-		loc.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, loc, 15);
+		loc.getWorld().spawnParticle(Particle.ENCHANT, loc, 15);
 
 		EntityType type = entityTypes.get(rng.nextInt(entityTypes.size()));
 

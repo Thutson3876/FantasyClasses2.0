@@ -34,7 +34,7 @@ public class Shadowstep extends AbstractAbility implements Bindable {
 		passables.add(Material.WATER);
 		passables.add(Material.LAVA);
 		passables.add(Material.TALL_GRASS);
-		passables.add(Material.GRASS);
+		passables.add(Material.SHORT_GRASS);
 		passables.add(Material.SEAGRASS);
 		passables.add(Material.CAVE_VINES);
 		passables.add(Material.VINE);

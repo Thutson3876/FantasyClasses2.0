@@ -12,7 +12,7 @@ public class HealthBar {
 	public static void setHealthBar(LivingEntity ent) {
 		String name = "&a";
 		int health = (int) ent.getHealth() / 2;
-		int displayedMaxHealth = (int) ent.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() / 2;
+		int displayedMaxHealth = (int) ent.getAttribute(Attribute.MAX_HEALTH).getValue() / 2;
 
 		if(displayedMaxHealth > HEALTHBAR_LIMIT) {
 			health = (health / displayedMaxHealth) * HEALTHBAR_LIMIT;

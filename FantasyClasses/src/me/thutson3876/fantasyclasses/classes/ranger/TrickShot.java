@@ -106,7 +106,7 @@ public enum TrickShot {
 		int duration = 6 * 20;
 		int amp = 3;
 
-		PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, duration, amp);
+		PotionEffect slowness = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 
 		List<LivingEntity> targets = AbilityUtils.getNearbyLivingEntities(entityLoc, range, range, range);
 

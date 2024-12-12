@@ -63,7 +63,7 @@ public class Stampede extends AbstractAbility implements Bindable {
 		AbilityTriggerEvent thisEvent = this.callEvent();
 		
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_RAVAGER_ROAR, 1.2f, 0.9f);
-		player.getWorld().spawnParticle(Particle.VILLAGER_ANGRY, player.getLocation(), amp);
+		player.getWorld().spawnParticle(Particle.ANGRY_VILLAGER, player.getLocation(), amp);
 		
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}

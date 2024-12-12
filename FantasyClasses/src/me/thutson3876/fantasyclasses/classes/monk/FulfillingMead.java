@@ -20,10 +20,10 @@ public class FulfillingMead extends AbstractAbility {
 	private static PotionEffect saturation = new PotionEffect(PotionEffectType.SATURATION, duration, 1);
 	//Defensives
 	private static List<PotionEffect> defensives = Arrays.asList(new PotionEffect[]{
-			new PotionEffect(PotionEffectType.REGENERATION, duration, 1), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 1)});
+			new PotionEffect(PotionEffectType.REGENERATION, duration, 1), new PotionEffect(PotionEffectType.RESISTANCE, duration, 1)});
 	//Offensives
 	private static List<PotionEffect> offensives = Arrays.asList(new PotionEffect[]{
-			new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, 1), new PotionEffect(PotionEffectType.SPEED, duration, 1)});
+			new PotionEffect(PotionEffectType.STRENGTH, duration, 1), new PotionEffect(PotionEffectType.SPEED, duration, 1)});
 	
 	private boolean isOffensive = false;
 	

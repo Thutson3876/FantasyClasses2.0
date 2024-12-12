@@ -48,7 +48,7 @@ public class ChainLightning implements MobAbility {
 					double x = radius * Math.cos(toStrikeTargets.get(p));
 			        double z = radius * Math.sin(toStrikeTargets.get(p));
 					
-			        world.spawnParticle(Particle.FIREWORKS_SPARK, p.getLocation().getX() + x, p.getEyeLocation().getY(), p.getLocation().getZ() + z, 1);
+			        world.spawnParticle(Particle.ELECTRIC_SPARK, p.getLocation().getX() + x, p.getEyeLocation().getY(), p.getLocation().getZ() + z, 1);
 					toStrikeTargets.put(p, toStrikeTargets.get(p) + 0.1);
 					return;
 				}

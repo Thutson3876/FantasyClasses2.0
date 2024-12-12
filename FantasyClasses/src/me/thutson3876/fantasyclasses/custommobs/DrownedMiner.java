@@ -35,8 +35,8 @@ public class DrownedMiner extends AbstractCustomMob {
 	private double range = 7;
 	private int duration = 5 * 20;
 	private PotionEffect blindness = new PotionEffect(PotionEffectType.DARKNESS, duration, 0);
-	private PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, duration, 0);
-	private PotionEffect fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, 0);
+	private PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, duration, 0);
+	private PotionEffect fatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, 0);
 	
 	static {
 		dropMats.add(Material.PRISMARINE);

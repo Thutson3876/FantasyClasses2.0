@@ -39,7 +39,7 @@ public class NaturalRemedy extends AbstractAbility {
 			return;
 		
 		e.getFplayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ((Camoflauge)e.getAbility()).getDuration(), amp));
-		e.getFplayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP, ((Camoflauge)e.getAbility()).getDuration(), amp + 1));
+		e.getFplayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, ((Camoflauge)e.getAbility()).getDuration(), amp + 1));
 		
 		//this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}

@@ -31,7 +31,7 @@ public class Cripple extends AbstractAbility {
 		this.skillPointCost = 1;
 		this.maximumLevel = 4;
 		this.blindness = new PotionEffect(PotionEffectType.BLINDNESS, durationInTicks, 0);
-		this.slowness = new PotionEffect(PotionEffectType.SLOW, durationInTicks, 0);
+		this.slowness = new PotionEffect(PotionEffectType.SLOWNESS, durationInTicks, 0);
 		
 		this.createItemStack(Material.BONE);
 	}
@@ -99,7 +99,7 @@ public class Cripple extends AbstractAbility {
 			blindness = new PotionEffect(PotionEffectType.BLINDNESS, durationInTicks, 0);
 		}
 		else if(currentLevel == 3) {
-			slowness = new PotionEffect(PotionEffectType.SLOW, durationInTicks, 0);
+			slowness = new PotionEffect(PotionEffectType.SLOWNESS, durationInTicks, 0);
 		}
 		
 		this.durationInTicks = (currentLevel) * 20;

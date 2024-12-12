@@ -109,7 +109,7 @@ public class MobSpawnListener implements Listener {
 				e.setDropItems(false);
 				
 				loc.getWorld().playSound(loc, Sound.ENTITY_ZOMBIE_AMBIENT, 5.0f, 0.7f);
-				loc.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, loc, 60);
+				loc.getWorld().spawnParticle(Particle.ENCHANT, loc, 60);
 				
 				new BukkitRunnable() {
 

@@ -590,10 +590,10 @@ public class FantasyPlayer {
 	}
 	
 	public void resetAttributes() {
-		removeAttributeModifiers(bukkitPlayer, Attribute.GENERIC_ATTACK_SPEED);
-		removeAttributeModifiers(bukkitPlayer, Attribute.GENERIC_MOVEMENT_SPEED);
-		removeAttributeModifiers(bukkitPlayer, Attribute.GENERIC_MAX_HEALTH);
-		bukkitPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);
+		removeAttributeModifiers(bukkitPlayer, Attribute.ATTACK_SPEED);
+		removeAttributeModifiers(bukkitPlayer, Attribute.MOVEMENT_SPEED);
+		removeAttributeModifiers(bukkitPlayer, Attribute.MAX_HEALTH);
+		bukkitPlayer.getAttribute(Attribute.MAX_HEALTH).setBaseValue(20.0);
 	}
 
 	/*private AbstractFantasyClass deserializeChosenClass(String name) {

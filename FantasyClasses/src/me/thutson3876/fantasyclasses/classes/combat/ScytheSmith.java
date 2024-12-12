@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -19,11 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.MaterialLists;
@@ -35,7 +36,9 @@ public class ScytheSmith extends AbstractAbility {
 	private double aoeRange = 0.9;
 	private final double attackSpeedMod = -3.2;
 	private AttributeModifier attackSpeed;
+	private NamespacedKey key1 = new NamespacedKey(FantasyClasses.getPlugin(), "Scythe Smith1");
 	private AttributeModifier attackDamage;
+	private NamespacedKey key2 = new NamespacedKey(FantasyClasses.getPlugin(), "Scythe Smith2");
 	
 	private final int maxTargets = 10; //  > 0
     private final double maxRange = 3.5D;
@@ -53,10 +56,10 @@ public class ScytheSmith extends AbstractAbility {
 	public ScytheSmith(Player p) {
 		super(p);
 		
-		this.attackSpeed = new AttributeModifier(new UUID(8, 3), "Scythe Smith", attackSpeedMod, Operation.ADD_NUMBER,
-				EquipmentSlot.HAND);
-		this.attackDamage = new AttributeModifier(new UUID(9, 3), "Scythe Smith", damageMod, Operation.ADD_NUMBER,
-				EquipmentSlot.HAND);
+		this.attackSpeed = new AttributeModifier(key1, attackSpeedMod, Operation.ADD_NUMBER,
+				EquipmentSlotGroup.HAND);
+		this.attackDamage = new AttributeModifier(key2, damageMod, Operation.ADD_NUMBER,
+				EquipmentSlotGroup.HAND);
 	}
 
 	@Override
@@ -83,22 +86,22 @@ public class ScytheSmith extends AbstractAbility {
 		ItemMeta meta = item.getItemMeta();
 		if (meta == null)
 			return;
-		Collection<AttributeModifier> speedMods = meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED);
+		Collection<AttributeModifier> speedMods = meta.getAttributeModifiers(Attribute.ATTACK_SPEED);
 		if (speedMods != null && speedMods.contains(attackSpeed)) {
 			return;
 		}
-		Collection<AttributeModifier> dmgMods = meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE);
+		Collection<AttributeModifier> dmgMods = meta.getAttributeModifiers(Attribute.ATTACK_DAMAGE);
 		if (dmgMods != null && dmgMods.contains(attackDamage)) {
 			return;
 		}
 
 		AbilityTriggerEvent thisEvent = this.callEvent();
 		
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, attackSpeed);
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
-				new AttributeModifier(new UUID(9, 3), "Scythe Smith",
+		meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeed);
+		meta.addAttributeModifier(Attribute.ATTACK_DAMAGE,
+				new AttributeModifier(key2,
 						(damageMod * currentLevel) + typeBonus.get(item.getType()), Operation.ADD_NUMBER,
-						EquipmentSlot.HAND));
+						EquipmentSlotGroup.HAND));
 		item.setItemMeta(meta);
 		e.setCurrentItem(item);
 		

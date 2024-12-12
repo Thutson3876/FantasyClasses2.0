@@ -73,7 +73,7 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 		World world = player.getWorld();
 		world.playEffect(player.getLocation(), Effect.DRAGON_BREATH, 0);
 		for(Location loc : Sphere.generateSphere(player.getLocation(), (int) radius, true)) {
-			world.spawnParticle(Particle.ENCHANTMENT_TABLE, loc, 1);
+			world.spawnParticle(Particle.ENCHANT, loc, 1);
 		}
 		
 		this.onTrigger(true);
@@ -101,10 +101,10 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 		duration = (4 + 2 * currentLevel) * 20;
 
 		effects.clear();
-		effects.add(new PotionEffect(PotionEffectType.CONFUSION, duration, 0));
+		effects.add(new PotionEffect(PotionEffectType.NAUSEA, duration, 0));
 		effects.add(new PotionEffect(PotionEffectType.BLINDNESS, duration, 0));
 		if(currentLevel >= this.maximumLevel) {
-			effects.add(new PotionEffect(PotionEffectType.SLOW, duration, 0));
+			effects.add(new PotionEffect(PotionEffectType.SLOWNESS, duration, 0));
 			effects.add(new PotionEffect(PotionEffectType.UNLUCK, duration, 0));
 		}	
 	}

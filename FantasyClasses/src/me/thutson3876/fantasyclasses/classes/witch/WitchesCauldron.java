@@ -64,7 +64,7 @@ public class WitchesCauldron extends AbstractAbility {
 		Collection<Entity> entities =  block.getWorld().getNearbyEntities(block.getBoundingBox());
 		Collection<Material> mats = new ArrayList<>();
 		for(Entity ent : entities) {
-			if(ent.getType().equals(EntityType.DROPPED_ITEM)) {
+			if(ent.getType().equals(EntityType.ITEM)) {
 				Item i = (Item) ent;
 				mats.add(i.getItemStack().getType());
 				i.remove();
@@ -87,7 +87,7 @@ public class WitchesCauldron extends AbstractAbility {
 		for(WitchBrewRecipe recipe : WitchBrewRecipe.values()) {
 			if(recipe.getResult().isSimilar(brew)) {
 				player.playSound(player.getLocation(), Sound.ENTITY_WITCH_CELEBRATE, 1.0f, 1.0f);
-				block.getWorld().spawnParticle(Particle.SPELL_WITCH, block.getLocation(), 4);
+				block.getWorld().spawnParticle(Particle.WITCH, block.getLocation(), 4);
 				isPerfect = true;
 				break;
 			}

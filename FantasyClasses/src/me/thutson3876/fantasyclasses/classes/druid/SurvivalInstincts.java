@@ -16,8 +16,8 @@ public class SurvivalInstincts extends AbstractAbility {
 
 	private int duration = 6 * 20;
 	private PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, duration, 0);
-	private PotionEffect strength = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, 0);
-	private PotionEffect haste = new PotionEffect(PotionEffectType.FAST_DIGGING, duration, 0);
+	private PotionEffect strength = new PotionEffect(PotionEffectType.STRENGTH, duration, 0);
+	private PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, duration, 0);
 	private PotionEffect regen = new PotionEffect(PotionEffectType.REGENERATION, duration, 0);
 	
 	public SurvivalInstincts(Player p) {

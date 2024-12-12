@@ -60,9 +60,9 @@ public class NaturesBlessing extends AbstractAbility {
 
 				@Override
 				public void run() {
-					if(player.getHealth() >= player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+					if(player.getHealth() >= player.getAttribute(Attribute.MAX_HEALTH).getValue()) {
 						for(LivingEntity e : AbilityUtils.getNearbyPlayerPets(player, 15.0)) {
-							if(e.getHealth() >= e.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())
+							if(e.getHealth() >= e.getAttribute(Attribute.MAX_HEALTH).getValue())
 								continue;
 
 							else {
@@ -87,9 +87,9 @@ public class NaturesBlessing extends AbstractAbility {
 
 				@Override
 				public void run() {
-					if(player.getHealth() >= player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
+					if(player.getHealth() >= player.getAttribute(Attribute.MAX_HEALTH).getValue()) {
 						for(LivingEntity e : AbilityUtils.getNearbyPlayerPets(player, 15.0)) {
-							if(e.getHealth() >= e.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())
+							if(e.getHealth() >= e.getAttribute(Attribute.MAX_HEALTH).getValue())
 								continue;
 
 							else {

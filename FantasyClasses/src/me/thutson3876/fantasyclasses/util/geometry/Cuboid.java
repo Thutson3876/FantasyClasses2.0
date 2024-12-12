@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -26,8 +25,6 @@ public class Cuboid implements Iterable<Block>, ConfigurationSerializable {
 	  }
 	  
 	  public Cuboid(Location location, Location location2) {
-	    Validate.notNull(location);
-	    Validate.notNull(location2);
 	    if (!location.getWorld().getUID().equals(location2.getWorld().getUID()))
 	      throw new IllegalArgumentException("Location 1 must be in the same world as Location 2!"); 
 	    this.worldName = location.getWorld().getName();
@@ -40,7 +37,6 @@ public class Cuboid implements Iterable<Block>, ConfigurationSerializable {
 	  }
 	  
 	  private Cuboid(Map<String, Object> serializedCuboid) {
-	    Validate.notNull(serializedCuboid);
 	    this.worldName = serializedCuboid.containsKey("World") ? (String)serializedCuboid.get("World") : "";
 	    this.x1 = serializedCuboid.containsKey("X1") ? ((Integer)serializedCuboid.get("X1")).intValue() : 0;
 	    this.y1 = serializedCuboid.containsKey("Y1") ? ((Integer)serializedCuboid.get("Y1")).intValue() : 0;
@@ -98,7 +94,6 @@ public class Cuboid implements Iterable<Block>, ConfigurationSerializable {
 	  }
 	  
 	  public static Cuboid createFromLocationRadius(Location location, double xRadius, double yRadius, double zRadius) {
-	    Validate.notNull(location);
 	    if (xRadius < 0.0D || yRadius < 0.0D || zRadius < 0.0D)
 	      throw new IllegalArgumentException("The radius cannot be negative!"); 
 	    return (xRadius > 0.0D || yRadius > 0.0D || zRadius > 0.0D) ? new Cuboid(location.clone().subtract(xRadius, yRadius, zRadius), location.clone().add(xRadius, yRadius, zRadius)) : new Cuboid(location);

@@ -139,7 +139,7 @@ public class Berserker extends AbstractFantasyClass {
 					return;
 				}
 				else
-					GeneralParticleEffects.helix(p, new CustomParticle(Particle.DRIP_LAVA, 1, 0, 0, 0, 0, null), 1.0, 12.5664, enrageDurationMax, 5, 0.2);
+					GeneralParticleEffects.helix(p, new CustomParticle(Particle.DRIPPING_LAVA, 1, 0, 0, 0, 0, null), 1.0, 12.5664, enrageDurationMax, 5, 0.2);
 			}
 			
 		}.runTaskTimer(FantasyClasses.getPlugin(), tickRate, tickRate);
@@ -153,7 +153,7 @@ public class Berserker extends AbstractFantasyClass {
 		if(p.isDead())
 			return;
 		
-		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 0));
+		p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, duration, 0));
 		
 		if(this.tauntRange > 0.1) {
 			tauntNearbyMobs();

@@ -41,7 +41,7 @@ public class Ahsmi extends AbstractBoss {
 	private final int freezeAmt = 180;
 	private final LivingEntity rider;
 	private final int abilityDelay = 4 * 20;
-	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 5 * 20, 3);
+	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, 5 * 20, 3);
 
 	private static final List<EntityType> safeEntityTypes;
 
@@ -233,7 +233,7 @@ public class Ahsmi extends AbstractBoss {
 		}
 		else if (!rider.isDead()) {
 			rider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60 * 20, 1));
-			rider.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60 * 20, 2));
+			rider.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 60 * 20, 2));
 			rider.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60 * 20, 4));
 		}
 	}

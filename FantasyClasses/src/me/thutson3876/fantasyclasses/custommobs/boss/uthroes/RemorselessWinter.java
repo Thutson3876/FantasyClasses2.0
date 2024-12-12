@@ -23,8 +23,8 @@ public class RemorselessWinter implements MobAbility {
 	private final double dmg = 6.0;
 	private final int duration = 20;
 	private final int amp = 1;
-	private final PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, amp);
-	private final PotionEffect fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+	private final PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, amp);
+	private final PotionEffect fatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 	
 	private int counter = 0;
 	

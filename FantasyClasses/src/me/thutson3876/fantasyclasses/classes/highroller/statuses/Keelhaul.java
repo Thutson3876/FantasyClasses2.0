@@ -52,7 +52,7 @@ public class Keelhaul extends HighRollerStatus {
 			Location victimLoc = e.getTarget().getLocation();
 
 			TNTPrimed tnt = (TNTPrimed) leHost.getWorld().spawnEntity(leHost.getEyeLocation().add(0, 0.3, 0),
-					EntityType.PRIMED_TNT);
+					EntityType.TNT);
 
 			tnt.setSource(leHost);
 			tnt.setVelocity(AbilityUtils.getVectorBetween2Points(leHost.getLocation(), victimLoc, 0.3)

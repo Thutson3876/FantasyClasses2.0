@@ -20,7 +20,7 @@ public class Dreadblades extends HighRollerStatus {
 	
 	public Dreadblades() {
 		super("Dreadblades", 99, null, (host, duration, stacks) -> {
-			host.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, (int) duration, 3));
+			host.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, (int) duration, 3));
 			
 			Leech leech = new Leech();
 			

@@ -45,7 +45,7 @@ public enum WitchBrewRecipe {
 		loc.getWorld().spawnEntity(loc, EntityType.COW);
 	}, Material.NETHER_WART, Material.REDSTONE, Material.FERMENTED_SPIDER_EYE, Material.LEATHER),
 	MOOSHROOM((event, loc) -> {
-		loc.getWorld().spawnEntity(loc, EntityType.MUSHROOM_COW);
+		loc.getWorld().spawnEntity(loc, EntityType.MOOSHROOM);
 	}, Material.NETHER_WART, Material.REDSTONE, Material.FERMENTED_SPIDER_EYE, Material.SOUL_SAND, Material.RED_MUSHROOM_BLOCK),
 	BAT((event, loc) -> {
 		for(int i = 0; i < 5; i++) {
@@ -54,11 +54,11 @@ public enum WitchBrewRecipe {
 		
 		for(LivingEntity ent : event.getAffectedEntities()) {
 			ent.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 15 * 20, 3));
-			ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 15 * 20, 0));
+			ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 15 * 20, 0));
 		}
 	}, Material.NETHER_WART, Material.REDSTONE, Material.FERMENTED_SPIDER_EYE, Material.COAL_BLOCK),
 	SNOW_GOLEM((event, loc) -> {
-		loc.getWorld().spawnEntity(loc, EntityType.SNOWMAN);
+		loc.getWorld().spawnEntity(loc, EntityType.SNOW_GOLEM);
 	}, Material.NETHER_WART, Material.REDSTONE, Material.FERMENTED_SPIDER_EYE, Material.SOUL_SAND, Material.SNOW_BLOCK),
 	SHEEP((event, loc) -> {
 		loc.getWorld().spawnEntity(loc, EntityType.SHEEP);
@@ -142,7 +142,7 @@ public enum WitchBrewRecipe {
 	TNT((event, loc) -> {
 		World world = loc.getWorld();
 		world.createExplosion(loc, 4.0f);
-		Firework firework = (Firework) world.spawnEntity(loc, EntityType.FIREWORK);
+		Firework firework = (Firework) world.spawnEntity(loc, EntityType.FIREWORK_ROCKET);
 		FireworkMeta meta = firework.getFireworkMeta();
 
 		Type type = Type.CREEPER;

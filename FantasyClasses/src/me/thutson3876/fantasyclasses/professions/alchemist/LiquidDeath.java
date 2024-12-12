@@ -39,7 +39,7 @@ public class LiquidDeath extends AbstractAbility {
 		
 		boolean isHarm = false;
 		for(PotionEffect effect : e.getPotion().getEffects()) {
-			if(effect.getType().equals(PotionEffectType.HARM)) {
+			if(effect.getType().equals(PotionEffectType.INSTANT_DAMAGE)) {
 				isHarm = true;
 				break;
 			}

@@ -15,10 +15,10 @@ import org.bukkit.potion.PotionType;
 
 public enum BrewingRecipe {
 
-	RESISTANCE(Material.DIAMOND, Color.TEAL, new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 90 * 20, 0)),
+	RESISTANCE(Material.DIAMOND, Color.TEAL, new PotionEffect(PotionEffectType.RESISTANCE, 90 * 20, 0)),
 	WITHER(Material.WITHER_ROSE, Color.BLACK, new PotionEffect(PotionEffectType.WITHER, 45 * 20, 0)),
-	NAUSEA(Material.RED_MUSHROOM, Color.OLIVE, new PotionEffect(PotionEffectType.CONFUSION, 180 * 20, 0)),
-	HASTE(Material.DIAMOND_BLOCK, Color.SILVER, new PotionEffect(PotionEffectType.FAST_DIGGING, 300 * 20, 0)),
+	NAUSEA(Material.RED_MUSHROOM, Color.OLIVE, new PotionEffect(PotionEffectType.NAUSEA, 180 * 20, 0)),
+	HASTE(Material.DIAMOND_BLOCK, Color.SILVER, new PotionEffect(PotionEffectType.HASTE, 300 * 20, 0)),
 	SATURATION(Material.GOLDEN_APPLE, Color.GREEN, new PotionEffect(PotionEffectType.SATURATION, 240 * 20, 0)),
 	HUNGER(Material.ROTTEN_FLESH, Color.MAROON, new PotionEffect(PotionEffectType.HUNGER, 90 * 20, 0)),
 	LUCK(Material.GOLD_INGOT, Color.YELLOW, new PotionEffect(PotionEffectType.LUCK, 360 * 20, 0)),
@@ -28,20 +28,20 @@ public enum BrewingRecipe {
 	DARKNESS(Material.SCULK, Color.BLACK, new PotionEffect(PotionEffectType.DARKNESS, 90 * 20, 0)),
 	
 	REGENERATION(Material.GHAST_TEAR, Color.FUCHSIA, new PotionEffect(PotionEffectType.REGENERATION, 45 * 20, 0)),
-	HEALING(Material.GLISTERING_MELON_SLICE, Color.RED, new PotionEffect(PotionEffectType.HEAL, 1 * 20, 0)),
-	STRENGTH(Material.BLAZE_ROD, Color.MAROON, new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 180 * 20, 0)),
+	HEALING(Material.GLISTERING_MELON_SLICE, Color.RED, new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1 * 20, 0)),
+	STRENGTH(Material.BLAZE_ROD, Color.MAROON, new PotionEffect(PotionEffectType.STRENGTH, 180 * 20, 0)),
 	SWIFTNESS(Material.SUGAR, Color.SILVER, new PotionEffect(PotionEffectType.SPEED, 180 * 20, 0)),
 	NIGHT_VISION(Material.GOLDEN_CARROT, Color.NAVY, new PotionEffect(PotionEffectType.NIGHT_VISION, 180 * 20, 0)),
 	INVISIBILITY(Material.ENDER_EYE, Color.WHITE, new PotionEffect(PotionEffectType.INVISIBILITY, 360 * 20, 0)),
 	WATER_BREATHING(Material.PUFFERFISH, Color.AQUA, new PotionEffect(PotionEffectType.WATER_BREATHING, 180 * 20, 0)),
-	LEAPING(Material.RABBIT_FOOT, Color.TEAL, new PotionEffect(PotionEffectType.JUMP, 180 * 20, 0)),
+	LEAPING(Material.RABBIT_FOOT, Color.TEAL, new PotionEffect(PotionEffectType.JUMP_BOOST, 180 * 20, 0)),
 	SLOW_FALL(Material.PHANTOM_MEMBRANE, Color.WHITE, new PotionEffect(PotionEffectType.SLOW_FALLING, 120 * 20, 0)),
 	FIRE_RESISTANCE(Material.MAGMA_CREAM, Color.ORANGE, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 180 * 20, 0)),
 	
 	POISON(Material.SPIDER_EYE, Color.GREEN, new PotionEffect(PotionEffectType.POISON, 45 * 20, 0)),
 	WEAKNESS(Material.FERMENTED_SPIDER_EYE, Color.NAVY, new PotionEffect(PotionEffectType.WEAKNESS, 90 * 20, 0)),
-	HARM(Material.IRON_SWORD, Color.MAROON, new PotionEffect(PotionEffectType.HARM, 1 * 20, 1)),
-	SLOWNESS(Material.SCUTE, Color.BLACK, new PotionEffect(PotionEffectType.SLOW, 90 * 20, 0));
+	HARM(Material.IRON_SWORD, Color.MAROON, new PotionEffect(PotionEffectType.INSTANT_DAMAGE, 1 * 20, 1)),
+	SLOWNESS(Material.TURTLE_SCUTE, Color.BLACK, new PotionEffect(PotionEffectType.SLOWNESS, 90 * 20, 0));
 
 	private Material ingredient;
 	private ItemStack result;
@@ -70,7 +70,7 @@ public enum BrewingRecipe {
 		for (ItemStack i : ingredients) {
 			if (i.getType().equals(Material.POTION) || i.getType().equals(Material.SPLASH_POTION)) {
 				PotionMeta potMeta = (PotionMeta) i.getItemMeta();
-				if (potMeta.getBasePotionData().getType().equals(PotionType.UNCRAFTABLE)) {
+				if (potMeta.getBasePotionType().equals(PotionType.THICK)) {
 					for (BrewingRecipe recipe : values()) {
 						if (recipe.isMatching(i)) {
 							potentialRecipe = recipe;
@@ -78,7 +78,7 @@ public enum BrewingRecipe {
 							break;
 						}
 					}
-				} else if (potMeta.getBasePotionData().getType().equals(PotionType.AWKWARD)) {
+				} else if (potMeta.getBasePotionType().equals(PotionType.AWKWARD)) {
 					isAwkward = true;
 				}
 			}

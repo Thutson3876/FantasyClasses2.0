@@ -18,7 +18,7 @@ public class PufferfishTipped extends AbstractAbility {
 	
 	private PotionEffect poison = new PotionEffect(PotionEffectType.POISON, duration, amp);
 	private PotionEffect hunger = new PotionEffect(PotionEffectType.HUNGER, duration, amp);
-	private PotionEffect nausea = new PotionEffect(PotionEffectType.CONFUSION, duration, amp);
+	private PotionEffect nausea = new PotionEffect(PotionEffectType.NAUSEA, duration, amp);
 	
 	public PufferfishTipped(Player p) {
 		super(p);
@@ -83,7 +83,7 @@ public class PufferfishTipped extends AbstractAbility {
 		amp = currentLevel;
 		poison = new PotionEffect(PotionEffectType.POISON, duration, amp);
 		hunger = new PotionEffect(PotionEffectType.HUNGER, duration, amp);
-		nausea = new PotionEffect(PotionEffectType.CONFUSION, duration, amp);
+		nausea = new PotionEffect(PotionEffectType.NAUSEA, duration, amp);
 	}
 
 }

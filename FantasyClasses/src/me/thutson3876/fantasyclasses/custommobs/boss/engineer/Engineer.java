@@ -93,23 +93,23 @@ public class Engineer extends AbstractBoss {
 		
 		ItemStack boots = new ItemStack(Material.IRON_BOOTS);
 		boots.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		boots.addEnchantment(Enchantment.DURABILITY, 3);
-		boots.addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+		boots.addEnchantment(Enchantment.UNBREAKING, 3);
+		boots.addEnchantment(Enchantment.BLAST_PROTECTION, 4);
 		boots = AbilityUtils.setDisplayName("&4Iron Boots of Blastproofing", boots);
 		ItemStack legs = new ItemStack(Material.IRON_LEGGINGS);
 		legs.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		legs.addEnchantment(Enchantment.DURABILITY, 3);
-		legs.addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+		legs.addEnchantment(Enchantment.UNBREAKING, 3);
+		legs.addEnchantment(Enchantment.BLAST_PROTECTION, 4);
 		legs = AbilityUtils.setDisplayName("&4Iron Leggings of Blastproofing", legs);
 		ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
 		chest.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		chest.addEnchantment(Enchantment.DURABILITY, 3);
-		chest.addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+		chest.addEnchantment(Enchantment.UNBREAKING, 3);
+		chest.addEnchantment(Enchantment.BLAST_PROTECTION, 4);
 		chest = AbilityUtils.setDisplayName("&4Iron Chestplate of Blastproofing", chest);
 		ItemStack helm = new ItemStack(Material.IRON_HELMET);
 		helm.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		helm.addEnchantment(Enchantment.DURABILITY, 3);
-		helm.addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+		helm.addEnchantment(Enchantment.UNBREAKING, 3);
+		helm.addEnchantment(Enchantment.BLAST_PROTECTION, 4);
 		helm = AbilityUtils.setDisplayName("&4Iron Helmet of Blastproofing", helm);
 		
 		equip.setBoots(boots);

@@ -14,7 +14,7 @@ public class Shadowmeld extends AbstractAbility {
 	private static List<PotionEffectType> POTION_EFFECTS = new ArrayList<>();
 	
 	static {
-		POTION_EFFECTS.add(PotionEffectType.INCREASE_DAMAGE);
+		POTION_EFFECTS.add(PotionEffectType.STRENGTH);
 		POTION_EFFECTS.add(PotionEffectType.INVISIBILITY);
 	}
 	

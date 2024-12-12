@@ -36,7 +36,7 @@ public class QuiverOfTricks extends AbstractAbility implements Bindable {
 
 	private int duration = 4 * 20;
 	
-	private Helix auraHelix = new Helix(new CustomParticle(Particle.FIREWORKS_SPARK, 1, 0.0, 0.3, null), 1.0, 0, 6.3, duration * 2, 2, 0.1, true);
+	private Helix auraHelix = new Helix(new CustomParticle(Particle.FIREWORK, 1, 0.0, 0.3, null), 1.0, 0, 6.3, duration * 2, 2, 0.1, true);
 	
 	private UUID uuid = UUID.randomUUID();
 

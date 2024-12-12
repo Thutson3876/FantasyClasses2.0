@@ -124,30 +124,30 @@ public class SkeletonLord extends AbstractBoss {
 		
 		ItemStack boots = new ItemStack(Material.IRON_BOOTS);
 		boots.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		boots.addEnchantment(Enchantment.DURABILITY, 3);
-		boots.addEnchantment(Enchantment.PROTECTION_FIRE, 4);
+		boots.addEnchantment(Enchantment.UNBREAKING, 3);
+		boots.addEnchantment(Enchantment.FIRE_PROTECTION, 4);
 		boots = AbilityUtils.setDisplayName("Iron Boots of Conductivity", boots);
 		ItemStack legs = new ItemStack(Material.IRON_LEGGINGS);
 		legs.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		legs.addEnchantment(Enchantment.DURABILITY, 3);
-		legs.addEnchantment(Enchantment.PROTECTION_FIRE, 4);
+		legs.addEnchantment(Enchantment.UNBREAKING, 3);
+		legs.addEnchantment(Enchantment.FIRE_PROTECTION, 4);
 		legs = AbilityUtils.setDisplayName("Iron Leggings of Conductivity", legs);
 		ItemStack chest = new ItemStack(Material.IRON_CHESTPLATE);
 		chest.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		chest.addEnchantment(Enchantment.DURABILITY, 3);
-		chest.addEnchantment(Enchantment.PROTECTION_FIRE, 4);
+		chest.addEnchantment(Enchantment.UNBREAKING, 3);
+		chest.addEnchantment(Enchantment.FIRE_PROTECTION, 4);
 		chest = AbilityUtils.setDisplayName("Iron Chestplate of Conductivity", chest);
 		ItemStack helm = new ItemStack(Material.IRON_HELMET);
 		helm.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		helm.addEnchantment(Enchantment.DURABILITY, 3);
-		helm.addEnchantment(Enchantment.PROTECTION_FIRE, 4);
+		helm.addEnchantment(Enchantment.UNBREAKING, 3);
+		helm.addEnchantment(Enchantment.FIRE_PROTECTION, 4);
 		helm = AbilityUtils.setDisplayName("Iron Helmet of Conductivity", helm);
 		
 		ItemStack bow = new ItemStack(Material.BOW);
-		bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
-		bow.addEnchantment(Enchantment.ARROW_DAMAGE, 3);
-		bow.addEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
-		bow.addEnchantment(Enchantment.ARROW_DAMAGE, 5);
+		bow.addEnchantment(Enchantment.INFINITY, 1);
+		bow.addEnchantment(Enchantment.PIERCING, 3);
+		bow.addEnchantment(Enchantment.PUNCH, 1);
+		bow.addEnchantment(Enchantment.POWER, 5);
 		
 		equip.setBoots(boots);
 		equip.setBootsDropChance(0.3f);

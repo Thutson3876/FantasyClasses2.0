@@ -52,7 +52,7 @@ public class FireworkLauncher implements MobAbility {
 				
 				Random rng = new Random();
 				Location spawnLoc = entity.getEyeLocation().add(0, 2.0, 0);
-				Firework fw = (Firework) world.spawnEntity(spawnLoc, EntityType.FIREWORK);
+				Firework fw = (Firework) world.spawnEntity(spawnLoc, EntityType.FIREWORK_ROCKET);
 				FireworkMeta fwMeta = fw.getFireworkMeta();
 				fwMeta.addEffect(FireworkEffect.builder().withColor(Color.fromBGR(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255))).flicker(rng.nextBoolean()).trail(rng.nextBoolean()).with(Type.values()[rng.nextInt(Type.values().length)]).build());
 				fw.setFireworkMeta(fwMeta);

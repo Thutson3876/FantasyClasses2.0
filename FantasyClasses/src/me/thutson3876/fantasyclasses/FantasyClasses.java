@@ -1,6 +1,7 @@
 package me.thutson3876.fantasyclasses;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -84,11 +85,14 @@ public class FantasyClasses extends JavaPlugin {
 	}
 	
 	private void loadCustomEnchantments() {
-		if(!Enchantment.isAcceptingRegistrations())
+		Registry<Enchantment> enchantsRegistry = Registry.ENCHANTMENT;
+		
+		
+		//if(!Enchantment.)
 			return;
 		
-		for(Enchantment ench : Enchantments.CUSTOM.getEnchants())
-			Enchantment.registerEnchantment(ench);
+		//for(Enchantment ench : Enchantments.CUSTOM.getEnchants())
+			//Enchantment.registerEnchantment(ench);
 	}
 
 	public static FantasyClasses getPlugin() {

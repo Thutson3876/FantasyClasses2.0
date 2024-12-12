@@ -11,7 +11,7 @@ public class Enraged extends StatusType {
 		
 		super("Enraged", 99, 1, null, (host, duration, stacks)->{
 			
-			host.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) duration, 0));
+			host.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 0));
 			
 		}, false);
 	}

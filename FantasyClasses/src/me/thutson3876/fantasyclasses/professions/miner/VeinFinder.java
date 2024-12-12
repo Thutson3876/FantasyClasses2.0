@@ -128,7 +128,7 @@ public class VeinFinder extends AbstractAbility {
 		
 		player.playSound(loc, Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1.0f, 1.3f);
 		
-		EnderSignal eye = (EnderSignal) player.getWorld().spawnEntity(player.getLocation(), EntityType.ENDER_SIGNAL);
+		EnderSignal eye = (EnderSignal) player.getWorld().spawnEntity(player.getLocation(), EntityType.EYE_OF_ENDER);
 		eye.setDropItem(false);
 		eye.setTargetLocation(veinLoc);
 		eye.setGlowing(true);

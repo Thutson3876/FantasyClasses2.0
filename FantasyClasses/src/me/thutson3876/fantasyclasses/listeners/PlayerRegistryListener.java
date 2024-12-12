@@ -38,7 +38,7 @@ public class PlayerRegistryListener implements Listener {
 		plugin.getPlayerManager().addPlayer(p);
 		
 		//new Halo(new CustomParticle(Particle.FLAME)).run(p);
-		new Wings(WingType.BUG, new CustomParticle(Particle.REDSTONE, 1, 0, 1.2, Color.PURPLE), 2).run(p);
+		new Wings(WingType.BUG, new CustomParticle(Particle.DUST, 1, 0, 1.2, Color.PURPLE), 2).run(p);
 		//new Wings(WingType.BUTTERFLY, new CustomParticle(Particle.WAX_ON), 2);
 		
 		ChatUtils.welcomeMessage(p);

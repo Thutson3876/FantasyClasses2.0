@@ -56,7 +56,7 @@ public class Momentum extends AbstractAbility {
 		Entity ent = e.getEntity();
 		
 		world.playSound(ent, Sound.BLOCK_ANCIENT_DEBRIS_BREAK, (float)(1.0 + speed * 2.0), 0.85f);
-		world.spawnParticle(Particle.CRIT_MAGIC, ent.getLocation().add(0, ent.getHeight() / 2.0, 0), 4 + (int)(15 * speed));
+		world.spawnParticle(Particle.CRIT, ent.getLocation().add(0, ent.getHeight() / 2.0, 0), 4 + (int)(15 * speed));
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 

@@ -14,11 +14,13 @@ import me.thutson3876.fantasyclasses.FantasyClasses;
 
 public class IceAspect extends Enchantment implements Listener {
 	//Weapon - applies freeze for 3 * 20 ticks
+	private NamespacedKey key;
+	
 	private int freezeTicks = 3 * 20;
 	
 	public IceAspect(NamespacedKey key) {
-		super(key);
-		
+		super();
+		this.key = key;
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
 
@@ -93,5 +95,17 @@ public class IceAspect extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

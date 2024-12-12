@@ -17,10 +17,13 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Quickening extends Enchantment implements Listener {
 
-	private static PotionEffect haste = new PotionEffect(PotionEffectType.FAST_DIGGING, 10 * 20, 0);
+	private static PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, 10 * 20, 0);
+	
+	private NamespacedKey key;
 	
 	public Quickening(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -83,6 +86,18 @@ public class Quickening extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 
 }

@@ -140,13 +140,13 @@ public class CustomParticle {
 	}
 
 	public void spawn(Location loc) {
-		if(Particle.REDSTONE.equals(particleType)) {
+		if(Particle.DUST.equals(particleType)) {
 			redstoneSpawn(loc);
 		}
 		else if(DirectionalParticle.contains(particleType)) {
 			directionalSpawn(loc);
 		}
-		else if(Particle.SPELL_MOB.equals(particleType) || Particle.SPELL_MOB_AMBIENT.equals(particleType)) {
+		else if(Particle.WITCH.equals(particleType)) {
 			spellMobSpawn(loc);
 		}
 		else {

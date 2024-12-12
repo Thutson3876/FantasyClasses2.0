@@ -20,8 +20,11 @@ public class Venom extends Enchantment implements Listener {
 
 	private static PotionEffect poison = new PotionEffect(PotionEffectType.POISON, 4 * 20, 0);
 	
+	private NamespacedKey key;
+	
 	public Venom(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -97,6 +100,18 @@ public class Venom extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 
 }

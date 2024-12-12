@@ -97,9 +97,9 @@ public class Ranger extends AbstractFantasyClass {
 	public void addTrickArrow(Arrow arrow) {
 		if(!this.trickArrows.contains(arrow)) {
 			this.trickArrows.add(arrow);
-			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0.1, 0.1, Color.RED), 12 * 20, 1);
-			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0.1, 0.1, Color.YELLOW), 12 * 20, 1);
-			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.REDSTONE, 1, 0, 0.3, Color.WHITE), 12 * 20, 1);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.DUST, 1, 0.1, 0.1, Color.RED), 12 * 20, 1);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.DUST, 1, 0.1, 0.1, Color.YELLOW), 12 * 20, 1);
+			GeneralParticleEffects.trail(arrow, new CustomParticle(Particle.DUST, 1, 0, 0.3, Color.WHITE), 12 * 20, 1);
 			
 			arrow.getWorld().playSound(arrow, Sound.BLOCK_NOTE_BLOCK_GUITAR, 0.6f, 1.2f);
 		}

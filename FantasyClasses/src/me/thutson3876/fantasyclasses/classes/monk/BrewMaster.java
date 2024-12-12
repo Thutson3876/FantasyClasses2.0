@@ -26,8 +26,8 @@ public class BrewMaster extends AbstractAbility {
 		this.displayName = "Brewmaster";
 		this.skillPointCost = 1;
 		this.maximumLevel = 3;
-		resistance = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 0);
-		nausea = new PotionEffect(PotionEffectType.CONFUSION, duration, 0);
+		resistance = new PotionEffect(PotionEffectType.RESISTANCE, duration, 0);
+		nausea = new PotionEffect(PotionEffectType.NAUSEA, duration, 0);
 		
 		this.createItemStack(Material.POTION);
 	}
@@ -73,10 +73,10 @@ public class BrewMaster extends AbstractAbility {
 	@Override
 	public void applyLevelModifiers() {
 		duration = (8 * currentLevel) * 20;
-		resistance = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 0);
-		nausea = new PotionEffect(PotionEffectType.CONFUSION, duration, 0);
+		resistance = new PotionEffect(PotionEffectType.RESISTANCE, duration, 0);
+		nausea = new PotionEffect(PotionEffectType.NAUSEA, duration, 0);
 		if(currentLevel >= 3)
-			resistance = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 1);
+			resistance = new PotionEffect(PotionEffectType.RESISTANCE, duration, 1);
 	}
 
 }

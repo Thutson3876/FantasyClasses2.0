@@ -1,12 +1,15 @@
 package me.thutson3876.fantasyclasses.classes.berserker;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.inventory.EquipmentSlotGroup;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.events.DamageModifier;
@@ -64,7 +67,7 @@ public class Berserk_Proficiencies extends AbstractAbility {
 			return;
 
 		AbilityUtils.setMaxHealth(player,
-				new AttributeModifier("berserkproficiencies", healthBonus, Operation.ADD_NUMBER));
+				new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), "berserkproficiencies"), healthBonus, Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
 		this.fplayer.setArmorType(5);
 	}
 

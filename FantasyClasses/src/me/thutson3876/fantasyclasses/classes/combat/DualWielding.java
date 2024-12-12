@@ -1,6 +1,7 @@
 package me.thutson3876.fantasyclasses.classes.combat;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
@@ -10,8 +11,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
@@ -26,7 +29,7 @@ public class DualWielding extends AbstractAbility {
 
 	public DualWielding(Player p) {
 		super(p);
-		this.attackSpeed = new AttributeModifier(displayName, 2.0, Operation.ADD_NUMBER);
+		this.attackSpeed = new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), displayName), 2.0, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
 	}
 
 	@Override
@@ -120,13 +123,13 @@ public class DualWielding extends AbstractAbility {
 	}
 
 	private void swordPassiveOn() {
-		if (!this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getModifiers().contains(attackSpeed))
-			this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).addModifier(this.attackSpeed);
+		if (!this.player.getAttribute(Attribute.ATTACK_SPEED).getModifiers().contains(attackSpeed))
+			this.player.getAttribute(Attribute.ATTACK_SPEED).addModifier(this.attackSpeed);
 	}
 
 	private void swordPassiveOff() {
-		if (this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getModifiers().contains(attackSpeed))
-			this.player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).removeModifier(this.attackSpeed);
+		if (this.player.getAttribute(Attribute.ATTACK_SPEED).getModifiers().contains(attackSpeed))
+			this.player.getAttribute(Attribute.ATTACK_SPEED).removeModifier(this.attackSpeed);
 	}
 
 	@Override

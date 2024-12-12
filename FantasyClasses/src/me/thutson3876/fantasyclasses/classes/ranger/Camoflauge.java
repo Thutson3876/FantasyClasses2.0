@@ -31,7 +31,7 @@ public class Camoflauge extends AbstractAbility implements Bindable {
 		
 		effects.add(PotionEffectType.INVISIBILITY);
 		effects.add(PotionEffectType.SPEED);
-		effects.add(PotionEffectType.JUMP);
+		effects.add(PotionEffectType.JUMP_BOOST);
 		effects.add(PotionEffectType.REGENERATION);
 		
 		POTION_EFFECTS = effects;

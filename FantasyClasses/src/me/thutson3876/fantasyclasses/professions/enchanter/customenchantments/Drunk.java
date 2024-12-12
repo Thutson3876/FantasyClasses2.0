@@ -24,15 +24,18 @@ public class Drunk extends Enchantment implements Listener {
 	
 	private static Random rng = new Random();
 	
+	private NamespacedKey key;
+	
 	private double chance = 0.2;
 	private int duration = 5 * 20;
 	private double reduction = 0.2;
 	
-	private PotionEffect nausea = new PotionEffect(PotionEffectType.CONFUSION, duration, 0);
-	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, 0);
+	private PotionEffect nausea = new PotionEffect(PotionEffectType.NAUSEA, duration, 0);
+	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, 0);
 	
 	public Drunk(NamespacedKey key) {
-		super(key);
+		super();
+		this.key = key;
 		
 		FantasyClasses.getPlugin().registerEvents(this);
 	}
@@ -77,7 +80,7 @@ public class Drunk extends Enchantment implements Listener {
 
 	@Override
 	public boolean conflictsWith(Enchantment ench) {
-		if(ench.equals(Enchantment.THORNS) || ench.equals(Enchantment.PROTECTION_ENVIRONMENTAL))
+		if(ench.equals(Enchantment.THORNS) || ench.equals(Enchantment.PROTECTION))
 			return true;
 		
 		return Enchantments.CUSTOM.getEnchants().contains(ench);
@@ -111,5 +114,17 @@ public class Drunk extends Enchantment implements Listener {
 	@Override
 	public boolean isTreasure() {
 		return true;
+	}
+
+	@Override
+	public NamespacedKey getKey() {
+		// TODO Auto-generated method stub
+		return key;
+	}
+
+	@Override
+	public String getTranslationKey() {
+		// TODO Auto-generated method stub
+		return key.getNamespace();
 	}
 }

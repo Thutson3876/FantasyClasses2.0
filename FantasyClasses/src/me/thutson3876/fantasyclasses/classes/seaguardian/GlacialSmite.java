@@ -31,8 +31,8 @@ public class GlacialSmite extends AbstractAbility {
 	private int freezeAmt = 20;
 	private int duration = 1 * 15;
 	private int amp = 0;
-	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, duration, amp);
-	private PotionEffect fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, amp);
+	private PotionEffect fatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 	
 	private final CustomParticle onHit = new CustomParticle(Particle.GLOW);
 	
@@ -128,8 +128,8 @@ public class GlacialSmite extends AbstractAbility {
 		
 		List<CustomParticle> particles = new ArrayList<>();
 		
-		particles.add(new CustomParticle(Particle.WATER_WAKE));
-		particles.add(new CustomParticle(Particle.REDSTONE, 1, 0, 0.5, Color.WHITE));
+		particles.add(new CustomParticle(Particle.UNDERWATER));
+		particles.add(new CustomParticle(Particle.DUST, 1, 0, 0.5, Color.WHITE));
 		
 		Trail trail = new Trail(particles, 100, 1, 1.0, EntityBodyPosition.MID, true);
 		trail.run(trident);
@@ -156,8 +156,8 @@ public class GlacialSmite extends AbstractAbility {
 		
 		freezeAmt = (20 * currentLevel);
 		
-		slow = new PotionEffect(PotionEffectType.SLOW, duration, amp);
-		fatigue = new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, amp);
+		slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, amp);
+		fatigue = new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, amp);
 	}
 
 	private void applyPotionEffects(LivingEntity ent) {

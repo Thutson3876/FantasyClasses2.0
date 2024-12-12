@@ -46,7 +46,7 @@ import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 public class Uthroes extends AbstractBoss {
 
 	private final Ahsmi ahsmi;
-	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, 5 * 20, 3);
+	private final PotionEffect slowness = new PotionEffect(PotionEffectType.SLOWNESS, 5 * 20, 3);
 
 	private static final List<EntityType> safeEntityTypes;
 
@@ -182,19 +182,19 @@ public class Uthroes extends AbstractBoss {
 
 		ItemStack boots = new ItemStack(Material.NETHERITE_BOOTS);
 		boots.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		boots.addEnchantment(Enchantment.DURABILITY, 3);
+		boots.addEnchantment(Enchantment.UNBREAKING, 3);
 		boots = AbilityUtils.setDisplayName("&bThermal Netherite Boots", boots);
 		ItemStack legs = new ItemStack(Material.NETHERITE_LEGGINGS);
 		legs.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		legs.addEnchantment(Enchantment.DURABILITY, 3);
+		legs.addEnchantment(Enchantment.UNBREAKING, 3);
 		legs = AbilityUtils.setDisplayName("&bThermal Netherite Leggings", legs);
 		ItemStack chest = new ItemStack(Material.NETHERITE_CHESTPLATE);
 		chest.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		chest.addEnchantment(Enchantment.DURABILITY, 3);
+		chest.addEnchantment(Enchantment.UNBREAKING, 3);
 		chest = AbilityUtils.setDisplayName("&bThermal Netherite Chestplate", chest);
 		ItemStack helm = new ItemStack(Material.NETHERITE_HELMET);
 		helm.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		helm.addEnchantment(Enchantment.DURABILITY, 3);
+		helm.addEnchantment(Enchantment.UNBREAKING, 3);
 		helm = AbilityUtils.setDisplayName("&bThermal Netherite Helmet", helm);
 
 		equip.setBoots(boots);
@@ -278,7 +278,7 @@ public class Uthroes extends AbstractBoss {
 										}
 										
 										world.playSound(loc, Sound.BLOCK_CONDUIT_AMBIENT, 1.5f, 0.9f);
-										GeneralParticleEffects.helix(loc, new CustomParticle(Particle.DRIP_LAVA, 1, 0, 0, 0, 0, null), 1.6, 2 * 6.3, 10000, 5, 2D);
+										GeneralParticleEffects.helix(loc, new CustomParticle(Particle.DRIPPING_LAVA, 1, 0, 0, 0, 0, null), 1.6, 2 * 6.3, 10000, 5, 2D);
 									}
 									
 								}.runTaskTimer(plugin, 1, 40);
