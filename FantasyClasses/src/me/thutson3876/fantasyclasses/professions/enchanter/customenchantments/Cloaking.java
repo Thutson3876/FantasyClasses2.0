@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
@@ -39,6 +40,9 @@ public class Cloaking extends Enchantment implements Listener {
 
 	@EventHandler
 	public void onTookDamage(EntityDamageByEntityEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		Entity victim = e.getEntity();
 		
 		if(!(victim instanceof LivingEntity))

@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,10 +21,11 @@ public class AdrenalineRush extends HighRollerStatus {
 	private final double cdReduction = 20;
 	
 	public AdrenalineRush() {
-		super("Adrenaline Rush", 99, null, (host, duration, stacks) -> {
+		super("Adrenaline Rush", 1, null, (host, duration, stacks) -> {
+			
 			
 			host.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (int) duration, 0));
-			
+			playerFeedback(host, "Adrenaline Rush", Sound.ENTITY_WARDEN_ROAR);
 		});
 	}
 	

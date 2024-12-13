@@ -2,6 +2,7 @@ package me.thutson3876.fantasyclasses.professions.enchanter.customenchantments;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
@@ -31,6 +32,9 @@ public class Crippling extends Enchantment implements Listener {
 
 	@EventHandler
 	public void onHit(EntityDamageByEntityEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		Entity damager = e.getDamager();
 		if(!(damager instanceof Player))
 			return;

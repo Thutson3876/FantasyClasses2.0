@@ -55,11 +55,12 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 16 * 20;
+		this.coolDowninTicks = 12 * 20;
 		this.displayName = "Roll The Bones";
 		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 
+		aura = new BuffAura(player, 1, displayName, BarColor.PURPLE, 10, duration);
 		this.createItemStack(Material.SKELETON_SKULL);
 	}
 
@@ -118,15 +119,19 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 			return;
 		
 		double longestDuration = eventStatus.getRemainingDuration();
-		for(Status s : plugin.getStatusManager().getAll(player)) {
-			if(BUFFS_LIST.contains(s.getType()) && s.getRemainingDuration() > longestDuration)
-				longestDuration = s.getRemainingDuration();
+		List<Status> allStatuses = plugin.getStatusManager().getAll(player);
+		if(allStatuses != null) {
+			for(Status s : allStatuses) {
+				if(BUFFS_LIST.contains(s.getType()) && s.getRemainingDuration() > longestDuration)
+					longestDuration = s.getRemainingDuration();
+			}
 		}
 		
-		if(aura.isOn())
-			aura.toggleAura();
+		//if(aura != null && aura.isOn())
+			//aura.toggleAura();
 		
-		aura = new BuffAura(player, 1, displayName, BarColor.BLUE, 20, (int) longestDuration);
+		//eventStatus.getType().toString() (int) longestDuration
+		aura.toggleAura();
 	}
 
 	public List<HighRollerStatus> roll() {
@@ -206,12 +211,13 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 	private class BuffAura extends Aura {
 
 		public BuffAura(Player p, double range, String name, BarColor color, int tickRate, long duration) {
-			super(p, range, name, color, tickRate, duration);
+			super(p, range, name, color, 5, duration);
 		}
 
 		@Override
 		public void run() {
-			
+			//p.sendMessage("Tick!");
+			counterTick();
 		}
 		
 	}

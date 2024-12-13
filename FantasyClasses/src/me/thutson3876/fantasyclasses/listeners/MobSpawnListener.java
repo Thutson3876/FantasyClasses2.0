@@ -74,19 +74,19 @@ public class MobSpawnListener implements Listener {
 		}
 		else if(e.getEntityType().equals(EntityType.DROWNED)) {
 			
-			if(chance < 0.035) {
+			if(chance < 0.04) {
 				e.setCancelled(true);
 				loc.getWorld().playSound(loc, Sound.ENTITY_ELDER_GUARDIAN_CURSE, 3.0f, 1.2f);
 				new LostGuardian(loc);
 			}
-			else if(chance < 0.08) {
+			else if(chance < 0.1) {
 				e.setCancelled(true);
 				loc.getWorld().playSound(loc, Sound.ENTITY_PARROT_IMITATE_DROWNED, 3.0f, 0.5f);
 				new DrownedMiner(loc);
 			}
 		}
 		else if(e.getEntityType().equals(EntityType.POLAR_BEAR)) {
-			if(chance < 0.08) {
+			if(chance < 0.20) {
 				e.setCancelled(true);
 				new Ahsmi(loc, null);
 				for(int i = 0; i < 2; i++) {

@@ -70,7 +70,7 @@ public class SurvivalInstincts extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Upon being put to less than 30% of your max health, gain speed, strength, and haste for &6" + (duration / 20) + " &rseconds";
+		return "Upon being put to less than 30% of your max health, gain &dspeed&r, &dstrength&r, and &dhaste &rfor &6" + (duration / 20) + " &rseconds";
 	}
 
 	@Override

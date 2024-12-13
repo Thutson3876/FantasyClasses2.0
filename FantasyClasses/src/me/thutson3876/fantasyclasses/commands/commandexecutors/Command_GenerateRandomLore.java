@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
@@ -33,11 +32,11 @@ public class Command_GenerateRandomLore extends AbstractCommand implements Liste
 		}
 		
 		//Remove when testing is over vvv
-		if(sender instanceof HumanEntity) {
+		/*if(sender instanceof HumanEntity) {
 			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Nice try"));
 			return true;
 			
-		}
+		}*/
 		//Remove when testing is over ^^^
 		
 		if (args.length < 1) {

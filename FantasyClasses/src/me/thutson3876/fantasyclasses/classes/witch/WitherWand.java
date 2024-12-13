@@ -26,7 +26,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 	private Material type = null;
 	private WitherSkull skull = null;
 	private double bulletVelocity = 2.0;
-	private double damage = 2;
+	private double damage = 6;
 	private float yield = 1.3f;
 	
 	public WitherWand(Player p) {
@@ -38,7 +38,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 6 * 20;
 		this.displayName = "Wither Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.WITHER_SKELETON_SKULL);
 	}
@@ -160,9 +160,10 @@ public class WitherWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		damage = 1.5 * currentLevel;
-		yield = (0.33f * currentLevel);
-		this.coolDowninTicks = (7 - currentLevel) * 20;
+		damage = 6 * currentLevel;
+		yield = (1f * currentLevel);
+		this.coolDowninTicks = (2 - currentLevel) * 20 + 15;
+		bulletVelocity = 1 + currentLevel;
 	}
 
 	@Override

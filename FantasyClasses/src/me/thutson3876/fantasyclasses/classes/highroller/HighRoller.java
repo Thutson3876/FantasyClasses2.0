@@ -39,7 +39,9 @@ public class HighRoller extends AbstractFantasyClass {
 		rollTheBones.addChild(new RollToPort(p));
 		rollTheBones.addChild(new RollToStarboard(p));
 		
-		skillTree.addChild(rollTheBones);
+		Skill stackedOdds = new Skill(new StackedOdds(p));
+		stackedOdds.addChild(rollTheBones);
+		skillTree.addChild(stackedOdds);
 		
 		//
 		setSkillInMap(4, skillTree);
@@ -56,10 +58,11 @@ public class HighRoller extends AbstractFantasyClass {
 		setSkillInMap(9 + 6, broadside.getNext().get(1));
 		setSkillInMap(18 + 6, broadside.getNext().get(1).getNext().get(0));
 		
-		//Roll the Bones branch //Total Cost: 15 (1 + 5 + 6 = 12)
-		setSkillInMap(9 + 4, rollTheBones);
-		setSkillInMap(18 + 3, rollTheBones.getNext().get(0));
-		setSkillInMap(18 + 5, rollTheBones.getNext().get(1));
+		//Roll the Bones branch //Total Cost: 17 (2 + 1 + 5 + 6 = 14)
+		setSkillInMap(9 + 4, stackedOdds);
+		setSkillInMap(18 + 4, rollTheBones);
+		setSkillInMap(27 + 3, rollTheBones.getNext().get(0));
+		setSkillInMap(27 + 5, rollTheBones.getNext().get(1));
 		
 		this.setPrerequisites();
 	}

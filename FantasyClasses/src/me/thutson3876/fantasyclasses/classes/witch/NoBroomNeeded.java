@@ -24,9 +24,9 @@ public class NoBroomNeeded extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 10 * 20;
+		this.coolDowninTicks = 45 * 20;
 		this.displayName = "No Broom Needed";
-		this.skillPointCost = 2;
+		this.skillPointCost = 1;
 		this.maximumLevel = 3;
 
 		this.createItemStack(Material.ELYTRA);
@@ -106,7 +106,7 @@ public class NoBroomNeeded extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.coolDowninTicks = (90 - 15 * this.currentLevel) * 20;
+		this.coolDowninTicks = (60 - 15 * this.currentLevel) * 20;
 	}
 
 	@Override

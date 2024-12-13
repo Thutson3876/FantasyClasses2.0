@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,8 @@ public class TrueBearing extends HighRollerStatus {
 			if(host instanceof Player) {
 				AbilityUtils.addHunger(((Player)host), DEFAULT_HUNGER_GAIN_AMT);
 				AbilityUtils.addSaturation(((Player)host), DEFAULT_SATURATION_GAIN_AMT);
+				
+				playerFeedback(host, "True Bearing", Sound.ITEM_CROSSBOW_QUICK_CHARGE_3);
 			}
 				 
 			

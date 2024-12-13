@@ -24,7 +24,7 @@ public class LiquidDeath extends AbstractAbility {
 		this.coolDowninTicks = 16;
 		this.displayName = "Liquid Death";
 		this.skillPointCost = 1;
-		this.maximumLevel = 7;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.WITHER_SKELETON_SKULL);
 	}
@@ -74,8 +74,8 @@ public class LiquidDeath extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmg = 3.0 * currentLevel;
-		if(currentLevel == getMaxLevel()) 
+		dmg = 4.0 * currentLevel;
+		if(currentLevel >= getMaxLevel()) 
 			wither = new PotionEffect(PotionEffectType.WITHER, 5 * 20, 1);
 	}
 

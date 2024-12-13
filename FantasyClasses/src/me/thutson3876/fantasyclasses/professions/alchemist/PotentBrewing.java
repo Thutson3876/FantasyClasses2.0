@@ -34,7 +34,7 @@ public class PotentBrewing extends AbstractAbility {
 		this.coolDowninTicks = 30;
 		this.displayName = "Potent Brewing";
 		this.skillPointCost = 1;
-		this.maximumLevel = 10;
+		this.maximumLevel = 5;
 
 		this.createItemStack(Material.NETHER_WART);
 	}
@@ -103,7 +103,7 @@ public class PotentBrewing extends AbstractAbility {
 	@Override
 	public String getDescription() {
 		return "When brewing using Enhanced Repitoire, gain a &6" + AbilityUtils.doubleRoundToXDecimals(chance * 100, 2)
-				+ "% &rchance to give it a random additional effect. Bonus duration at level 5 and bonus potency at level 8";
+				+ "% &rchance to give it a random additional effect. Bonus duration at level 3 and bonus potency at level 5";
 	}
 
 	@Override
@@ -113,12 +113,12 @@ public class PotentBrewing extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		chance = 0.15 * currentLevel;
-		if (currentLevel > 4) {
+		chance = 0.3 * currentLevel;
+		if (currentLevel > 2) {
 			maxDuration = 180;
 			minDuration = 45;
 		}
-		if (currentLevel > 7) {
+		if (currentLevel > 4) {
 			maxAmp = 3;
 			minAmp = 1;
 		}

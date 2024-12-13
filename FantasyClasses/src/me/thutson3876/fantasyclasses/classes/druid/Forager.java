@@ -17,8 +17,8 @@ import me.thutson3876.fantasyclasses.util.MaterialLists;
 
 public class Forager extends AbstractAbility {
 
-	private double chanceOnBreak = 0.1;
-	private double goldenChance = 0.001;
+	private double chanceOnBreak = 0.3;
+	private double goldenChance = 0.005;
 	private static final List<Material> FOODS;
 	private static final List<Material> LEAVES;
 
@@ -36,7 +36,7 @@ public class Forager extends AbstractAbility {
 		this.coolDowninTicks = 30;
 		this.displayName = "Forager";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 1;
 
 		this.createItemStack(Material.OAK_LEAVES);
 	}
@@ -82,8 +82,8 @@ public class Forager extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		chanceOnBreak = 0.1 * currentLevel;
-		goldenChance = 0.001 * currentLevel;
+		chanceOnBreak = 0.3 * currentLevel;
+		goldenChance = 0.005 * currentLevel;
 	}
 
 	private void spawnFood(Location loc) {

@@ -19,14 +19,17 @@ import me.thutson3876.fantasyclasses.abilities.Ability;
 import me.thutson3876.fantasyclasses.abilities.skills.Skill;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.classes.berserker.Berserker;
+import me.thutson3876.fantasyclasses.classes.druid.Druid;
 import me.thutson3876.fantasyclasses.classes.highroller.HighRoller;
 import me.thutson3876.fantasyclasses.classes.monk.Monk;
 import me.thutson3876.fantasyclasses.classes.ranger.Ranger;
 import me.thutson3876.fantasyclasses.classes.seaguardian.SeaGuardian;
+import me.thutson3876.fantasyclasses.classes.witch.Witchcraft;
 import me.thutson3876.fantasyclasses.gui.BasicGUI;
 import me.thutson3876.fantasyclasses.gui.MainMenuGUI;
 import me.thutson3876.fantasyclasses.gui.TutorialGUI;
 import me.thutson3876.fantasyclasses.gui.treegui.TreeGUI;
+import me.thutson3876.fantasyclasses.professions.alchemist.Alchemy;
 import me.thutson3876.fantasyclasses.professions.enchanter.Enchanter;
 import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
 import me.thutson3876.fantasyclasses.professions.fisherman.Fisherman;
@@ -95,14 +98,15 @@ public class FantasyPlayer {
 		classes.add(new Monk(this));
 		classes.add(new Berserker(this));
 		classes.add(new HighRoller(this));
-		//classes.add(new Druid(this));
-		//classes.add(new Witchcraft(this));
+		classes.add(new Druid(this));
+		classes.add(new Witchcraft(this));
 		//classes.add(new Dungeoneer(this));
 		classes.add(new SeaGuardian(this));
 
 		professions.add(new Miner(this));
 		professions.add(new Fisherman(this));
 		professions.add(new Enchanter(this));
+		professions.add(new Alchemy(this));
 		
 		FileConfiguration config = plugin.getConfig();
 		if (!config.contains("players." + uuid)) {

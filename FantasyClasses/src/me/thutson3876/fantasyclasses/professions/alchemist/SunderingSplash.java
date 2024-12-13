@@ -21,7 +21,7 @@ public class SunderingSplash extends AbstractAbility {
 		this.coolDowninTicks = 30;
 		this.displayName = "Sundering Splash";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.CREEPER_HEAD);
 	}
@@ -56,7 +56,7 @@ public class SunderingSplash extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		power = (0.5f * currentLevel);
+		power = (0.75f * currentLevel);
 	}
 
 }

@@ -23,7 +23,7 @@ public class PotentSplash extends AbstractAbility {
 		this.coolDowninTicks = 16;
 		this.displayName = "Potent Splash";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.SPLASH_POTION);
 	}
@@ -59,7 +59,7 @@ public class PotentSplash extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		intensity = 0.2 * currentLevel;
+		intensity = 0.3 * currentLevel;
 	}
 
 }

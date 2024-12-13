@@ -73,7 +73,7 @@ static List<ItemStack> drops = new ArrayList<>();
 		if (!e.getPlayer().equals(player))
 			return;
 		
-		this.onTrigger(rollDrops(e.getBlock().getLocation(), this.dropChance / 5.0));
+		this.onTrigger(rollDrops(e.getBlock().getLocation(), this.dropChance / 10.0));
 	}
 
 	private boolean rollDrops(Location loc, double dropChance) {
@@ -100,12 +100,12 @@ static List<ItemStack> drops = new ArrayList<>();
 	
 	@Override
 	public String getInstructions() {
-		return "Kill a mob";
+		return "Kill a mob or mine some blocks";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Mobs have a chance to drop something extra";
+		return "Mobs and blocks have a chance to drop something extra";
 	}
 
 	@Override

@@ -21,7 +21,7 @@ import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 public class Rejuvination extends AbstractAbility implements Bindable {
 
 	private Material boundType = null;
-	private double healAmt = 1.0;
+	private double healAmt = 1.5;
 	private int duration = 6 * 20;
 	private PotionEffect regen = null;
 	private double maxDistance = 8.0;
@@ -35,7 +35,7 @@ public class Rejuvination extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Rejuvination";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.SMALL_DRIPLEAF);		
 	}
@@ -93,9 +93,9 @@ public class Rejuvination extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		healAmt = 1.0 * currentLevel;
+		healAmt = 1.5 * currentLevel;
 		if(currentLevel >= maximumLevel)
-			regen = new PotionEffect(PotionEffectType.REGENERATION, duration, 0);
+			regen = new PotionEffect(PotionEffectType.REGENERATION, duration, 1);
 	}
 
 	@Override

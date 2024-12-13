@@ -25,7 +25,7 @@ public class NaturesBlessing extends AbstractAbility {
 		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Nature's Blessing";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.BIG_DRIPLEAF);
 	}
@@ -47,7 +47,7 @@ public class NaturesBlessing extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		coolDowninTicks = (11 - currentLevel) * 20;
+		coolDowninTicks = (16 - 5 * currentLevel) * 20;
 		if(this.currentLevel <= 0 && task != null) {
 			if((Bukkit.getScheduler().isCurrentlyRunning(task.getTaskId()) || Bukkit.getScheduler().isQueued(task.getTaskId())))
 				task.cancel();

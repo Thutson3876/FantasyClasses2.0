@@ -17,7 +17,7 @@ import me.thutson3876.fantasyclasses.util.MaterialLists;
 
 public class GreenThumb extends AbstractAbility {
 
-	private double chance = 0.15;
+	private double chance = 0.3;
 	
 	public GreenThumb(Player p) {
 		super(p);
@@ -28,7 +28,7 @@ public class GreenThumb extends AbstractAbility {
 		this.coolDowninTicks = 0;
 		this.displayName = "Green Thumb";
 		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.IRON_HOE);
 	}
@@ -89,7 +89,7 @@ public class GreenThumb extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		chance = 0.15 * currentLevel;
+		chance = 0.3 * currentLevel;
 	}
 
 }

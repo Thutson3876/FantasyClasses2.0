@@ -32,7 +32,7 @@ public class EnhancedRepitoire extends AbstractAbility{
 	public void setDefaults() {
 		this.coolDowninTicks = 30;
 		this.displayName = "Enhanced Repitoire";
-		this.skillPointCost = 3;
+		this.skillPointCost = 2;
 		this.maximumLevel = 1;
 
 		this.createItemStack(Material.BREWING_STAND);

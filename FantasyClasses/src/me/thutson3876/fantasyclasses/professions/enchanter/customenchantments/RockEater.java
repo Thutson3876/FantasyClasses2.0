@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -31,6 +32,9 @@ public class RockEater extends Enchantment implements Listener {
 
 	@EventHandler
 	public void onBlockBreakEvent(BlockBreakEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		Player p = e.getPlayer();
 		
 		ItemStack item = p.getEquipment().getItemInMainHand();

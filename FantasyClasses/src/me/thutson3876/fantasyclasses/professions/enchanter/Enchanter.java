@@ -39,7 +39,7 @@ public class Enchanter extends AbstractFantasyClass {
 		this.setSkillInMap(36 + 4, e103); //Cost: 1 Max: 2
 		this.setSkillInMap(36 + 2, e103.getNext().get(0)); //Cost: 2 Max: 1
 		this.setSkillInMap(36 + 6, e103.getNext().get(1)); //Cost: 1 Max: 3
-		this.setSkillInMap(45 + 4, e103.getNext().get(2)); //Cost: 2 Max: 1
+		//this.setSkillInMap(45 + 4, e103.getNext().get(2)); //Cost: 2 Max: 1
 		
 		this.setPrerequisites();
 	}

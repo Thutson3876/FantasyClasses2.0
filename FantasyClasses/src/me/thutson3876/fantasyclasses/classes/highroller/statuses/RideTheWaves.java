@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
+import org.bukkit.Sound;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -22,6 +23,8 @@ public class RideTheWaves extends HighRollerStatus {
 			Strider strider = new Strider();
 			
 			strider.apply(host, host, stacks, Strider.getDefaultDuration(), ApplyCause.PLAYER_ABILITY);
+			
+			playerFeedback(host, "Ride the Waves", Sound.ENTITY_PLAYER_SPLASH_HIGH_SPEED);
 		});
 	}
 

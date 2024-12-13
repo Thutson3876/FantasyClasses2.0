@@ -35,7 +35,7 @@ public class WitchWand extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 5 * 20;
 		this.displayName = "Witch's Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.SHULKER_BOX);
 	}
@@ -104,9 +104,9 @@ public class WitchWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		damage = 1.5 * currentLevel;
-		this.coolDowninTicks = (7 - currentLevel) * 20;
-		this.duration = 20 * currentLevel;
+		damage = 6 * currentLevel;
+		this.coolDowninTicks = (2 - currentLevel) * 20 + 15;
+		this.duration = 20 * (currentLevel + 2);
 	}
 
 	@Override

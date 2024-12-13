@@ -155,7 +155,8 @@ public enum Schematic {
 				}
 
 			}.runTaskLater(FantasyClasses.getPlugin(), 15 * locs.size());
-	});
+	})
+	;
 
 	private final Map<Integer[], Material> schematic;
 	private final SpawnCue cue;

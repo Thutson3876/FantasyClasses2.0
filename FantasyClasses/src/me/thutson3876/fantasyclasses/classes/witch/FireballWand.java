@@ -28,7 +28,7 @@ public class FireballWand extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 8 * 20;
 		this.displayName = "Fireball Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.BLAZE_ROD);	
 	}

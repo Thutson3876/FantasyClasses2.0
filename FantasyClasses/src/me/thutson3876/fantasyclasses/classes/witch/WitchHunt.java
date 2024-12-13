@@ -23,7 +23,7 @@ public class WitchHunt extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 30;
 		this.displayName = "Witch Hunt";
-		this.skillPointCost = 2;
+		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 
 		this.createItemStack(Material.IRON_AXE);

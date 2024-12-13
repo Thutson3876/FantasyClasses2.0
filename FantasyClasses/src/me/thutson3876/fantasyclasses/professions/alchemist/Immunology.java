@@ -23,7 +23,7 @@ public class Immunology extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 2 * 20;
 		this.displayName = "Immunology";
-		this.skillPointCost = 3;
+		this.skillPointCost = 2;
 		this.maximumLevel = 2;
 		
 		this.createItemStack(Material.TOTEM_OF_UNDYING);

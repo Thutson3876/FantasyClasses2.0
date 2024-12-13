@@ -35,6 +35,9 @@ public class PreciseStrikes extends AbstractAbility {
 	
 	@EventHandler
 	public void onDamageEvent(CustomLivingEntityDamageEvent e) {
+		if(e.getDamager() == null)
+			return;
+		
 		if(!e.getDamager().equals(player))
 			return;
 			

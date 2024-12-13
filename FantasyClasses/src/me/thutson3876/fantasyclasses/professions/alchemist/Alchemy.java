@@ -11,17 +11,17 @@ import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
 public class Alchemy extends AbstractFantasyClass {
 
 	public Alchemy(FantasyPlayer player) {
-		super(player, false);
+		super(player, true);
 		
 		Player p = player.getPlayer();
 		
 		name = "Alchemist";
 		
-		this.setItemStack(Material.POTION, name, "A profession for making powerful potions");
+		this.setItemStack(Material.DRAGON_BREATH, name, "A profession for making powerful potions");
 		
-		this.skillTree = new Skill(new ReagantHarvest(p));
+		this.skillTree = new Skill(new EnhancedRepitoire(p));
 		
-		Skill enhanced = new Skill(new EnhancedRepitoire(p));
+		Skill enhanced = new Skill(new ReagantHarvest(p));
 		enhanced.addChild(new PotentSplash(p));
 		enhanced.addChild(new PotentBrewing(p));
 		skillTree.addChild(enhanced);
@@ -31,7 +31,7 @@ public class Alchemy extends AbstractFantasyClass {
 		poison.addChild(new LiquidDeath(p));
 		skillTree.addChild(poison);
 		
-		skillTree.addChild(new Immunology(p));
+		skillTree.addChild(new Immunology(p)).addChild(new DragonInfusion(p));
 		
 		setSkillInMap(4, skillTree);
 		setSkillInMap(9 + 3, enhanced);
@@ -41,6 +41,9 @@ public class Alchemy extends AbstractFantasyClass {
 		setSkillInMap(18 + 5, poison.getNext().get(0));
 		setSkillInMap(18 + 7, poison.getNext().get(1));
 		setSkillInMap(9 + 4, skillTree.getNext().get(2));
+		setSkillInMap(36 + 4, skillTree.getNext().get(2).getNext().get(0));
+		
+		this.setPrerequisites();
 	}
 	
 }

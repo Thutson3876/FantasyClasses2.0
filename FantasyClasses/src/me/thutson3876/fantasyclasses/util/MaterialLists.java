@@ -10,7 +10,7 @@ public enum MaterialLists {
 	MELEE_WEAPON, RANGE_WEAPON, SWORD, AXE, HOE, PICKAXE, SHIELD, FISHING, EXOTIC_WEAPON, TOOL, ARMOR,
 	HELMET, CHESTPLATE, LEGGINGS, BOOTS,
 	POTION, ALCHEMICAL_INGREDIENT, DRUID_FOOD, CROP, 
-	LEAVES, DIRT, WOOD, STONE, AQUATIC, ICE, NETHER, END, DECORATION, MISC;
+	LEAVES, DIRT, WOOD, STONE, AQUATIC, ICE, NETHER, END, DECORATION, MISC, ARROW;
 	
 	private List<Material> matList = new ArrayList<>();
 	
@@ -244,6 +244,10 @@ public enum MaterialLists {
 		MISC.matList.add(Material.COBWEB);
 		MISC.matList.add(Material.SPORE_BLOSSOM);
 		MISC.matList.add(Material.LEATHER);
+		//Arrow
+		ARROW.matList.add(Material.ARROW);
+		ARROW.matList.add(Material.SPECTRAL_ARROW);
+		ARROW.matList.add(Material.TIPPED_ARROW);
 	}
 	
 	public List<Material> getMaterials(){

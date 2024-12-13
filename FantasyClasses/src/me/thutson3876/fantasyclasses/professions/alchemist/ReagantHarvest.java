@@ -20,7 +20,7 @@ import me.thutson3876.fantasyclasses.util.MaterialLists;
 
 public class ReagantHarvest extends AbstractAbility {
 
-	private float dropChance = 0.1f;
+	private float dropChance = 0.4f;
 
 	public ReagantHarvest(Player p) {
 		super(p);
@@ -31,9 +31,9 @@ public class ReagantHarvest extends AbstractAbility {
 		this.coolDowninTicks = 30;
 		this.displayName = "Reagant Harvest";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 2;
 
-		this.createItemStack(Material.BLAZE_ROD);
+		this.createItemStack(Material.BLAZE_POWDER);
 	}
 
 	@EventHandler
@@ -90,18 +90,13 @@ public class ReagantHarvest extends AbstractAbility {
 	}
 
 	@Override
-	public String getName() {
-		return "Reagent Harvest";
-	}
-
-	@Override
 	public String getInstructions() {
 		return "Obtain alchemical reagants by any natural means";
 	}
 
 	@Override
 	public String getDescription() {
-		return "When harvesting reagants for alchemy, you have a &6" + AbilityUtils.doubleRoundToXDecimals(0.1 * currentLevel * 100, 2)
+		return "When harvesting reagants for alchemy, you have a &6" + AbilityUtils.doubleRoundToXDecimals(dropChance * 100, 2)
 				+ "% &rto obtain an additional reagant";
 	}
 
@@ -111,13 +106,8 @@ public class ReagantHarvest extends AbstractAbility {
 	}
 
 	@Override
-	public boolean isEnabled() {
-		return currentLevel > 0;
-	}
-
-	@Override
 	public void applyLevelModifiers() {
-		this.dropChance = 0.1f * this.currentLevel;
+		this.dropChance = 0.4f * this.currentLevel;
 	}
 
 }

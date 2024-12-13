@@ -16,6 +16,7 @@ public abstract class Aura implements Runnable {
 	private int taskID;
 	private long counter;
 	
+	protected final String name;
 	protected final Player p;
 	protected final double range;
 	protected final long duration;
@@ -24,6 +25,7 @@ public abstract class Aura implements Runnable {
 	public Aura(Player p, double range, String name, BarColor color, int tickRate, long duration) {
 		bar = Bukkit.createBossBar(name, color, BarStyle.SEGMENTED_20, new org.bukkit.boss.BarFlag[0]);
 		this.p = p;
+		this.name = name;
 		this.range = range;
 		this.tickRate = tickRate;
 		this.duration = (duration / tickRate) + 1;
@@ -36,6 +38,10 @@ public abstract class Aura implements Runnable {
 	
 	public void toggleAura() {
 		if(!this.isOn) {
+			if(p != null)
+				bar.addPlayer(p);
+			else
+				FantasyClasses.getPlugin().log("Error: Player null in aura");
 			taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, 1L, this.tickRate);
 			this.isOn = true;
 		}
@@ -76,6 +82,7 @@ public abstract class Aura implements Runnable {
       }
       
       private void cancel() {
+    	  FantasyClasses.getPlugin().log(name + "Aura Cancelled");
         this.bar.setVisible(false);
         this.bar.setProgress(1.0D);
         Bukkit.getScheduler().cancelTask(taskID);

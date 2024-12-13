@@ -23,7 +23,7 @@ public class Regrowth extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 0;
 		this.displayName = "Regrowth";
-		this.skillPointCost = 3;
+		this.skillPointCost = 2;
 		this.maximumLevel = 1;
 
 		this.createItemStack(Material.COMPOSTER);

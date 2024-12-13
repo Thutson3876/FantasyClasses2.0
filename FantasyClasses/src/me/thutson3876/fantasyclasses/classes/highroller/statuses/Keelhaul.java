@@ -1,10 +1,10 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -38,9 +38,6 @@ public class Keelhaul extends HighRollerStatus {
 			return;
 
 		LivingEntity leHost = (LivingEntity) e.getDispeller();
-
-		if(leHost instanceof Player)
-			((Player)leHost).sendMessage("Keelhauled");
 		
 		if (!statusManager.contains(leHost, this))
 			return;
@@ -55,12 +52,14 @@ public class Keelhaul extends HighRollerStatus {
 					EntityType.TNT);
 
 			tnt.setSource(leHost);
-			tnt.setVelocity(AbilityUtils.getVectorBetween2Points(leHost.getLocation(), victimLoc, 0.3)
-					.add(new Vector(0, 2, 0)).normalize());
+			tnt.setVelocity(AbilityUtils.getVectorBetween2Points(leHost.getLocation(), victimLoc, 0.15)
+					.add(new Vector(0, 1.25, 0)).normalize());
 			tnt.setYield(3.0f);
 			tnt.setFuseTicks(30);
 			tnt.setGravity(true);
 			tnt.setMetadata("noexplodeblocks", new NoExplodeBlocks());
+			
+			playerFeedback(leHost, "Dreadblades", Sound.ENTITY_PLAYER_ATTACK_SWEEP);
 		}
 	}
 

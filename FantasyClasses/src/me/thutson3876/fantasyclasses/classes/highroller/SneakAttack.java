@@ -58,6 +58,9 @@ public class SneakAttack extends AbstractAbility {
 		if(!isOn)
 			return;
 		
+		if(player == null || e.getDamager() == null)
+			return;
+		
 		if(!AbilityUtils.isTrueCause(player, e.getDamager()))
 			return;
 		

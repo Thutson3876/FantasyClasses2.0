@@ -3,6 +3,7 @@ package me.thutson3876.fantasyclasses.professions.enchanter.customenchantments;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
@@ -33,6 +34,9 @@ public class Momentum extends Enchantment implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onHit(EntityDamageByEntityEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		Entity damager = e.getDamager();
 		if(!(damager instanceof Player))
 			return;

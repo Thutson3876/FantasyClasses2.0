@@ -2,6 +2,7 @@ package me.thutson3876.fantasyclasses.professions.enchanter.customenchantments;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.AbstractArrow;
@@ -38,6 +39,9 @@ public class Blaze extends Enchantment implements Listener {
 
 		LivingEntity shooter = e.getEntity();
 		ItemStack bow = shooter.getEquipment().getItem(e.getHand());
+		
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
 		
 		if(!bow.containsEnchantment(this))
 			return;

@@ -20,9 +20,9 @@ import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 public class NaturesBalance extends AbstractAbility implements Bindable {
 
 	private Material boundType = null;
-	private int duration = 3 * 20;
+	private int duration = 8 * 20;
 	private double maxDistance = 8.0;
-	private double dmgMod = 0.1;
+	private double dmgMod = 0.2;
 	private LivingEntity reductionTarget = null;
 	private LivingEntity boostTarget = null;
 
@@ -35,7 +35,7 @@ public class NaturesBalance extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 18 * 20;
 		this.displayName = "Nature's Balance";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.VINE);
 	}
@@ -143,7 +143,7 @@ public class NaturesBalance extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.dmgMod = 0.1 * currentLevel;
+		this.dmgMod = 0.2 * currentLevel;
 	}
 
 	@Override

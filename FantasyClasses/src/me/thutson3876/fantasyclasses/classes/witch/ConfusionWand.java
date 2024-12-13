@@ -36,10 +36,10 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 30 * 20;
+		this.coolDowninTicks = 25 * 20;
 		this.displayName = "Confusion Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 4;
+		this.maximumLevel = 2;
 		
 		this.createItemStack(Material.ENDER_EYE);
 	}
@@ -97,8 +97,8 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		radius = 2.0 * currentLevel;
-		duration = (4 + 2 * currentLevel) * 20;
+		radius = 4.0 * currentLevel;
+		duration = (4 + 4 * currentLevel) * 20;
 
 		effects.clear();
 		effects.add(new PotionEffect(PotionEffectType.NAUSEA, duration, 0));

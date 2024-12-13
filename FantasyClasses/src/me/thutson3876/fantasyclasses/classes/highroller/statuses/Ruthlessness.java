@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
@@ -20,7 +21,7 @@ public class Ruthlessness extends HighRollerStatus {
 		super("Ruthlessness", 99, null, (host, duration, stacks) -> {
 			
 			host.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 0));
-			
+			playerFeedback(host, "Ruthlessness", Sound.BLOCK_ANVIL_LAND);
 		});
 	}
 	

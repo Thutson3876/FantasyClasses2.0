@@ -9,7 +9,7 @@ import me.thutson3876.fantasyclasses.status.StatusType;
 public class Strider extends StatusType {
 
 	private static final double DEFAULT_DURATION = 2 * 20;
-	private static final int DEFAULT_AMP = 2;
+	private static final int DEFAULT_AMP = 1;
 	
 	public Strider() {
 		super("Strider", 99, 1, null, (host, duration, stacks) -> {

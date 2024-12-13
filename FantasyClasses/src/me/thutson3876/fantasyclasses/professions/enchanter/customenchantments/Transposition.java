@@ -7,6 +7,7 @@ import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.AbstractArrow;
@@ -40,6 +41,9 @@ public class Transposition extends Enchantment implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onEntityShootBowEvent(EntityShootBowEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		if(e.isCancelled())
 			return;
 		
@@ -59,6 +63,9 @@ public class Transposition extends Enchantment implements Listener {
 	
 	@EventHandler
 	public void onProjectileHitEvent(ProjectileHitEvent e) {
+		if(Registry.ENCHANTMENT.get(key) == null)
+			return;
+		
 		Projectile eventProjectile = e.getEntity();
 		if (!this.arrowMap.containsKey(eventProjectile))
 			return;

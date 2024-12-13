@@ -30,7 +30,7 @@ public class VexWand extends AbstractAbility implements Bindable {
 	private Material boundType = null;
 	private List<Creature> vexes = new ArrayList<>();
 	private int maxAmt = 2;
-	private int duration = 20 * 20;
+	private int duration = 21 * 20;
 	private static final double MAX_RANGE = 30.0;
 	
 	public VexWand(Player p) {
@@ -39,10 +39,10 @@ public class VexWand extends AbstractAbility implements Bindable {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 25 * 20;
+		this.coolDowninTicks = 20 * 20;
 		this.displayName = "Vex Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 5;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.END_ROD);	
 	}
@@ -121,7 +121,7 @@ public class VexWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		maxAmt = currentLevel;
+		maxAmt = currentLevel + 2;
 	}
 
 	@Override

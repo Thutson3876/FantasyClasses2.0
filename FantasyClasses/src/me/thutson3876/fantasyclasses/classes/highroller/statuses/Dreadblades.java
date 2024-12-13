@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 
+import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -20,6 +21,8 @@ public class Dreadblades extends HighRollerStatus {
 	
 	public Dreadblades() {
 		super("Dreadblades", 99, null, (host, duration, stacks) -> {
+			playerFeedback(host, "Dreadblades", Sound.ENTITY_PLAYER_ATTACK_SWEEP);
+			
 			host.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, (int) duration, 3));
 			
 			Leech leech = new Leech();

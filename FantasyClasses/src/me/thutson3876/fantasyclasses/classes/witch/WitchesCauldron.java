@@ -31,7 +31,7 @@ public class WitchesCauldron extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 30;
 		this.displayName = "Witch's Cauldron";
-		this.skillPointCost = 3;
+		this.skillPointCost = 2;
 		this.maximumLevel = 1;
 
 		this.createItemStack(Material.CAULDRON);

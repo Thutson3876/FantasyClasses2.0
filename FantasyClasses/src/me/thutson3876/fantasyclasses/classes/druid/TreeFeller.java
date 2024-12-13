@@ -26,11 +26,11 @@ public class TreeFeller extends AbstractAbility implements Bindable {
 	private Block startingBlock = null;
 
 	private static final Set<Material> logMaterials = new HashSet<>(Arrays.asList(new Material[] { Material.ACACIA_LOG,
-			Material.BIRCH_LOG, Material.DARK_OAK_LOG, Material.JUNGLE_LOG, Material.OAK_LOG, Material.SPRUCE_LOG, Material.MANGROVE_LOG }));
+			Material.BIRCH_LOG, Material.DARK_OAK_LOG, Material.JUNGLE_LOG, Material.OAK_LOG, Material.SPRUCE_LOG, Material.MANGROVE_LOG, Material.CHERRY_LOG, Material.PALE_OAK_LOG }));
 
 	private static final Set<Material> leafMaterials = new HashSet<>(Arrays.asList(new Material[] {
 			Material.ACACIA_LEAVES, Material.AZALEA_LEAVES, Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES,
-			Material.FLOWERING_AZALEA_LEAVES, Material.JUNGLE_LEAVES, Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.MANGROVE_LEAVES }));
+			Material.FLOWERING_AZALEA_LEAVES, Material.JUNGLE_LEAVES, Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.MANGROVE_LEAVES, Material.CHERRY_LEAVES, Material.PALE_OAK_LEAVES }));
 
 	public TreeFeller(Player p) {
 		super(p);
@@ -38,10 +38,10 @@ public class TreeFeller extends AbstractAbility implements Bindable {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 12 * 20;
+		this.coolDowninTicks = 30;
 		this.displayName = "Tree Feller";
 		this.skillPointCost = 2;
-		this.maximumLevel = 2;
+		this.maximumLevel = 1;
 
 		this.createItemStack(Material.DARK_OAK_SAPLING);
 	}
@@ -78,8 +78,7 @@ public class TreeFeller extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "You gain the ability to fell a tree in a single strike. This ability has a cooldown of &6"
-				+ this.coolDowninTicks / 20 + " &rseconds";
+		return "You gain the ability to fell a tree in a single strike.";
 	}
 
 	@Override
