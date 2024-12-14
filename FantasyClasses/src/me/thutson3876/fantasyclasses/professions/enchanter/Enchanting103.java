@@ -2,6 +2,7 @@ package me.thutson3876.fantasyclasses.professions.enchanter;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
@@ -50,9 +51,24 @@ public class Enchanting103 extends AbstractAbility {
 	public void applyLevelModifiers() {
 		this.maxLevel = this.currentLevel * 2 - 1;
 
-		if (this.fplayer == null)
+		if (this.fplayer == null) {
+			plugin.log("Fplayer null");
 			return;
+		}
+			
+		new BukkitRunnable() {
 
+			@Override
+			public void run() {
+				if (fplayer == null) {
+					plugin.log("Fplayer still null");
+					return;
+				}
+				
+				fplayer.putEnchantments(Enchantments.EPIC, maxLevel);
+			}
+		}.runTaskLater(plugin, 30);
+		
 		fplayer.putEnchantments(Enchantments.EPIC, maxLevel);
 	}
 }

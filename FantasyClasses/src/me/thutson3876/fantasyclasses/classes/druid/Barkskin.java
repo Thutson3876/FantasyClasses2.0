@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Barkskin extends AbstractAbility {
 
-	private double dmgReduction = 0.20;
+	private double dmgReduction = 0.15;
 	private boolean isOn = false;
 	private int durationInTicks = 1 * 20;
 	
@@ -23,10 +23,10 @@ public class Barkskin extends AbstractAbility {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 12 * 20;
+		this.coolDowninTicks = 8 * 20;
 		this.displayName = "Barkskin";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.OAK_WOOD);	
 	}
@@ -80,7 +80,7 @@ public class Barkskin extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmgReduction = 0.20 * currentLevel;
+		dmgReduction = 0.15 * currentLevel;
 	}
 
 }

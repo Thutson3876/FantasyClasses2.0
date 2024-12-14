@@ -43,16 +43,25 @@ public class EnchantingListener implements Listener {
 	public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent e) {
 		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(e.getEnchanter());
 
-		if (fplayer == null)
+		if (fplayer == null) {
+			plugin.log("Enchanting Player not fantasy player...");
 			return;
+		}
 
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(false);
+		
+		plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
+		for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
+			plugin.log(entry.getKey().toString() + " : " + entry.getValue());
+		
 		Map<Enchantment, Integer> availableEnchantmentMap = new HashMap<>();
 		for (Entry<Enchantments, Integer> entry : availableEnchantments.entrySet()) {
 			for (Enchantment ench : entry.getKey().getEnchants())
 				availableEnchantmentMap.put(ench, entry.getValue());
 		}
 
+		
+		
 		final List<EnchantmentOffer> oldOffers = Arrays.asList(e.getOffers().clone());
 
 		for (EnchantmentOffer preparedEnchantOffer : e.getOffers()) {
@@ -191,11 +200,19 @@ public class EnchantingListener implements Listener {
 			}
 		}
 
-		if (fplayer == null)
+		if (fplayer == null) {
+			plugin.log("Enchanting Player not fantasy player...");
 			return;
+		}
+			
 
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(true);
 
+		
+		plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
+		for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
+			plugin.log(entry.getKey().toString() + " : " + entry.getValue());
+		
 		ItemStack result = e.getResult();
 		Map<Enchantment, Integer> newEnchants = new HashMap<>();
 		for (Entry<Enchantment, Integer> enchant : result.getEnchantments().entrySet()) {

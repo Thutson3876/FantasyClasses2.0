@@ -91,6 +91,7 @@ public class FantasyPlayer {
 		availableEnchants.put(Enchantments.CURSE, 0);
 		availableEnchants.put(Enchantments.UNCOMMON, 1);
 		availableEnchants.put(Enchantments.RARE, 1);
+		availableEnchants.put(Enchantments.EPIC, 0);
 		
 		bukkitPlayer = p;
 		String uuid = p.getUniqueId().toString();

@@ -37,6 +37,8 @@ public class Druid extends AbstractFantasyClass {
 		tree.addChild(new BountifulHarvest(p)).addChild(new SurvivalInstincts(p));
 		skillTree.addChild(tree);
 		
+		// new Skill(new WildGrowth(p));
+		
 		setSkillInMap(4, skillTree);
 		setSkillInMap(9 + 1, craft.getNext().get(1));
 		setSkillInMap(9 + 0, craft.getNext().get(1).getNext().get(0));
