@@ -21,8 +21,8 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class WindWeaver extends AbstractAbility {
 
-	private double minDot = 0.7;
-	private double distance = 4.0;
+	private double minDot = 0.6;
+	private double distance = 5.0;
 	private int jumpDistance = 5;
 	private double velocity = 1.5;
 	private double offset = 0.0;

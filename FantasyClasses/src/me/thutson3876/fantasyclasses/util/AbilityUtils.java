@@ -502,7 +502,7 @@ public class AbilityUtils {
 				angle = dirToDestination.angle(playerDirection);
 
 				if (angle < maxAngle && angle > -maxAngle) {
-					p.sendMessage("Entity Angle to Cursor: " + angle);
+					// p.sendMessage("Entity Angle to Cursor: " + angle);
 					targets.add(e);
 				}
 			}

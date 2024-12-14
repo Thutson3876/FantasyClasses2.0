@@ -44,7 +44,7 @@ public class GeneralParticleEffects {
 			public void run() {
 				int tick = tickStorage.get(key);
 				
-				if(isPastMaxDuration(tick, tickRate, maxDuration)) {
+				if(ent == null || ent.isDead() || isPastMaxDuration(tick, tickRate, maxDuration)) {
 					tickStorage.remove(key);
 					this.cancel();
 					return;
