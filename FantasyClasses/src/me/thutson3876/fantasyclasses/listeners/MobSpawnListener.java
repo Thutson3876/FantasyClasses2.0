@@ -24,12 +24,8 @@ import me.thutson3876.fantasyclasses.custommobs.FailedExperiment;
 import me.thutson3876.fantasyclasses.custommobs.LostGuardian;
 import me.thutson3876.fantasyclasses.custommobs.Parasite;
 import me.thutson3876.fantasyclasses.custommobs.UndeadMiner;
-import me.thutson3876.fantasyclasses.custommobs.boss.TargetDummy;
-import me.thutson3876.fantasyclasses.custommobs.boss.engineer.Engineer;
-import me.thutson3876.fantasyclasses.custommobs.boss.skeletonlord.SkeletonLord;
 import me.thutson3876.fantasyclasses.custommobs.boss.uthroes.Ahsmi;
 import me.thutson3876.fantasyclasses.custommobs.boss.uthroes.Uthroes;
-import me.thutson3876.fantasyclasses.custommobs.boss.voidremnant.VoidRemnant;
 import me.thutson3876.fantasyclasses.custommobs.horde.Horde;
 import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
 import me.thutson3876.fantasyclasses.util.geometry.Schematic;
@@ -79,7 +75,7 @@ public class MobSpawnListener implements Listener {
 				loc.getWorld().playSound(loc, Sound.ENTITY_ELDER_GUARDIAN_CURSE, 3.0f, 1.2f);
 				new LostGuardian(loc);
 			}
-			else if(chance < 0.1) {
+			else if(chance < 0.10) {
 				e.setCancelled(true);
 				loc.getWorld().playSound(loc, Sound.ENTITY_PARROT_IMITATE_DROWNED, 3.0f, 0.5f);
 				new DrownedMiner(loc);
@@ -126,6 +122,7 @@ public class MobSpawnListener implements Listener {
 		//Test Code
 		
 		//Remove this before launching
+		/*
 		if(block.getType().equals(Material.MYCELIUM)) {
 			if(e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.SLIME_BALL)){
 				loc.getWorld().playSound(loc, Sound.ENTITY_SLIME_SQUISH, 1.5f, 2.0f);
@@ -172,8 +169,8 @@ public class MobSpawnListener implements Listener {
 				new SkeletonLord(loc);
 			}
 			
-		}
-		
+		}*/
+		//Remove this before launching
 	}
 	
 	@EventHandler

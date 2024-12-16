@@ -43,6 +43,9 @@ public class EnhancedRepitoire extends AbstractAbility{
 		if(!e.getPlayer().equals(player))
 			return;
 		
+		if(!player.getInventory().getItem(e.getHand()).getType().equals(Material.STICK))
+			return;
+		
 		if(isOnCooldown())
 			return;
 		
@@ -57,16 +60,23 @@ public class EnhancedRepitoire extends AbstractAbility{
 		if(l.getLevel() < l.getMaximumLevel())
 			return;
 		
-		block.setType(Material.CAULDRON);
-		
 		Collection<Entity> entities =  block.getWorld().getNearbyEntities(block.getBoundingBox());
 		Collection<ItemStack> ingredients = new ArrayList<>();
+		
+		boolean containsWart = false;
 		for(Entity ent : entities) {
 			if(ent.getType().equals(EntityType.ITEM)) {
 				Item i = (Item) ent;
 				ingredients.add(i.getItemStack());
+				containsWart = i.getItemStack().getType().equals(Material.NETHER_WART);
 			}
 		}
+		
+		if(!containsWart)
+			return;
+		
+		block.setType(Material.CAULDRON);
+		
 		ItemStack brew = BrewingRecipe.getDrop(ingredients);
 		if(brew == null) {
 			player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0f, 1.0f);

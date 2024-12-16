@@ -91,7 +91,7 @@ public class Eclipse extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "During the &6Day&r, you have are &e" + AbilityUtils.doubleRoundToXDecimals(saturationChance * 100, 2) + "% &rless hungry. During &9Night&r, your attacks have a &6" + AbilityUtils.doubleRoundToXDecimals(shootingStarChance * 100, 2) + "% &rchance to summon a &6Shooting Star";
+		return "During the &eDay&r, you have are &6" + AbilityUtils.doubleRoundToXDecimals(saturationChance * 100, 2) + "% &rless hungry. During &9Night&r, your attacks have a &6" + AbilityUtils.doubleRoundToXDecimals(shootingStarChance * 100, 2) + "% &rchance to summon a &6Shooting Star";
 	}
 
 	@Override

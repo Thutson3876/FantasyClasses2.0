@@ -532,9 +532,9 @@ public class AbilityUtils {
 				Location entBodyCenter = e.getLocation(); // .add(0, e.getHeight() / 2.0, 0);
 				Vector toEntity = entBodyCenter.toVector().subtract(eyeLocation.toVector()).normalize();
 				double dot = toEntity.dot(playerDirection);
-				p.sendMessage(
-						e.getType().name() + "'s Angle to Cursor: " + AbilityUtils.doubleRoundToXDecimals(dot, 3));
-				p.sendMessage("Min Dot Allowed: " + minDot);
+				//p.sendMessage(
+						//e.getType().name() + "'s Angle to Cursor: " + AbilityUtils.doubleRoundToXDecimals(dot, 3));
+				//p.sendMessage("Min Dot Allowed: " + minDot);
 				if (dot >= minDot) {
 					targets.add(e);
 				}

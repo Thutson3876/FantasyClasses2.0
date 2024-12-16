@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.abilities.Bindable;
 public class Darkvision extends AbstractAbility implements Bindable {
 
 	private boolean hasSpeed = false;
-	private int duration = 8 * 20;
+	private int duration = 12 * 20;
 	private Material type = null;
 	private PotionEffect vision;
 	private PotionEffect speed;
@@ -24,7 +24,7 @@ public class Darkvision extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 20 * 20;
+		this.coolDowninTicks = 24 * 20;
 		this.displayName = "Darkvision";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
@@ -72,7 +72,7 @@ public class Darkvision extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.duration = 8 * this.currentLevel * 20;
+		this.duration = 12 * this.currentLevel * 20;
 		
 		this.vision = new PotionEffect(PotionEffectType.NIGHT_VISION, duration, 1);
 		this.speed = new PotionEffect(PotionEffectType.SPEED, duration, 0);

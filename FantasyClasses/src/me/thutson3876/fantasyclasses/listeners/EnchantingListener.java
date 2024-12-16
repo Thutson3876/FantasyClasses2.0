@@ -17,9 +17,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.entity.ExpBottleEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
@@ -50,10 +52,10 @@ public class EnchantingListener implements Listener {
 
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(false);
 		
-		plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
+		/*plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
 		for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
 			plugin.log(entry.getKey().toString() + " : " + entry.getValue());
-		
+		*/
 		Map<Enchantment, Integer> availableEnchantmentMap = new HashMap<>();
 		for (Entry<Enchantments, Integer> entry : availableEnchantments.entrySet()) {
 			for (Enchantment ench : entry.getKey().getEnchants())
@@ -209,9 +211,9 @@ public class EnchantingListener implements Listener {
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(true);
 
 		
-		plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
-		for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
-			plugin.log(entry.getKey().toString() + " : " + entry.getValue());
+		//plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
+		/*for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
+			plugin.log(entry.getKey().toString() + " : " + entry.getValue());*/
 		
 		ItemStack result = e.getResult();
 		Map<Enchantment, Integer> newEnchants = new HashMap<>();
@@ -237,6 +239,32 @@ public class EnchantingListener implements Listener {
 		result.addEnchantments(newEnchants);
 
 		e.setResult(result);
+	}
+	
+	@EventHandler
+	public void onExpBottleEvent(ExpBottleEvent e) {
+		ItemStack item = e.getEntity().getItem();
+		
+		if(!item.hasItemMeta())
+			return;
+		
+		ItemMeta meta = item.getItemMeta();
+		
+		List<String> lore = meta.getLore();
+		
+		if(lore.isEmpty() || lore.get(0).length() < 5)
+			return;
+		
+		StringBuffer entry = new StringBuffer(lore.get(0));
+		entry.replace(0, 4, "XP: ");
+		
+		plugin.log("EXP Bottle Entry: " + entry);
+		try {
+            e.setExperience(Integer.valueOf(entry.toString()));
+	    } catch(NumberFormatException exc) {
+	    		plugin.log("EXP Bottle Entry not integer");
+	           return;
+	    }
 	}
 
 	private static Map<Enchantment, Integer> generateRandomEnchantment(ItemStack item,

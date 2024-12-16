@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -25,7 +24,6 @@ import me.thutson3876.fantasyclasses.events.ApplyStatusEvent;
 import me.thutson3876.fantasyclasses.status.ApplyCause;
 import me.thutson3876.fantasyclasses.status.Status;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
-import me.thutson3876.fantasyclasses.util.Aura;
 
 public class RollTheBones extends AbstractAbility implements Bindable {
 
@@ -35,7 +33,7 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 
 	private static int duration = 12 * 20;
 	
-	private BuffAura aura;
+	//private BuffAura aura;
 
 	static {
 		List<HighRollerStatus> buffs = new ArrayList<>();
@@ -60,7 +58,7 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 
-		aura = new BuffAura(player, 1, displayName, BarColor.PURPLE, 10, duration);
+		//aura = new BuffAura(player, 1, displayName, BarColor.PURPLE, 10, duration);
 		this.createItemStack(Material.SKELETON_SKULL);
 	}
 
@@ -131,7 +129,8 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 			//aura.toggleAura();
 		
 		//eventStatus.getType().toString() (int) longestDuration
-		aura.toggleAura();
+		//aura.setPlayer(player);
+		//aura.toggleAura();
 	}
 
 	public List<HighRollerStatus> roll() {
@@ -208,7 +207,7 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 		return BUFFS_LIST;
 	}
 	
-	private class BuffAura extends Aura {
+	/*private class BuffAura extends Aura {
 
 		public BuffAura(Player p, double range, String name, BarColor color, int tickRate, long duration) {
 			super(p, range, name, color, 5, duration);
@@ -220,5 +219,5 @@ public class RollTheBones extends AbstractAbility implements Bindable {
 			counterTick();
 		}
 		
-	}
+	}*/
 }

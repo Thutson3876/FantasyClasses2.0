@@ -58,7 +58,7 @@ public class Descendant extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(400);
-		this.setAttackDamage(35);
+		this.setAttackDamage(25);
 		this.setSkillExpReward(80);
 	}
 	

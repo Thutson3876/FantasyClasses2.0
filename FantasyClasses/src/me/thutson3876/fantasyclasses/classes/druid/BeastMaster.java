@@ -12,7 +12,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class BeastMaster extends AbstractAbility {
 
-	private static final double HEALTH_MODIFIER_PER_LEVEL = 0.1;
+	private static final double HEALTH_MODIFIER_PER_LEVEL = 0.2;
 	private static final double DAMAGE_MODIFIER_PER_LEVEL = 0.1;
 	private double healthMod = HEALTH_MODIFIER_PER_LEVEL;
 	private double damageMod = DAMAGE_MODIFIER_PER_LEVEL;

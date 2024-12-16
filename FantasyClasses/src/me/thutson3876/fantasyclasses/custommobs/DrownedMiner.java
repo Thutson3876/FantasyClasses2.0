@@ -101,8 +101,8 @@ public class DrownedMiner extends AbstractCustomMob {
 	
 	@Override
 	protected void applyDefaults() {
-		this.setMaxHealth(50);
-		this.setAttackDamage(19);
+		this.setMaxHealth(45);
+		this.setAttackDamage(9);
 		this.setMoveSpeed(0.6f);
 		this.setSkillExpReward(3);
 	}

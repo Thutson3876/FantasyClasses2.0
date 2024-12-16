@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.abilities.Bindable;
 
 public class DiggyDiggyHole extends AbstractAbility implements Bindable {
 
-	private int duration = 4 * 20;
+	private int duration = 8 * 20;
 	private Material type = null;
 	private PotionEffect haste;
 	
@@ -71,7 +71,7 @@ public class DiggyDiggyHole extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		duration = (4 * currentLevel) * 20;
+		duration = (8 * currentLevel) * 20;
 		haste = new PotionEffect(PotionEffectType.HASTE, duration, currentLevel);
 	}
 

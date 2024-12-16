@@ -249,8 +249,8 @@ public abstract class AbstractBoss extends AbstractCustomMob implements Boss {
 					if(player.isDead())
 						return;
 					
-					player.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK, 60 * 20, 4));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60 * 20, 4));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.UNLUCK, 30 * 20, 4));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 30 * 20, 4));
 					player.sendMessage(ChatUtils.chat("&8Your respawn is close to a &4powerful foe... &8You feel weakened and vulnerable..."));
 				}
 				

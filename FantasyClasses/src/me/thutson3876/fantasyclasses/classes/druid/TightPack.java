@@ -63,7 +63,7 @@ public class TightPack extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Your pets are stronger when in smaller number. They deal &6" + AbilityUtils.doubleRoundToXDecimals(damageMod, 2) + "% &rand take &6" + AbilityUtils.doubleRoundToXDecimals(healthMod, 2) + "% &rreduced damage.";
+		return "Your pets are stronger when in smaller number. They deal &6" + AbilityUtils.doubleRoundToXDecimals(damageMod * 100, 2) + "% &rand take &6" + AbilityUtils.doubleRoundToXDecimals(healthMod * 100, 2) + "% &rreduced damage.";
 	}
 
 	@Override

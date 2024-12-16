@@ -1,18 +1,27 @@
 package me.thutson3876.fantasyclasses.classes.highroller;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.inventory.EquipmentSlotGroup;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
 import me.thutson3876.fantasyclasses.util.ArmorType;
 import me.thutson3876.fantasyclasses.util.chat.ColorCode;
 
 public class Roller_Proficiencies extends AbstractAbility {
 
+	private double healthBonus = 4.0;
+	
 	public Roller_Proficiencies(Player p) {
 		super(p);
 	}
@@ -33,7 +42,8 @@ public class Roller_Proficiencies extends AbstractAbility {
 			return;
 		
 		if(Arrays.asList(ArmorType.GOLD.getMaterials()).contains(e.getItem().getType())) {
-			e.setDamage(1);
+			Random rng = new Random();
+			e.setDamage(rng.nextInt(2));
 		}
 	}
 
@@ -44,7 +54,7 @@ public class Roller_Proficiencies extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "&aIncreases your movement &aspeed &aby 10%";
+		return "&aIncreases your movement &aspeed &aby 10%. " + "&aIncreases &ayour &aHealth by &6" + healthBonus;
 	}
 
 	@Override
@@ -58,6 +68,9 @@ public class Roller_Proficiencies extends AbstractAbility {
 			return;
 		
 		player.setWalkSpeed(0.22f);
+		
+		AbilityUtils.setMaxHealth(player, new AttributeModifier(new NamespacedKey(FantasyClasses.getPlugin(), "rollerproficiencies"), healthBonus, Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
+		
 		this.fplayer.setArmorType(2);
 	}
 

@@ -2,6 +2,7 @@ package me.thutson3876.fantasyclasses.classes.witch;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -45,6 +46,12 @@ public class WitchesCauldron extends AbstractAbility {
 		if(isOnCooldown())
 			return;
 		
+		if(e.getHand() == null)
+			return;
+		
+		if(player.getInventory().getItem(e.getHand()) == null)
+			return;
+		
 		if(!player.getInventory().getItem(e.getHand()).getType().equals(Material.STICK))
 			return;
 		
@@ -67,7 +74,6 @@ public class WitchesCauldron extends AbstractAbility {
 			if(ent.getType().equals(EntityType.ITEM)) {
 				Item i = (Item) ent;
 				mats.add(i.getItemStack().getType());
-				i.remove();
 			}
 		}
 		ItemStack brew = AbilityUtils.getWitchesBrew();
@@ -81,20 +87,35 @@ public class WitchesCauldron extends AbstractAbility {
 		meta.setDisplayName(WitchBrewRecipe.serializeIngredients(mats));
 		brew.setItemMeta(meta);
 		
-		block.getWorld().dropItemNaturally(block.getLocation(), brew);
-		
 		boolean isPerfect = false;
 		for(WitchBrewRecipe recipe : WitchBrewRecipe.values()) {
-			if(recipe.getResult().isSimilar(brew)) {
+			if(new HashSet<>(mats).equals(new HashSet<>(recipe.getIngredients()))) {
+			//if(mats.equals(recipe.getIngredients())) {
+			
+			//if(recipe.getResult().isSimilar(brew)) {
+			//if(recipe.getResult().getItemMeta().getDisplayName().equals(brew.getItemMeta().getDisplayName())) {
 				player.playSound(player.getLocation(), Sound.ENTITY_WITCH_CELEBRATE, 1.0f, 1.0f);
 				block.getWorld().spawnParticle(Particle.WITCH, block.getLocation(), 4);
+				block.getWorld().dropItemNaturally(block.getLocation(), brew);
 				isPerfect = true;
 				break;
 			}
 		}
 		
-		if(!isPerfect)
+		if(!isPerfect) {
+			this.onTrigger(true);
 			player.playSound(player.getLocation(), Sound.ENTITY_WITCH_HURT, 1.0f, 1.0f);
+			return;
+		}
+		else {
+			for(Entity ent : entities) {
+				if(ent.getType().equals(EntityType.ITEM)) {
+					Item i = (Item) ent;
+					i.remove();
+				}
+			}
+		}
+			
 		
 		this.onTrigger(true);
 	}

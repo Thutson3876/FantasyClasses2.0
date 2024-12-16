@@ -18,7 +18,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 public class Berserk_Proficiencies extends AbstractAbility {
 
 	private double healthBonus = 10.0;
-	private double damageReduction = 0.15;
+	private double damageReduction = 0.1;
 	private final DamageModifier dmgMod; 
 
 	public Berserk_Proficiencies(Player p) {

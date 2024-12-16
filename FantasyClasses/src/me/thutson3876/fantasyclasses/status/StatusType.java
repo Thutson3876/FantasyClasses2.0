@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
@@ -101,8 +102,9 @@ public class StatusType implements Listener {
 	
 	public boolean remove(LivingEntity host, RemoveCause cause) {
 		Status toRemove = statusManager.get(host, this.getClass());
-		if(toRemove == null)
+		if(toRemove == null) {
 			return false;
+		}
 		
 		RemoveStatusEvent removeEvent = new RemoveStatusEvent(toRemove, host, null, cause);
 		Bukkit.getPluginManager().callEvent(removeEvent);
@@ -112,6 +114,14 @@ public class StatusType implements Listener {
 		
 		//unregisters listener; causes 
 		//deInit();
+		/*FantasyClasses.getPlugin().log("Statuses of " + host.getName() + ": ");
+		for(Status s : statusManager.getAll(host)) {
+			FantasyClasses.getPlugin().log(s.getType().name);
+		}
+		FantasyClasses.getPlugin().log("-=-=-=-=-=-=-=-=-=-=-");*/
+		
+		
+		HandlerList.unregisterAll(this);
 		statusManager.remove(host, this);
 		return true;
 	}
@@ -127,7 +137,7 @@ public class StatusType implements Listener {
 		if(removeEvent.isCancelled())
 			return false;
 		
-		//deInit();
+		HandlerList.unregisterAll(this);
 		statusManager.remove(host, this);
 		return true;
 	}

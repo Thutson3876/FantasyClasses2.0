@@ -27,7 +27,8 @@ public class Enchanter extends AbstractFantasyClass {
 		Skill e103 = e102.addChild(new Enchanting103(p));
 		e103.addChild(new AncientKnowledge(p));
 		e103.addChild(new ExperiencedEnchanter(p));
-		e103.addChild(new Enchanting201(p));
+		//e103.addChild(new Enchanting201(p));
+		e103.addChild(new Extraction(p));
 		
 		
 		this.setSkillInMap(4, skillTree); //Cost: 1 Max: 2
@@ -40,6 +41,7 @@ public class Enchanter extends AbstractFantasyClass {
 		this.setSkillInMap(36 + 2, e103.getNext().get(0)); //Cost: 2 Max: 1
 		this.setSkillInMap(36 + 6, e103.getNext().get(1)); //Cost: 1 Max: 3
 		//this.setSkillInMap(45 + 4, e103.getNext().get(2)); //Cost: 2 Max: 1
+		this.setSkillInMap(45 + 4, e103.getNext().get(2)); 
 		
 		this.setPrerequisites();
 	}

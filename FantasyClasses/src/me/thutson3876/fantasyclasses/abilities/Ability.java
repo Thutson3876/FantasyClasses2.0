@@ -59,6 +59,10 @@ public interface Ability extends ConfigurationSerializable {
 	
 	void disable();
 	
+	void disableHandlers();
+	
+	void enableHandlers();
+	
 	void resetLevel();
 
 	int getCurrentLevel();

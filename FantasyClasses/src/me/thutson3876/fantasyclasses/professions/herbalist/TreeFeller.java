@@ -1,4 +1,4 @@
-package me.thutson3876.fantasyclasses.classes.druid;
+package me.thutson3876.fantasyclasses.professions.herbalist;
 
 import java.util.Arrays;
 import java.util.HashSet;

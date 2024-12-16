@@ -105,7 +105,7 @@ public class SkeletonLord extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(500);
-		this.setAttackDamage(30);
+		this.setAttackDamage(20);
 		this.setSkillExpReward(120);
 	}
 	

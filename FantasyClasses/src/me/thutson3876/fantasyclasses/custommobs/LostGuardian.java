@@ -98,7 +98,7 @@ public class LostGuardian extends AbstractCustomMob {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(80);
-		this.setAttackDamage(20);
+		this.setAttackDamage(10);
 		this.setMoveSpeed(0.9f);
 		this.setSkillExpReward(5);
 	}

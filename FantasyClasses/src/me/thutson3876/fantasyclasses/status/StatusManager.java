@@ -23,7 +23,9 @@ public class StatusManager {
 		toRemove.addAll(statusList);
 
 		for (StatusContainer container : toRemove) {
-
+			if(container == null)
+				continue;
+			
 			for (Status s : container.getStatuses()) {
 				s.getType().remove(container.getHost(), RemoveCause.DISCONNECT);
 			}

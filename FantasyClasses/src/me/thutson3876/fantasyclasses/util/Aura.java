@@ -17,7 +17,7 @@ public abstract class Aura implements Runnable {
 	private long counter;
 	
 	protected final String name;
-	protected final Player p;
+	protected Player p;
 	protected final double range;
 	protected final long duration;
 	protected int tickRate;
@@ -50,6 +50,10 @@ public abstract class Aura implements Runnable {
 			this.getBar().setVisible(false);
 			this.isOn = false;
 		}
+	}
+	
+	public void setPlayer(Player p) {
+		this.p = p;
 	}
 	
 	protected void counterTick() {

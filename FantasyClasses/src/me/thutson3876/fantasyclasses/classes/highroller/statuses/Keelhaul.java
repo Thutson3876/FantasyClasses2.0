@@ -20,7 +20,9 @@ import me.thutson3876.fantasyclasses.util.metadatavalue.NoExplodeBlocks;
 public class Keelhaul extends HighRollerStatus {
 
 	public Keelhaul() {
-		super("Keelhaul", 99, null, null);
+		super("Keelhaul", 99, null, (host, duration, stacks) -> {
+			playerFeedback(host, "Keelhaul", Sound.BLOCK_BLASTFURNACE_FIRE_CRACKLE);
+		});
 	}
 
 	// crossbow shot hits that consume Blindsided launch tnt at the target (mortar
@@ -58,8 +60,6 @@ public class Keelhaul extends HighRollerStatus {
 			tnt.setFuseTicks(30);
 			tnt.setGravity(true);
 			tnt.setMetadata("noexplodeblocks", new NoExplodeBlocks());
-			
-			playerFeedback(leHost, "Dreadblades", Sound.ENTITY_PLAYER_ATTACK_SWEEP);
 		}
 	}
 

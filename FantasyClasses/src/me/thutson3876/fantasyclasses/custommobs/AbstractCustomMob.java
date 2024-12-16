@@ -174,13 +174,19 @@ public abstract class AbstractCustomMob implements Listener {
 					@Override
 					public void run() {
 						if (drops != null && !drops.isEmpty()) {
-							for (ItemStack i : drops) {
-								if(i == null || i.getType().isAir())
-									continue;
+							int numOfDrops = (int)Math.ceil((double)AbilityUtils.getNearbyPlayers(ent, 20).size() / 2.0);
+							
+							do {
+								for (ItemStack i : drops) {
+									if(i == null || i.getType().isAir())
+										continue;
+									
+									e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), i);
+								}
 								
-								e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), i);
-							}
-
+								numOfDrops--;
+							} while(numOfDrops > 0);
+							
 							for (Entity entity : ent.getNearbyEntities(20, 20, 20)) {
 								if (entity instanceof Player)
 									((Player) entity).sendMessage(ChatUtils.chat("&6Drops loaded!"));

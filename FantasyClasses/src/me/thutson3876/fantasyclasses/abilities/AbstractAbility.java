@@ -193,6 +193,10 @@ public abstract class AbstractAbility implements Ability, Listener {
 		if(this.fplayer == null)
 			this.fplayer = plugin.getPlayerManager().getPlayer(player);
 		
+		//plugin.log("Registered Events for " + this.displayName);
+		
+		HandlerList.unregisterAll(this);
+		
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 		isEnabled = true;
 		
@@ -204,11 +208,23 @@ public abstract class AbstractAbility implements Ability, Listener {
 		if(this.currentLevel != 0) {
 			this.setLevel(0);
 			applyLevelModifiers();
+			deInit();
 		}
 		
 		//plugin.getPlayerManager().getPlayer(this.player).removeAndResetClassAbility(this);
 		//plugin.getPlayerManager().getPlayer(this.player).removeAndResetProfAbility(this);
+		//plugin.log("Unregistered Events for " + this.displayName);
 		HandlerList.unregisterAll(this);
+	}
+	
+	@Override
+	public void disableHandlers() {
+		
+	}
+	
+	@Override
+	public void enableHandlers() {
+		
 	}
 	
 	protected ItemStack createItemStack(Material mat) {

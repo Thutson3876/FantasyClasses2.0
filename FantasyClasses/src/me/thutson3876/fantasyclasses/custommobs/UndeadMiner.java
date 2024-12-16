@@ -107,7 +107,7 @@ public class UndeadMiner extends AbstractCustomMob {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(60);
-		this.setAttackDamage(20);
+		this.setAttackDamage(10);
 		this.setSkillExpReward(6);
 		this.setMoveSpeed(0.2f);
 	}

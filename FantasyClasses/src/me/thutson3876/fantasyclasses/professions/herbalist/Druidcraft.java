@@ -1,4 +1,4 @@
-package me.thutson3876.fantasyclasses.classes.druid;
+package me.thutson3876.fantasyclasses.professions.herbalist;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,7 +22,7 @@ public class Druidcraft extends AbstractAbility implements Bindable {
 	@Override
 	public void setDefaults() {
 		this.coolDowninTicks = 9 * 20;
-		this.displayName = "Druidcraft";
+		this.displayName = "Blessed Touch";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
 

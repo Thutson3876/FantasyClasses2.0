@@ -10,7 +10,7 @@ public enum MaterialLists {
 	MELEE_WEAPON, RANGE_WEAPON, SWORD, AXE, HOE, PICKAXE, SHIELD, FISHING, EXOTIC_WEAPON, TOOL, ARMOR,
 	HELMET, CHESTPLATE, LEGGINGS, BOOTS,
 	POTION, ALCHEMICAL_INGREDIENT, DRUID_FOOD, CROP, 
-	LEAVES, DIRT, WOOD, STONE, AQUATIC, ICE, NETHER, END, DECORATION, MISC, ARROW;
+	LEAVES, DIRT, WOOD, STONE, AQUATIC, ICE, NETHER, END, DECORATION, MISC, ARROW, FLOWER;
 	
 	private List<Material> matList = new ArrayList<>();
 	
@@ -77,6 +77,7 @@ public enum MaterialLists {
 		EXOTIC_WEAPON.matList.add(Material.STONE_HOE);
 		EXOTIC_WEAPON.matList.add(Material.NETHERITE_HOE);
 		EXOTIC_WEAPON.matList.add(Material.DIAMOND_HOE);
+		EXOTIC_WEAPON.matList.add(Material.MACE);
 		//Tool
 		TOOL.matList.addAll(MELEE_WEAPON.matList);
 		TOOL.matList.addAll(EXOTIC_WEAPON.matList);
@@ -183,6 +184,8 @@ public enum MaterialLists {
 		LEAVES.matList.add(Material.OAK_LEAVES);
 		LEAVES.matList.add(Material.SPRUCE_LEAVES);
 		LEAVES.matList.add(Material.MANGROVE_LEAVES);
+		LEAVES.matList.add(Material.CHERRY_LEAVES);
+		LEAVES.matList.add(Material.PALE_OAK_LEAVES);
 		//Dirt
 		DIRT.matList.add(Material.DIRT);
 		DIRT.matList.add(Material.MUD);
@@ -203,8 +206,13 @@ public enum MaterialLists {
 		WOOD.matList.add(Material.JUNGLE_LOG);
 		WOOD.matList.add(Material.MANGROVE_LOG);
 		WOOD.matList.add(Material.SPRUCE_LOG);
+		WOOD.matList.add(Material.CHERRY_LOG);
+		WOOD.matList.add(Material.PALE_OAK_LOG);
 		//Stone
 		STONE.matList.add(Material.STONE);
+		STONE.matList.add(Material.COBBLESTONE);
+		STONE.matList.add(Material.COBBLED_DEEPSLATE);
+		STONE.matList.add(Material.MOSSY_COBBLESTONE);
 		STONE.matList.add(Material.SANDSTONE);
 		STONE.matList.add(Material.RED_SANDSTONE);
 		STONE.matList.add(Material.TERRACOTTA);
@@ -216,6 +224,11 @@ public enum MaterialLists {
 		STONE.matList.add(Material.DEEPSLATE);
 		STONE.matList.add(Material.BONE_BLOCK);
 		STONE.matList.add(Material.OBSIDIAN);
+		STONE.matList.add(Material.BLACKSTONE);
+		STONE.matList.add(Material.END_STONE);
+		STONE.matList.add(Material.NETHERRACK);
+		STONE.matList.add(Material.DRIPSTONE_BLOCK);
+		STONE.matList.add(Material.PACKED_MUD);
 		//Aquatic
 		AQUATIC.matList.add(Material.PRISMARINE);
 		AQUATIC.matList.add(Material.DARK_PRISMARINE);
@@ -248,6 +261,28 @@ public enum MaterialLists {
 		ARROW.matList.add(Material.ARROW);
 		ARROW.matList.add(Material.SPECTRAL_ARROW);
 		ARROW.matList.add(Material.TIPPED_ARROW);
+		//Flowers
+		FLOWER.matList.add(Material.DANDELION);
+		FLOWER.matList.add(Material.POPPY);
+		FLOWER.matList.add(Material.BLUE_ORCHID);
+		FLOWER.matList.add(Material.ALLIUM);
+		FLOWER.matList.add(Material.AZURE_BLUET);
+		FLOWER.matList.add(Material.RED_TULIP);
+		FLOWER.matList.add(Material.ORANGE_TULIP);
+		FLOWER.matList.add(Material.WHITE_TULIP);
+		FLOWER.matList.add(Material.PINK_TULIP);
+		FLOWER.matList.add(Material.OXEYE_DAISY);
+		FLOWER.matList.add(Material.CORNFLOWER);
+		FLOWER.matList.add(Material.LILY_OF_THE_VALLEY);
+		FLOWER.matList.add(Material.WITHER_ROSE);
+		FLOWER.matList.add(Material.TORCHFLOWER);
+		FLOWER.matList.add(Material.SUNFLOWER);
+		FLOWER.matList.add(Material.LILAC);
+		FLOWER.matList.add(Material.ROSE_BUSH);
+		FLOWER.matList.add(Material.PEONY);
+		FLOWER.matList.add(Material.PITCHER_PLANT);
+		FLOWER.matList.add(Material.CLOSED_EYEBLOSSOM);
+		FLOWER.matList.add(Material.OPEN_EYEBLOSSOM);
 	}
 	
 	public List<Material> getMaterials(){

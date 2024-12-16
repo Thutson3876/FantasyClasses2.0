@@ -20,7 +20,7 @@ public class TasteTest extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 0;
 		this.displayName = "Taste Test";
-		this.skillPointCost = 2;
+		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 
 		this.createItemStack(Material.SUSPICIOUS_STEW);	

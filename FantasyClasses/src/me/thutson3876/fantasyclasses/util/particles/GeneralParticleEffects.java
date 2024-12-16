@@ -200,6 +200,7 @@ public class GeneralParticleEffects {
 					spawnLoc.add(x, tick * yScaling, z);
 					particle.spawn(spawnLoc);
 					
+					
 					tickStorage.put(key, tick + 1);
 					return;
 				}

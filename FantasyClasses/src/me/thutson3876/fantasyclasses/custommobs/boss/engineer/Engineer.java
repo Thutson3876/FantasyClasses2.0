@@ -65,7 +65,7 @@ public class Engineer extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(400);
-		this.setAttackDamage(35);
+		this.setAttackDamage(20);
 		this.setSkillExpReward(80);
 	}
 	

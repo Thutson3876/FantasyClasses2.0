@@ -62,7 +62,7 @@ public class Ahsmi extends AbstractBoss {
 		this.rider = rider;
 		ent.setCustomNameVisible(false);
 		if (rider == null) {
-			this.setBossBar("&bAhsmi", BarColor.BLUE, BarStyle.SOLID, new BarFlag[0]);
+			this.setBossBar("&bAhsmi", BarColor.BLUE, BarStyle.SOLID, BarFlag.CREATE_FOG, BarFlag.PLAY_BOSS_MUSIC);
 			
 			abilities.add(new SummonBrood());
 			abilities.add(new WinteryGrasp());
@@ -119,7 +119,7 @@ public class Ahsmi extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(500);
-		this.setAttackDamage(30);
+		this.setAttackDamage(20);
 		this.setSkillExpReward(30);
 		// this.setMoveSpeed(0.16f);
 	}

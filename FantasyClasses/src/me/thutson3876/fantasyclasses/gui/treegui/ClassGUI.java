@@ -274,6 +274,7 @@ public class ClassGUI extends AbstractGUI {
 			if (entry.getKey().getRealAbility().getCurrentLevel() != entry.getValue()) {
 				entry.getKey().getRealAbility().setLevel(entry.getValue());
 				if (entry.getValue() > 0) {
+					entry.getKey().getFakeAbility().disable();
 					entry.getKey().getRealAbility().enable();
 				}
 					changesMade = true;
@@ -444,7 +445,7 @@ public class ClassGUI extends AbstractGUI {
 		TempSkill(Skill skill) {
 			this.setRealAbility(skill.getAbility());
 			this.setFakeAbility(Ability.clone(skill.getAbility()));
-
+			
 			this.fakeAbility.setPrerequisite(realAbility.getPrerequisite());
 		}
 

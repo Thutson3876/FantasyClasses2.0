@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 
 public class OpenPalm extends AbstractAbility {
 
-	private static double damageModPerLevel = 2.0;
+	private static double damageModPerLevel = 4.0;
 	private double damageMod = damageModPerLevel;
 	
 	public OpenPalm(Player p) {
@@ -46,6 +46,8 @@ public class OpenPalm extends AbstractAbility {
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
+		
+		plugin.log("Event DamageMod: " + damageMod);
 		e.setDamage(e.getDamage() + damageMod);
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
@@ -69,13 +71,17 @@ public class OpenPalm extends AbstractAbility {
 	public void applyLevelModifiers() {
 		damageMod = damageModPerLevel * currentLevel;
 		
-		if(fplayer == null || fplayer.getChosenClass() == null)
+		if(fplayer == null || fplayer.getChosenClass() == null) {
+			plugin.log("Player Null");
 			return;
+		}
 		
 		AbstractFantasyClass clazz = fplayer.getChosenClass();
-		if (!(clazz instanceof Monk))
+		if (!(clazz instanceof Monk)) {
+			plugin.log("Class Null");
 			return;
-
+		}
+			
 		Monk monk = (Monk) clazz;
 		
 		monk.setUnarmedDmgMod(damageMod);

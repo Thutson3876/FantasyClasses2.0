@@ -14,7 +14,7 @@ import me.thutson3876.fantasyclasses.util.MaterialLists;
 public class BuiltToLast extends AbstractAbility {
 
 	private static Random rng = new Random();
-	private double chance = 0.1;
+	private double chance = 0.2;
 	
 	public BuiltToLast(Player p) {
 		super(p);
@@ -64,7 +64,7 @@ public class BuiltToLast extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		chance = 0.1 * currentLevel;
+		chance = 0.2 * currentLevel;
 	}
 
 }

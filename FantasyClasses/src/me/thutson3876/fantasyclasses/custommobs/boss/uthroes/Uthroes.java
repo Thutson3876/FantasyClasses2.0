@@ -116,7 +116,7 @@ public class Uthroes extends AbstractBoss {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(600);
-		this.setAttackDamage(35);
+		this.setAttackDamage(25);
 		this.setSkillExpReward(120);
 		this.setMoveSpeed(0.3f);
 	}

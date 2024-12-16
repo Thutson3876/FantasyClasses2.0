@@ -23,7 +23,7 @@ public class RangerProficiencies extends AbstractAbility {
 		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 
-		this.createItemStack(Material.LEATHER);
+		this.createItemStack(Material.IRON_CHESTPLATE);
 	}
 	
 	@EventHandler
@@ -31,14 +31,14 @@ public class RangerProficiencies extends AbstractAbility {
 		if(!e.getPlayer().equals(player))
 			return;
 		
-		if(Arrays.asList(ArmorType.LEATHER.getMaterials()).contains(e.getItem().getType())) {
+		if(Arrays.asList(ArmorType.IRON.getMaterials()).contains(e.getItem().getType())) {
 			e.setDamage(1);
 		}
 	}
 
 	@Override
 	public String getInstructions() {
-		return "Wear no armor stronger than &6Leather &3to use your abilities";
+		return "Wear no armor stronger than &6Iron &3to use your abilities";
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class RangerProficiencies extends AbstractAbility {
 			return;
 		
 		player.setWalkSpeed(0.22f);
-		this.fplayer.setArmorType(1);
+		this.fplayer.setArmorType(4);
 	}
 
 	@Override

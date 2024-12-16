@@ -73,7 +73,7 @@ public class FailedExperiment extends AbstractCustomMob {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(10);
-		this.setAttackDamage(10);
+		//this.setAttackDamage(10);
 		this.setMoveSpeed(0.3f);
 		this.setSkillExpReward(1);
 	}

@@ -15,12 +15,12 @@ import me.thutson3876.fantasyclasses.custommobs.boss.MobAbility;
 
 public class RemorselessWinter implements MobAbility {
 
-	private final int durationInTicks = 10 * 20;
+	private final int durationInTicks = 8 * 20;
 	private final int tickRate = 7;
 	private final int radius = 4;
 	
 	private final int freezeAmt = 100;
-	private final double dmg = 6.0;
+	private final double dmg = 4.0;
 	private final int duration = 20;
 	private final int amp = 1;
 	private final PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, amp);

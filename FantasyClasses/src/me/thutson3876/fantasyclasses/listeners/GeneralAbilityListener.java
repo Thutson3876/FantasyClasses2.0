@@ -32,6 +32,12 @@ public class GeneralAbilityListener implements Listener {
 	public void onAbilityTriggerEvent(AbilityTriggerEvent e) {
 		// e.getFplayer().getPlayer().sendMessage(ChatUtils.chat("&6" +
 		// e.getAbility().getName() + " &3triggered"));
+		if(!e.getFplayer().hasChosenClass())
+			return;
+		
+		if(e.getFplayer().getChosenClass().getSkillTreeAbility(e.getAbility()) == null)
+			return;
+		
 		e.setCancelled(e.getFplayer().isViolatingArmorType());
 	}
 

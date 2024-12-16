@@ -54,7 +54,7 @@ public class Parasite extends AbstractCustomMob {
 	@Override
 	protected void applyDefaults() {
 		this.setMaxHealth(16);
-		this.setAttackDamage(8);
+		this.setAttackDamage(7);
 		this.setMoveSpeed(0.35f);
 		this.setSkillExpReward(4);
 	}

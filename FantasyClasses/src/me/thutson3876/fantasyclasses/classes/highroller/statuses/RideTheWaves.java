@@ -9,7 +9,9 @@ import org.bukkit.event.EventHandler;
 
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.events.DamageModifier;
+import me.thutson3876.fantasyclasses.events.RemoveStatusEvent;
 import me.thutson3876.fantasyclasses.status.ApplyCause;
+import me.thutson3876.fantasyclasses.status.StatusType;
 import me.thutson3876.fantasyclasses.status.general.Strider;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
@@ -48,7 +50,7 @@ public class RideTheWaves extends HighRollerStatus {
 		
 		if(!AbilityUtils.isAbove(leHost, e.getVictim()))
 			return;
-
+		
 		e.addModifier(new DamageModifier("Ride The Waves", Operation.MULTIPLY_SCALAR_1, 1.00));
 	}
 }

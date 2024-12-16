@@ -155,6 +155,59 @@ public enum Schematic {
 				}
 
 			}.runTaskLater(FantasyClasses.getPlugin(), 15 * locs.size());
+	}),
+	DESCENDANT(Material.ENDER_CHEST, () -> {
+		Map<Integer[], Material> schematic = new HashMap<>();
+		Integer[][] schematicCoords = new Integer[][] { { 1, -1, 0 }, { -1, -1, 0 }, { 0, -1, 1 }, { 0, -1, -1 } };
+	
+		for (int i = 0; i < schematicCoords.length; i++) {
+			schematic.put(schematicCoords[i], Material.BLACK_CANDLE);
+		}
+	
+		return schematic;
+		}, (loc) -> {
+			List<Location> locs = Sphere.generateCircle(loc, 3, true);
+			World world = loc.getWorld();
+	
+			GeneralParticleEffects.twirlingRing(loc, new CustomParticle(Particle.ELECTRIC_SPARK), 1.6, 12.6, 1000, 7);
+	
+			for (Location l : locs) {
+				new BukkitRunnable() {
+	
+					@Override
+					public void run() {
+						world.playSound(l, Sound.ENTITY_SKELETON_HORSE_AMBIENT, 2.0f, 0.9f);
+					}
+	
+				}.runTaskLater(FantasyClasses.getPlugin(), 7);
+	
+				new BukkitRunnable() {
+	
+					@Override
+					public void run() {
+						world.strikeLightning(l);
+						for(LivingEntity le : AbilityUtils.getNearbyLivingEntities(l, 1.0, 2.0, 1.0)) {
+							AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.UNLUCK, 30 * 20, 1), le, 9, 120 * 20);
+						}
+							
+					}
+	
+				}.runTaskLater(FantasyClasses.getPlugin(), 14);
+			}
+			
+			new BukkitRunnable() {
+				
+				@Override
+				public void run() {
+					world.strikeLightning(loc);
+					for(LivingEntity le : AbilityUtils.getNearbyLivingEntities(loc, 1.0, 2.0, 1.0)) {
+						AbilityUtils.applyStackingPotionEffect(new PotionEffect(PotionEffectType.UNLUCK, 30 * 20, 1), le, 9, 120 * 20);
+					}
+					
+					new SkeletonLord(loc);
+				}
+
+			}.runTaskLater(FantasyClasses.getPlugin(), 15 * locs.size());
 	})
 	;
 

@@ -33,6 +33,7 @@ import me.thutson3876.fantasyclasses.professions.alchemist.Alchemy;
 import me.thutson3876.fantasyclasses.professions.enchanter.Enchanter;
 import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
 import me.thutson3876.fantasyclasses.professions.fisherman.Fisherman;
+import me.thutson3876.fantasyclasses.professions.herbalist.Herbalist;
 import me.thutson3876.fantasyclasses.professions.miner.Miner;
 import me.thutson3876.fantasyclasses.util.ArmorType;
 import me.thutson3876.fantasyclasses.util.chat.ChatUtils;
@@ -107,6 +108,7 @@ public class FantasyPlayer {
 		professions.add(new Miner(this));
 		professions.add(new Fisherman(this));
 		professions.add(new Enchanter(this));
+		professions.add(new Herbalist(this));
 		professions.add(new Alchemy(this));
 		
 		FileConfiguration config = plugin.getConfig();

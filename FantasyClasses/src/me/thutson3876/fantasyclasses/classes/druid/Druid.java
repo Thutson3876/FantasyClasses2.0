@@ -14,6 +14,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.util.Vector;
 
@@ -21,6 +22,7 @@ import me.thutson3876.fantasyclasses.abilities.skills.Skill;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.metadatavalue.NoExplodeBlocks;
 import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
 import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
@@ -28,7 +30,7 @@ public class Druid extends AbstractFantasyClass {
 
 	private List<WitherSkull> shootingStars = new ArrayList<>();
 	
-	private double shootingStarSpeed = 0.1;
+	private double shootingStarSpeed = 0.07;
 	
 	public Druid(FantasyPlayer player) {
 		super(player, false);
@@ -37,50 +39,54 @@ public class Druid extends AbstractFantasyClass {
 		name = "Druid";
 
 		this.setItemStack(Material.RABBIT_FOOT, name, "A class based on revering nature and its gifts");
-
-		skillTree = new Skill(new Forager(p));
 		
-		Skill craft = new Skill(new Druidcraft(p));
-		Skill bark = craft.addChild(new Rejuvination(p)).addChild(new Barkskin(p));
-		bark.addChild(new NaturesBlessing(p));
-		bark.addChild(new NaturesBalance(p)).addChild(new Tranquility(p));
-		skillTree.addChild(craft);
-		craft.addChild(new GreenThumb(p)).addChild(new Regrowth(p));
+		skillTree = new Skill(new Druid_Proficiencies(p));
+		
+		Skill barkskin = new Skill(new Barkskin(p));
+		barkskin.addChild(new Eclipse(p)).addChild(new Solstice(p));
+		
+		Skill rejuv = new Skill(new Rejuvination(p));
+		rejuv.addChild(new NaturesBlessing(p));
+		rejuv.addChild(new NaturesBalance(p)).addChild(new Tranquility(p));
+		
+		Skill shootingStars = new Skill(new ShootingStars(p));
+		shootingStars.addChild(new Starfall(p));
+		shootingStars.addChild(new UmbralEmbrace(p));
 		
 		Skill beast = new Skill(new BestFriend(p));
 		Skill stamp = beast.addChild(new BeastMaster(p)).addChild(new Stampede(p));
 		stamp.addChild(new BirdSinger(p));
 		stamp.addChild(new FelinesGrace(p));
 		stamp.addChild(new TightPack(p));
+		
+		skillTree.addChild(barkskin);
+		skillTree.addChild(rejuv);
+		skillTree.addChild(shootingStars); 
 		skillTree.addChild(beast);
+		skillTree.addChild(new SurvivalInstincts(p));
 		
-		Skill tree = new Skill(new TreeFeller(p));
-		tree.addChild(new BountifulHarvest(p)).addChild(new SurvivalInstincts(p));
-		skillTree.addChild(tree);
-		skillTree.addChild(new ShootingStars(p)).addChild(new Eclipse(p));
+		setSkillInMap(27 + 4, skillTree);
+		setSkillInMap(27 + 5, barkskin);
+		setSkillInMap(27 + 6, barkskin.getNext().get(0));
+		setSkillInMap(27 + 8, barkskin.getNext().get(0).getNext().get(0));
 		
-		// new Skill(new WildGrowth(p));
+		setSkillInMap(9 + 6, rejuv);
+		setSkillInMap(0 + 6, rejuv.getNext().get(0));
+		setSkillInMap(9 + 7, rejuv.getNext().get(1));
+		setSkillInMap(9 + 8, rejuv.getNext().get(1).getNext().get(0));
 		
-		setSkillInMap(4, skillTree);
-		setSkillInMap(9 + 1, craft.getNext().get(1));
-		setSkillInMap(9 + 0, craft.getNext().get(1).getNext().get(0));
-		setSkillInMap(9 + 2, craft);
-		setSkillInMap(18 + 2, craft.getNext().get(0));
-		setSkillInMap(27 + 2, bark);
-		setSkillInMap(36 + 2, bark.getNext().get(0));
-		setSkillInMap(27 + 1, bark.getNext().get(1));
-		setSkillInMap(27 + 0, bark.getNext().get(1).getNext().get(0));
-		setSkillInMap(9 + 4, beast);
-		setSkillInMap(18 + 4, beast.getNext().get(0));
-		setSkillInMap(27 + 4, stamp);
-		setSkillInMap(36 + 3, stamp.getNext().get(2));
-		setSkillInMap(36 + 4, stamp.getNext().get(0));
-		setSkillInMap(36 + 5, stamp.getNext().get(1));
-		setSkillInMap(9 + 6, tree);
-		setSkillInMap(9 + 7, tree.getNext().get(0));
-		setSkillInMap(18 + 7, tree.getNext().get(0).getNext().get(0));
-		setSkillInMap(0 + 1, skillTree.getNext().get(3));
-		setSkillInMap(0 + 0, skillTree.getNext().get(3).getNext().get(0));
+		setSkillInMap(36 + 4, shootingStars);
+		setSkillInMap(45 + 3, shootingStars.getNext().get(0));
+		setSkillInMap(45 + 5, shootingStars.getNext().get(1));
+		
+		setSkillInMap(27 + 2, beast);
+		setSkillInMap(27 + 1, beast.getNext().get(0));
+		setSkillInMap(27 + 0, stamp);
+		setSkillInMap(18 + 0, stamp.getNext().get(0));
+		setSkillInMap(9 + 1, stamp.getNext().get(2));
+		setSkillInMap(36 + 0, stamp.getNext().get(1));
+		
+		setSkillInMap(9 + 4, skillTree.getNext().get(4));
 		
 		this.setPrerequisites();
 	}
@@ -90,6 +96,13 @@ public class Druid extends AbstractFantasyClass {
 	}
 	
 	public WitherSkull spawnShootingStar(Entity target) {
+		if (target instanceof Tameable) {
+			Tameable tamed = (Tameable) target;
+			if (tamed.getOwner() != null && tamed.getOwner().equals(p)) {
+				return null;
+			}
+		}
+		
 		World world = target.getWorld();
 		Location spawnPoint = target.getLocation();
 		
@@ -103,13 +116,15 @@ public class Druid extends AbstractFantasyClass {
 		
 		//star.setVisibleByDefault(false);
 		star.setGlowing(true);
+		star.setCharged(true);
 		star.setYield(0.1f);
 		star.setDirection(launchVector);
 		star.setVelocity(launchVector.multiply(shootingStarSpeed));
 		star.setShooter(p);
+		star.setMetadata("noexplodeblocks", new NoExplodeBlocks());
 		
 		if(!this.shootingStars.contains(star)) {
-			this.shootingStars.add(star);
+			this.shootingStars.add(star); 
 			star.playEffect(EntityEffect.TELEPORT_ENDER);
 			GeneralParticleEffects.trail(star, new CustomParticle(Particle.DUST, 5, 0.1, 0.5, Color.PURPLE), 12 * 20, 1);
 			GeneralParticleEffects.trail(star, new CustomParticle(Particle.DUST, 5, 0.1, 0.5, Color.BLUE), 12 * 20, 1);
@@ -119,8 +134,42 @@ public class Druid extends AbstractFantasyClass {
 			world.playSound(star, Sound.BLOCK_AMETHYST_BLOCK_RESONATE, 1f, 1.0f);
 		}
 		
-		return star;
+		return star;	
+	}
+	
+	public WitherSkull spawnShootingStar(Location loc) {
+		World world = loc.getWorld();
+		Location spawnPoint = loc;
+		
+		Random rng = new Random();
+
+		spawnPoint.add(-2 + 4*rng.nextFloat(), 2 + 4 + rng.nextFloat(), -2 + 4*rng.nextFloat());
+		
+		WitherSkull star = (WitherSkull) world.spawnEntity(spawnPoint, EntityType.WITHER_SKULL);
+		
+		Vector launchVector = AbilityUtils.getVectorBetween2Points(spawnPoint, loc, shootingStarSpeed).normalize();
+		
+		//star.setVisibleByDefault(false);
+		star.setGlowing(true);
+		star.setCharged(true);
+		star.setYield(0.1f);
+		star.setDirection(launchVector);
+		star.setVelocity(launchVector.multiply(shootingStarSpeed));
+		star.setShooter(p);
+		star.setMetadata("noexplodeblocks", new NoExplodeBlocks());
+		
+		if(!this.shootingStars.contains(star)) {
+			this.shootingStars.add(star); 
+			star.playEffect(EntityEffect.TELEPORT_ENDER);
+			GeneralParticleEffects.trail(star, new CustomParticle(Particle.DUST, 5, 0.1, 0.5, Color.PURPLE), 12 * 20, 1);
+			GeneralParticleEffects.trail(star, new CustomParticle(Particle.DUST, 5, 0.1, 0.5, Color.BLUE), 12 * 20, 1);
+			GeneralParticleEffects.trail(star, new CustomParticle(Particle.DUST, 10, 0, 1, Color.WHITE), 12 * 20, 1);
+			GeneralParticleEffects.trail(star, new CustomParticle(Particle.CHERRY_LEAVES, 5, 0, 1, Color.PURPLE), 12 * 20, 1);
 			
+			world.playSound(star, Sound.BLOCK_AMETHYST_BLOCK_RESONATE, 1f, 1.0f);
+		}
+		
+		return star;	
 	}
 	
 	public boolean removeShootingStar(WitherSkull star) {

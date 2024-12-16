@@ -24,10 +24,10 @@ import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 public class Tranquility extends AbstractAbility implements Bindable {
 
 	private Material boundType = null;
-	private double healAmt = 1.5;
+	private double healAmt = 3;
 	private int duration = 6 * 20;
 	private double maxDistance = 8.0;
-	private int tickRate = 20;
+	private int tickRate = 10;
 	private HealingAura aura;
 	
 	public Tranquility(Player p) {
@@ -39,7 +39,7 @@ public class Tranquility extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 30 * 20;
 		this.displayName = "Tranquility";
 		this.skillPointCost = 1;
-		this.maximumLevel = 6;
+		this.maximumLevel = 3;
 		this.duration = 6 * 20;
 
 		this.createItemStack(Material.ENCHANTED_GOLDEN_APPLE);		
@@ -90,8 +90,7 @@ public class Tranquility extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		healAmt = 1.5 * currentLevel;
-		tickRate = 25 - 5 * currentLevel;
+		healAmt = 3 * currentLevel;
 		duration = 6 * 20;
 		aura = new HealingAura(player, maxDistance, displayName, BarColor.GREEN, tickRate, duration);
 		aura.setTickRate(tickRate);

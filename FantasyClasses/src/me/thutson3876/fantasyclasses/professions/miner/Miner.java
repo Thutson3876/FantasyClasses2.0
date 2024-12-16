@@ -33,10 +33,12 @@ public class Miner extends AbstractFantasyClass {
 		Skill diggy = new Skill(new DiggyDiggyHole(p));
 		diggy.addChild(new Excavation(p));
 		
-		Skill veinFinder = new Skill(new VeinFinder(p));
-		veinFinder.addChild(new ArtifactCollector(p));
+		Skill artifact = new Skill(new ArtifactCollector(p));
+		artifact.addChild(new VeinFinder(p));
 		
-		diggy.getNext().get(0).addChild(veinFinder);
+		diggy.getNext().get(0).addChild(artifact);
+		
+		skillTree.addChild(diggy);
 		
 		setSkillInMap(9 + 6, skillTree); //Cost: 1 Max: 1
 		//Darkvision branch //Total Cost: 3 (2)
@@ -48,8 +50,8 @@ public class Miner extends AbstractFantasyClass {
 		//Diggy branch //Total Cost: 9 (7)
 		setSkillInMap(18 + 5, diggy); //Cost: 1 Max: 2
 		setSkillInMap(27 + 4, diggy.getNext().get(0)); //Cost: 1 Max: 3
-		setSkillInMap(36 + 3, veinFinder); //Cost: 2 Max: 1
-		setSkillInMap(45 + 2, veinFinder.getNext().get(0)); //Cost: 2 Max: 1
+		setSkillInMap(36 + 3, artifact); //Cost: 2 Max: 1
+		setSkillInMap(45 + 2, artifact.getNext().get(0)); //Cost: 2 Max: 1
 		
 		this.setPrerequisites();
 		

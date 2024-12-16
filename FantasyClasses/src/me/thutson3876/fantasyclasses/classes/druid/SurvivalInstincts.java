@@ -11,14 +11,16 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class SurvivalInstincts extends AbstractAbility {
 
-	private int duration = 6 * 20;
-	private PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, duration, 0);
-	private PotionEffect strength = new PotionEffect(PotionEffectType.STRENGTH, duration, 0);
-	private PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, duration, 0);
-	private PotionEffect regen = new PotionEffect(PotionEffectType.REGENERATION, duration, 0);
+	private double dmgReduction = 0.8;
+	private int duration = 5 * 20;
+	private PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, duration, 1);
+	private PotionEffect strength = new PotionEffect(PotionEffectType.STRENGTH, duration, 1);
+	private PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, duration, 1);
+	private PotionEffect regen = new PotionEffect(PotionEffectType.REGENERATION, duration, 1);
 	
 	public SurvivalInstincts(Player p) {
 		super(p);
@@ -26,7 +28,7 @@ public class SurvivalInstincts extends AbstractAbility {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 60 * 20;
+		this.coolDowninTicks = 30 * 20;
 		this.displayName = "Survival Instincts";
 		this.skillPointCost = 1;
 		this.maximumLevel = 1;
@@ -47,10 +49,15 @@ public class SurvivalInstincts extends AbstractAbility {
 		if(e.getFinalDamage() >= health)
 			return;
 		
-		if(health - e.getFinalDamage() > 20.0 * 0.3)
+		if(health - e.getFinalDamage() > AbilityUtils.getMaxHealth(player) * 0.3)
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
+		
+		if(thisEvent.isCancelled())
+			return;
+		
+		e.setDamage(e.getDamage() * (1.0 - dmgReduction));
 		
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1.2f, 1.0f);
 		player.getWorld().spawnParticle(Particle.FALLING_LAVA, player.getLocation(), 4);
@@ -70,7 +77,7 @@ public class SurvivalInstincts extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Upon being put to less than 30% of your max health, gain &dspeed&r, &dstrength&r, and &dhaste &rfor &6" + (duration / 20) + " &rseconds";
+		return "Upon being put to less than 30% of your max health, reduce the amount taken by &6" + AbilityUtils.doubleRoundToXDecimals(dmgReduction * 100, 1) + "% &rgain &dspeed&r, &dstrength&r, and &dhaste &rfor &6" + (duration / 20) + " &rseconds";
 	}
 
 	@Override
