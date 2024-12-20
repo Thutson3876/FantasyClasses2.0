@@ -10,13 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
@@ -26,8 +21,8 @@ public class WitherWand extends AbstractAbility implements Bindable {
 	private Material type = null;
 	private WitherSkull skull = null;
 	private double bulletVelocity = 2.0;
-	private double damage = 6;
-	private float yield = 1.3f;
+	private double damage = 5;
+	private float yield = 0.7f;
 	
 	public WitherWand(Player p) {
 		super(p);
@@ -38,7 +33,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 		this.coolDowninTicks = 6 * 20;
 		this.displayName = "Wither Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 2;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.WITHER_SKELETON_SKULL);
 	}
@@ -51,7 +46,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 		if (e.getItem() == null || !e.getItem().getType().equals(this.type))
 			return;
 
-		if (!e.getAction().equals(Action.LEFT_CLICK_AIR))
+		if (!e.getAction().equals(Action.RIGHT_CLICK_AIR))
 			return;
 		
 		if(isOnCooldown())
@@ -62,31 +57,15 @@ public class WitherWand extends AbstractAbility implements Bindable {
 	}
 	
 	@EventHandler
-	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
-		if(skull == null)
-			return;
-		
-		if(!e.getCause().equals(DamageCause.ENTITY_EXPLOSION))
-			return;
-		
-		if(!e.getDamager().equals(player))
-			return;
-		
-		if(!(e.getEntity() instanceof LivingEntity))
-			return;
-		
-		LivingEntity le = ((LivingEntity)e.getEntity());
-		if(le.isDead())
-			return;
-		
-		le.damage(damage / 2, player);
-	}
-	
-	@EventHandler
 	public void onProjectileHitEvent(ProjectileHitEvent e) {
-		if(!e.getEntity().equals(skull))
+		if(!(e.getEntity() instanceof WitherSkull))
 			return;
 
+		WitherSkull skull = (WitherSkull) e.getEntity();
+		
+		if(!skull.getShooter().equals(player))
+			return;
+		
 		Entity hit = e.getHitEntity();
 		if (hit == null)
 			return;
@@ -99,14 +78,6 @@ public class WitherWand extends AbstractAbility implements Bindable {
 			return;
 		
 		livingHit.damage(damage, player);
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-				skull = null;
-			}
-			
-		}.runTaskLater(plugin, 2);
 	}
 
 	private void launchProjectile() {
@@ -119,7 +90,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 		skull.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(bulletVelocity));
 		skull.setCharged(true);
 		skull.setYield(yield);
-		new BukkitRunnable() {
+		/*new BukkitRunnable() {
 
 			@Override
 			public void run() {
@@ -135,7 +106,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 				}	
 			}
 			
-		}.runTaskLater(plugin, 30);
+		}.runTaskLater(plugin, 30);*/
 
 		player.getWorld().playSound(spawnAt, Sound.ENTITY_WITHER_SHOOT, 0.9f, 1.0F);
 		
@@ -143,7 +114,7 @@ public class WitherWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getInstructions() {
-		return "Left-click with your bound item";
+		return "Right-click with your bound item";
 	}
 
 	@Override
@@ -160,9 +131,8 @@ public class WitherWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		damage = 6 * currentLevel;
-		yield = (1f * currentLevel);
-		this.coolDowninTicks = (2 - currentLevel) * 20 + 15;
+		damage = 5 * currentLevel;
+		yield = (0.7f * currentLevel);
 		bulletVelocity = 1 + currentLevel;
 	}
 

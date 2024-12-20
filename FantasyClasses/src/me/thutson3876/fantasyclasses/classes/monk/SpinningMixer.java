@@ -9,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,6 +20,8 @@ import me.thutson3876.fantasyclasses.abilities.Bindable;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
+import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
+import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 
 public class SpinningMixer extends AbstractAbility implements Bindable {
 
@@ -28,7 +31,7 @@ public class SpinningMixer extends AbstractAbility implements Bindable {
 
 	private int duration = 24;
 	
-	private double damage = 1.0;
+	private double damage = 0.5;
 
 	private List<Entity> entities = new ArrayList<>();
 
@@ -133,7 +136,7 @@ public class SpinningMixer extends AbstractAbility implements Bindable {
 					for (Entity e : entities) {
 						e.setVelocity(e.getVelocity().add(Vector.getRandom().multiply(0.4D)));
 						if(e instanceof LivingEntity)
-							((LivingEntity)e).damage(damage, player);
+							((LivingEntity)e).damage(damage / 5, player);
 					}
 					cancel();
 					return;
@@ -144,6 +147,7 @@ public class SpinningMixer extends AbstractAbility implements Bindable {
 		};
 		task.runTaskTimer(plugin, 1L, 1L);
 		
+		GeneralParticleEffects.helix(player, new CustomParticle(Particle.GUST), player.getWidth(), 2 * 6.3, 1000, 2, 0.1);
 		player.getWorld().playSound(player.getLocation(), Sound.ITEM_ELYTRA_FLYING, 1.0f, 1.0f);
 		
 		return true;
@@ -159,12 +163,15 @@ public class SpinningMixer extends AbstractAbility implements Bindable {
 				this.entities.add(e);
 		}
 		for (Entity e : this.entities) {
-			if(e instanceof Player && AbilityUtils.getHeightAboveGround(e) < 0.3)
+			if(e instanceof Player && (fplayer.hasFriendlyFire() || AbilityUtils.getHeightAboveGround(e) < 0.3))
+				continue;
+			
+			if(e instanceof Tameable && ((Tameable) e).getOwner() != null)
 				continue;
 			
 			e.setVelocity(v);
 			if(e instanceof LivingEntity)
-				((LivingEntity)e).damage(damage);
+				((LivingEntity)e).damage(damage / 5, player);
 			
 			if (counter % 3 == 0) {
 				e.getWorld().playSound(e.getLocation(), Sound.ENTITY_PHANTOM_FLAP, 1.0f, 0.8f);

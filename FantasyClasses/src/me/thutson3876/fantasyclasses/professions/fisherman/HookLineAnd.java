@@ -17,7 +17,7 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 
 public class HookLineAnd extends AbstractAbility {
 
-	private double procChance = 0.01;
+	private double procChance = 0.1;
 
 	private static List<EntityType> goodRolls = new ArrayList<>();
 	private static List<EntityType> badRolls = new ArrayList<>();

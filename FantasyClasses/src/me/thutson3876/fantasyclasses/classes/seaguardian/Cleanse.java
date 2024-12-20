@@ -35,7 +35,7 @@ public class Cleanse extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 16 * 20;
+		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Cleanse";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;

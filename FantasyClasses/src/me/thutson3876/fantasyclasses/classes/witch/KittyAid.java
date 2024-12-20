@@ -27,7 +27,7 @@ public class KittyAid extends AbstractAbility implements Bindable {
 	private Material type = null;
 	
 	private int counter = 0;
-	private int tickRate = 10;
+	private int tickRate = 20;
 	private int duration = 4 * 20;
 	private double range = 6;
 	
@@ -83,7 +83,8 @@ public class KittyAid extends AbstractAbility implements Bindable {
 		cat.setInvulnerable(true);
 		cat.setOwner(player);
 		cat.setTamed(true);
-		cat.setTarget(player);
+		cat.setBreed(false);
+		player.addPassenger(cat);
 		
 		new BukkitRunnable() {
 
@@ -97,8 +98,10 @@ public class KittyAid extends AbstractAbility implements Bindable {
 				Random rng = new Random();
 				
 				List<PotionEffectType> types = PotionList.BUFF.getPotList();
+				types.remove(PotionEffectType.NIGHT_VISION);
+				types.remove(PotionEffectType.HERO_OF_THE_VILLAGE);
 				PotionEffectType type = types.get(rng.nextInt(types.size()));
-				PotionEffect effect = new PotionEffect(type, 15 * 20, rng.nextInt(2));
+				PotionEffect effect = new PotionEffect(type, 10 * 20, rng.nextInt(2));
 				
 				cat.getWorld().playEffect(cat.getEyeLocation(), Effect.VILLAGER_PLANT_GROW, 1);
 				

@@ -20,7 +20,7 @@ import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 public class MeatShield extends AbstractAbility {
 
 	private Random rng = new Random();
-	private double procChance = 0.1;
+	private double procChance = 0.2;
 	private int maxAmp = 4;
 	private int maxDuration = 20 * 20;
 	private PotionEffect absorb = new PotionEffect(PotionEffectType.ABSORPTION, 5 * 20, 0);
@@ -83,7 +83,7 @@ public class MeatShield extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.procChance = 0.1 * this.currentLevel;
+		this.procChance = 0.2 * this.currentLevel;
 	}
 
 }

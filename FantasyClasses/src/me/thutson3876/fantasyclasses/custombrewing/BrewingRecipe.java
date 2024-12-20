@@ -13,6 +13,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
+import me.thutson3876.fantasyclasses.FantasyClasses;
+
 public enum BrewingRecipe {
 
 	RESISTANCE(Material.DIAMOND, Color.TEAL, new PotionEffect(PotionEffectType.RESISTANCE, 90 * 20, 0)),
@@ -41,7 +43,12 @@ public enum BrewingRecipe {
 	POISON(Material.SPIDER_EYE, Color.GREEN, new PotionEffect(PotionEffectType.POISON, 45 * 20, 0)),
 	WEAKNESS(Material.FERMENTED_SPIDER_EYE, Color.NAVY, new PotionEffect(PotionEffectType.WEAKNESS, 90 * 20, 0)),
 	HARM(Material.IRON_SWORD, Color.MAROON, new PotionEffect(PotionEffectType.INSTANT_DAMAGE, 1 * 20, 1)),
-	SLOWNESS(Material.TURTLE_SCUTE, Color.BLACK, new PotionEffect(PotionEffectType.SLOWNESS, 90 * 20, 0));
+	SLOWNESS(Material.TURTLE_SCUTE, Color.BLACK, new PotionEffect(PotionEffectType.SLOWNESS, 90 * 20, 0)),
+	
+	INFESTATION(Material.STONE, Color.GRAY, new PotionEffect(PotionEffectType.INFESTED, 120 * 20, 0)),
+	OOZING(Material.SLIME_BLOCK, Color.GREEN, new PotionEffect(PotionEffectType.OOZING, 120 * 20, 0)),
+	WEAVING(Material.COBWEB, Color.WHITE, new PotionEffect(PotionEffectType.WEAVING, 120 * 20, 1)),
+	WIND_CHARGING(Material.BREEZE_ROD, Color.BLACK, new PotionEffect(PotionEffectType.WIND_CHARGED, 120 * 20, 0));
 
 	private Material ingredient;
 	private ItemStack result;
@@ -70,7 +77,8 @@ public enum BrewingRecipe {
 		for (ItemStack i : ingredients) {
 			if (i.getType().equals(Material.POTION) || i.getType().equals(Material.SPLASH_POTION)) {
 				PotionMeta potMeta = (PotionMeta) i.getItemMeta();
-				if (potMeta.getBasePotionType().equals(PotionType.THICK)) {
+				FantasyClasses.getPlugin().log("PotionType: " + potMeta.getBasePotionType());
+				if (potMeta.getBasePotionType() == null) {
 					for (BrewingRecipe recipe : values()) {
 						if (recipe.isMatching(i)) {
 							potentialRecipe = recipe;
@@ -80,16 +88,32 @@ public enum BrewingRecipe {
 					}
 				} else if (potMeta.getBasePotionType().equals(PotionType.AWKWARD)) {
 					isAwkward = true;
+					//FantasyClasses.getPlugin().log("is awkward");
 				}
 			}
 
 		}
 
 		if (potentialRecipe != null) {
+			ItemStack wart = null;
+			for(ItemStack item : ingredients) {
+				if(item.getType().equals(Material.NETHER_WART)) {
+					wart = item;
+					break;
+				}
+			}
+			
+			ingredients.remove(wart);
 			ingredients.remove(potentialPotion);
+			
+			FantasyClasses.getPlugin().log("Ingredients: ");
+			
+			for(ItemStack item : ingredients) {
+				FantasyClasses.getPlugin().log("" + item.getType());
+			}
 			if(ingredients.size() != 1)
 				return null;
-			
+			//FantasyClasses.getPlugin().log("checking commons");
 			return potentialRecipe.checkCommons((ItemStack) ingredients.toArray()[0], potentialPotion);
 		} else if (isAwkward) {
 			Collection<Material> mats = new ArrayList<>();
@@ -97,6 +121,7 @@ public enum BrewingRecipe {
 				mats.add(i.getType());
 			}
 			
+			//FantasyClasses.getPlugin().log("checking wart & powder");
 			if(!mats.contains(Material.BLAZE_POWDER) || !mats.contains(Material.NETHER_WART))
 				return null;
 			
@@ -106,6 +131,8 @@ public enum BrewingRecipe {
 					break;
 				}
 			}
+			
+			//FantasyClasses.getPlugin().log("potential recipe null");
 			if(potentialRecipe == null)
 				return null;
 			
@@ -175,11 +202,11 @@ public enum BrewingRecipe {
 			return null;
 
 		Material ingredientType = ingredient.getType();
-		if (ingredientType.equals(Material.GLOWSTONE)) {
+		if (ingredientType.equals(Material.GLOWSTONE_DUST)) {
 			return ampUp(currentItem);
-		} else if (ingredientType.equals(Material.REDSTONE_BLOCK)) {
+		} else if (ingredientType.equals(Material.REDSTONE)) {
 			return durationUp(currentItem);
-		} else if (ingredientType.equals(Material.TNT) && !currentItem.getType().equals(Material.SPLASH_POTION)) {
+		} else if (ingredientType.equals(Material.GUNPOWDER) && !currentItem.getType().equals(Material.SPLASH_POTION)) {
 			return makeSplash(currentItem);
 		}
 

@@ -14,7 +14,7 @@ import me.thutson3876.fantasyclasses.util.math.MathUtils;
 
 public class ProtectorsDuty extends AbstractAbility {
 
-	private double dmgMod = 0.05;
+	private double dmgMod = 0.1;
 	private double radius = 8;
 
 	public ProtectorsDuty(Player p) {
@@ -70,6 +70,6 @@ public class ProtectorsDuty extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmgMod = 0.05 * currentLevel;
+		dmgMod = 0.1 * currentLevel;
 	}
 }

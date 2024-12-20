@@ -111,7 +111,7 @@ public class VexWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "Spawn &6" + maxAmt + " &rVex to attack nearby entities. Amount increases per 100 magicka";
+		return "Spawn &6" + maxAmt + " &rVex to attack nearby entities.";
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class VexWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		maxAmt = currentLevel + 2;
+		maxAmt = 2 * currentLevel;
 	}
 
 	@Override

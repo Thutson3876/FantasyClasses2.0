@@ -15,7 +15,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 public class AngerManagement extends AbstractAbility {
 
 	private double procChance = 0.1;
-	private int duration = 3 * 20;
+	private int duration = 8 * 20;
 
 	public AngerManagement(Player p) {
 		super(p);

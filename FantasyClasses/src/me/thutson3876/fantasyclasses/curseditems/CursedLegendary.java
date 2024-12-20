@@ -361,10 +361,10 @@ public enum CursedLegendary {
 		if(!e.getEntity().equals(owner) && !e.getDamager().equals(owner))
 			return;
 		
-		e.setDamage(e.getDamage() * 1.05);
+		e.setDamage(e.getDamage() * 1.1);
 		
 	}, MaterialLists.ARMOR.getMaterials(), 
-			"Increases the damage you take and deal by 5%"),
+			"Increases the damage you take and deal by 10%"),
 	FORTITUDE_ARMOR("fortitude", (event, owner)->{
 		if(!(event instanceof EntityDamageByEntityEvent))
 			return;
@@ -400,11 +400,11 @@ public enum CursedLegendary {
 		if(!(damager instanceof LivingEntity))
 			return;
 		
-		if(e.getDamage() > 1.5)
-			e.setDamage(e.getDamage() - 0.4);
+		if(e.getDamage() >= 1.0)
+			e.setDamage(e.getDamage() - 0.5);
 		
 	}, MaterialLists.ARMOR.getMaterials(), 
-			"Reduces each instance of damage you take by 0.4"), 
+			"Reduces each instance of damage you take by 0.5"), 
 	DAMPENING_ARMOR("dampening", (event, owner)->{
 		if(!(event instanceof EntityDamageByEntityEvent))
 			return;
@@ -422,9 +422,9 @@ public enum CursedLegendary {
 			return;
 		
 		if(e.getDamage() > 10.0) {
-			double reductionAmt = 0.01 * e.getFinalDamage();
-			if(reductionAmt > 0.15)
-				reductionAmt = 0.15;
+			double reductionAmt = 0.015 * e.getFinalDamage();
+			if(reductionAmt > 0.9)
+				reductionAmt = 0.9;
 			
 			e.setDamage(e.getDamage() * (1 - reductionAmt));
 		}	
@@ -444,10 +444,10 @@ public enum CursedLegendary {
 			return;
 			
 		if(e.getCause().equals(DamageCause.LIGHTNING))
-			e.setDamage(e.getDamage() * 0.7);
+			e.setDamage(e.getDamage() * 0.5);
 			
 	}, MaterialLists.ARMOR.getMaterials(), 
-			"Reduces lightning damage by 30%"), 
+			"Reduces lightning damage by 50%"), 
 	THERMAL_ARMOR("thermal", (event, owner)->{
 		if(!(event instanceof EntityDamageEvent))
 			return;
@@ -496,10 +496,10 @@ public enum CursedLegendary {
 			return;
 			
 		if(e.getCause().equals(DamageCause.BLOCK_EXPLOSION) || e.getCause().equals(DamageCause.ENTITY_EXPLOSION))
-			e.setDamage(e.getDamage() * 0.85);
+			e.setDamage(e.getDamage() * 0.7);
 			
 	}, MaterialLists.ARMOR.getMaterials(), 
-			"Reduces explosion damage you suffer by 15%"), 
+			"Reduces explosion damage you suffer by 30%"), 
 	LIGHTNING_FISHING("lightning", (event, owner)->{
 		
 		if(!(event instanceof PlayerFishEvent))

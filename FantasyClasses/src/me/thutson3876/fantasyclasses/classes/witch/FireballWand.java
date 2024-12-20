@@ -25,10 +25,10 @@ public class FireballWand extends AbstractAbility implements Bindable {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 8 * 20;
+		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Fireball Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 2;
+		this.maximumLevel = 3;
 
 		this.createItemStack(Material.BLAZE_ROD);	
 	}
@@ -44,6 +44,9 @@ public class FireballWand extends AbstractAbility implements Bindable {
 		if(!e.getAction().equals(Action.RIGHT_CLICK_AIR))
 			return;
 		
+		if(!player.isSneaking())
+			return;
+		
 		if(isOnCooldown())
 			return;
 		
@@ -54,7 +57,7 @@ public class FireballWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getInstructions() {
-		return "Right-click with bound item type";
+		return "While crouching, right-click with bound item type";
 	}
 
 	@Override
@@ -69,8 +72,8 @@ public class FireballWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		yield = (0.5f * currentLevel);
-		velocity = 1.0 + 0.12 * currentLevel;
+		yield = (0.7f * currentLevel);
+		velocity = 1.0 + 0.3 * currentLevel;
 	}
 
 	@Override

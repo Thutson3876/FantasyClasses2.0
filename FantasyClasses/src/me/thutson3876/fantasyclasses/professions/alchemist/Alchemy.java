@@ -34,9 +34,9 @@ public class Alchemy extends AbstractFantasyClass {
 		transmute.addChild(new TransmuteFlesh(p));
 		transmute.addChild(new TransmuteMetal(p));
 		
-		skillTree.addChild(new Immunology(p)).addChild(new DragonInfusion(p));
-		
 		skillTree.addChild(transmute);
+		
+		skillTree.addChild(new Immunology(p)).addChild(new DragonInfusion(p));
 		
 		setSkillInMap(4, skillTree);
 		setSkillInMap(9 + 3, enhanced);
@@ -45,6 +45,7 @@ public class Alchemy extends AbstractFantasyClass {
 		
 		setSkillInMap(9 + 4, skillTree.getNext().get(2));
 		setSkillInMap(36 + 4, skillTree.getNext().get(2).getNext().get(0));
+		
 		setSkillInMap(9 + 5, transmute);
 		setSkillInMap(18 + 5, transmute.getNext().get(0));
 		setSkillInMap(18 + 7, transmute.getNext().get(1));

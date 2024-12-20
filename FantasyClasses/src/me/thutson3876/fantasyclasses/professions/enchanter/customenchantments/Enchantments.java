@@ -15,7 +15,7 @@ public enum Enchantments {
 			Enchantment.FEATHER_FALLING, Enchantment.FIRE_PROTECTION, Enchantment.PROJECTILE_PROTECTION,
 			Enchantment.DEPTH_STRIDER, Enchantment.FLAME, Enchantment.PUNCH, Enchantment.LURE,
 			Enchantment.RESPIRATION, Enchantment.QUICK_CHARGE, Enchantment.SWEEPING_EDGE, Enchantment.AQUA_AFFINITY,
-			Enchantment.KNOCKBACK, Enchantment.IMPALING),
+			Enchantment.KNOCKBACK, Enchantment.IMPALING, Enchantment.WIND_BURST, Enchantment.DENSITY, Enchantment.BREACH),
 	RARE(Enchantment.POWER, Enchantment.SHARPNESS, Enchantment.PROTECTION,
 			Enchantment.EFFICIENCY, Enchantment.INFINITY, Enchantment.UNBREAKING, Enchantment.LOYALTY,
 			Enchantment.CHANNELING, Enchantment.LUCK_OF_THE_SEA, Enchantment.RIPTIDE, Enchantment.FIRE_ASPECT,

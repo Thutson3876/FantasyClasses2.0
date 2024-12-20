@@ -61,6 +61,9 @@ public class PotentBrewing extends AbstractAbility {
 			return prevResult;
 		}
 		PotionMeta potMeta = (PotionMeta) meta;
+		
+		if(potMeta.hasCustomEffects() && potMeta.getCustomEffects().size() > 4)
+			return prevResult;
 
 		PotionEffectType type = potMeta.getCustomEffects().get(0).getType();
 		potMeta.addCustomEffect(potMeta.getCustomEffects().get(0), true);

@@ -20,10 +20,10 @@ import me.thutson3876.fantasyclasses.util.particles.GeneralParticleEffects;
 public class DemoralizingShout extends AbstractAbility implements Bindable {
 
 	private Material type = null;
-	private int duration = 5 * 20;
+	private int duration = 6 * 20;
 	private double range = 8.0;
-	private PotionEffect weak = new PotionEffect(PotionEffectType.WEAKNESS, duration, 0);
-	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, 0);
+	private PotionEffect weak = new PotionEffect(PotionEffectType.WEAKNESS, duration, 1);
+	private PotionEffect slow = new PotionEffect(PotionEffectType.SLOWNESS, duration, 1);
 	
 	public DemoralizingShout(Player p) {
 		super(p);

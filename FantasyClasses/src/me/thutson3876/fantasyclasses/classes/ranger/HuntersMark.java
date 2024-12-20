@@ -39,7 +39,7 @@ public class HuntersMark extends AbstractAbility implements Bindable {
 
 	private Material type = null;
 
-	private double dmgMod = 0.075;
+	private double dmgMod = 0.1;
 	private int duration = 8 * 20;
 
 	private List<LivingEntity> targets = new ArrayList<>();
@@ -196,7 +196,7 @@ public class HuntersMark extends AbstractAbility implements Bindable {
 	
 	@Override
 	public void applyLevelModifiers() {
-		this.dmgMod = 0.075 * this.currentLevel;
+		this.dmgMod = 0.1 * this.currentLevel;
 	}
 
 	@Override

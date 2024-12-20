@@ -1,25 +1,13 @@
 package me.thutson3876.fantasyclasses.professions.enchanter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
-import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Extraction extends AbstractAbility {
 	
-	private double maxDistance = 5;
-	private int maxExpAmt = 160;
+	//private double maxDistance = 5;
+	//private int maxExpAmt = 160;
 	
 	public Extraction(Player p) {
 		super(p);
@@ -35,7 +23,7 @@ public class Extraction extends AbstractAbility {
 		this.createItemStack(Material.EXPERIENCE_BOTTLE);
 	}
 	
-	@EventHandler
+	/*@EventHandler
 	public void onPlayerInteractEvent(PlayerInteractEvent e) {
 		if(!e.getPlayer().equals(player))
 			return;
@@ -47,38 +35,35 @@ public class Extraction extends AbstractAbility {
 			return;
 		
 		Player target = null;
-		if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Entity rayTraceTarget = AbilityUtils.rayTraceTarget(player, maxDistance);
 			
 			if(rayTraceTarget instanceof Player)
 				target = (Player) rayTraceTarget;
+
 		}
 		else {
 			return;
 		}
 		
-		if(target == null || !target.isSneaking())
+		if(target == null || !target.isSneaking()) {
+			plugin.log("Extraction target null or not sneaking!");
 			return;
+		}
+			
 		
-		if(target.getLocation().getBlock().getType() != Material.CAULDRON)
+		if(target.getLocation().getBlock().getType() != Material.CAULDRON) {
+			plugin.log("Extraction Target Block: " + target.getLocation().getBlock().getType());
 			return;
-		
-		int amtToStore = Math.min(target.getTotalExperience(), maxExpAmt);
+		}
 		
 		ItemStack bottle = new ItemStack(Material.EXPERIENCE_BOTTLE);
-		ItemMeta meta = bottle.getItemMeta();
-		
-		List<String> lore = new ArrayList<String>();
-		lore.add("XP: " + amtToStore);
-		meta.setLore(lore);
-		
-		bottle.setItemMeta(meta);
 		
 		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2.0f, 1.15f);
 		
 		player.getInventory().addItem(bottle);
 		
-		target.setTotalExperience(target.getTotalExperience() - amtToStore);
+		target.setLevel(target.getLevel() - 1);
 		
 		int replacementAmt = e.getItem().getAmount() - 1;
 		ItemStack replacement = new ItemStack(Material.GLASS_BOTTLE, replacementAmt);
@@ -88,7 +73,7 @@ public class Extraction extends AbstractAbility {
 		player.getInventory().setItem(e.getHand(), replacement);
 		
 		this.onTrigger(true);
-	}
+	}*/
 
 	@Override
 	public String getInstructions() {
@@ -97,7 +82,7 @@ public class Extraction extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Store up to &6" + maxExpAmt + " &rexperience from a player into an experience bottle";
+		return "&4ERROR: NOT WORKING CURRENTLY \n&rStore up to experience from a player into an experience bottle";
 	}
 
 	@Override

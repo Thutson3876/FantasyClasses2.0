@@ -23,16 +23,22 @@ public class SeaGuardian extends AbstractFantasyClass {
 		protecc.addChild(new PolearmMastery(p)).addChild(new StormBorn(p)).addChild(new RiptideMastery(p));
 		
 		Skill ice = new Skill(new GlacialSmite(p));
+		
 		Skill snap = ice.addChild(new SnapFreeze(p));
 		snap.addChild(new FrozenPrison(p));
 		snap.addChild(new RemorselessWinter(p));
+		
+		ice.addChild(new IceboundFortitude(p));
 		protecc.addChild(ice);
+		
 		skillTree.addChild(protecc);
 		
 		Skill cleanse = new Skill(new Cleanse(p));
 		cleanse.addChild(new SoothingWaters(p));
 		cleanse.addChild(new SummonPretzel(p));
 		protecc.addChild(cleanse);
+		
+		Skill blood = protecc.addChild(new FrozenBlood(p));
 		
 		setSkillInMap(4, skillTree);
 		
@@ -48,11 +54,15 @@ public class SeaGuardian extends AbstractFantasyClass {
 		setSkillInMap(0 + 6, cleanse.getNext().get(0)); //Cost: 1 Max: 3
 		setSkillInMap(18 + 6, cleanse.getNext().get(1)); //Cost: 1 Max: 3
 		
+		setSkillInMap(45 + 4, blood);
+		
 		//freeze //Total Cost: 10 (7) 
 		setSkillInMap(9 + 3, ice); //Cost: 1 Max: 3
 		setSkillInMap(9 + 2, ice.getNext().get(0)); //Cost: 2 Max: 1
 		setSkillInMap(1, ice.getNext().get(0).getNext().get(0)); //Cost: 1 Max: 2
 		setSkillInMap(18 + 1, ice.getNext().get(0).getNext().get(1)); //Cost: 1 Max: 3
+		setSkillInMap(0 + 3, ice.getNext().get(1)); //Cost: 2 Max: 1
+		
 		
 		
 		this.setPrerequisites();

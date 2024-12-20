@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class RefinedPalate extends AbstractAbility {
 
-	private int bonusFood = 1;
+	private int bonusFood = 2;
 	
 	private static final List<Material> FISHIES = fishies();
 	
@@ -62,7 +62,7 @@ public class RefinedPalate extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		bonusFood = 1 * currentLevel;
+		bonusFood = 2 * currentLevel;
 	}
 	
 	private static List<Material> fishies() {

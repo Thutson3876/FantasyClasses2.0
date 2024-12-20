@@ -13,6 +13,7 @@ import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.events.DamageModifier;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
 import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
 
 public class SnapFreeze extends AbstractAbility {
@@ -52,6 +53,8 @@ public class SnapFreeze extends AbstractAbility {
 		if(e.getInitialDamage() <= 0)
 			return;
 		
+		if (!AbilityUtils.isCritical(player))
+			return;
 		
 		Entity victim = e.getVictim();
 		int freezeTicks = victim.getFreezeTicks();
@@ -78,12 +81,12 @@ public class SnapFreeze extends AbstractAbility {
 
 	@Override
 	public String getInstructions() {
-		return "Attack a freezing entity";
+		return "Critical attack a freezing entity";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Your attacks against freezing entities consume the freeze effect on them, dealing bonus damage based on how frozen they were";
+		return "Your critical attacks against freezing entities consume the freeze effect on them, dealing bonus damage based on how frozen they were";
 	}
 
 	@Override

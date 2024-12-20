@@ -13,7 +13,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Enrage extends AbstractAbility {
 
-	private int duration = 4 * 20;
+	private int duration = 5 * 20;
 
 	public Enrage(Player p) {
 		super(p);

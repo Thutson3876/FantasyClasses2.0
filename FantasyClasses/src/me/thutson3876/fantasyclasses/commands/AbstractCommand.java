@@ -62,6 +62,10 @@ public abstract class AbstractCommand implements CommandInterface {
 	    return this.description;
 	  }
 	  
+	  public void deInit() {
+		  
+	  }
+	  
 	  /*public void applyRemapping(Map<String, String> remaps) {
 	    for (String key : remaps.keySet()) {
 	      String replacement = remaps.get(key);

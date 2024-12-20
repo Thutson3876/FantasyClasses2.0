@@ -20,7 +20,7 @@ public class TrueBearing extends HighRollerStatus {
 	//Gain 1 hunger and saturation every second
 
 	private static final int DEFAULT_HUNGER_GAIN_AMT = 1;
-	private static final float DEFAULT_SATURATION_GAIN_AMT = 1;
+	private static final float DEFAULT_SATURATION_GAIN_AMT = 1 * 20;
 	
 	public TrueBearing() {
 		super("True Bearing", 20, (host, duration, stacks) -> {

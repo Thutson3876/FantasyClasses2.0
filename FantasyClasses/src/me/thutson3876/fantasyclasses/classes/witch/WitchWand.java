@@ -23,8 +23,8 @@ public class WitchWand extends AbstractAbility implements Bindable {
 
 	private Material boundType = null;
 	private double bulletVelocity = 2.0;
-	private double damage = 1.5;
-	private int duration = 1 * 20;
+	private double damage = 0.75;
+	private int duration = 15;
 
 	public WitchWand(Player p) {
 		super(p);
@@ -32,7 +32,7 @@ public class WitchWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 5 * 20;
+		this.coolDowninTicks = 12;
 		this.displayName = "Witch's Wand";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
@@ -93,7 +93,7 @@ public class WitchWand extends AbstractAbility implements Bindable {
 	@Override
 	public String getDescription() {
 		return "Launch a ball of energy from your wand that causes its target to levitate for &6" + AbilityUtils.doubleRoundToXDecimals(duration / 20.0, 2) + " &rseconds. It deals &6"
-				+ AbilityUtils.doubleRoundToXDecimals(this.damage, 1) + " &rdamage and has a cooldown of &6" + this.coolDowninTicks / 20
+				+ AbilityUtils.doubleRoundToXDecimals(this.damage, 2) + " &rdamage and has a cooldown of &6" + this.coolDowninTicks / 20
 				+ " &rseconds";
 	}
 
@@ -104,9 +104,7 @@ public class WitchWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		damage = 6 * currentLevel;
-		this.coolDowninTicks = (2 - currentLevel) * 20 + 15;
-		this.duration = 20 * (currentLevel + 2);
+		damage = 0.75 * currentLevel;
 	}
 
 	@Override
@@ -126,10 +124,10 @@ public class WitchWand extends AbstractAbility implements Bindable {
 		ShulkerBullet bullet = (ShulkerBullet) player.getWorld().spawnEntity(spawnAt, EntityType.SHULKER_BULLET);
 		bullet.setShooter(player);
 		bullet.setVelocity(player.getEyeLocation().getDirection().multiply(bulletVelocity));
-		LivingEntity target = AbilityUtils.getNearestLivingEntity(player.getLocation(), AbilityUtils.onlyLiving(AbilityUtils.getEntitiesInAngle(player, 0.8, 25, 0.2)));
+		/*LivingEntity target = AbilityUtils.getNearestLivingEntity(player.getLocation(), AbilityUtils.onlyLiving(AbilityUtils.getEntitiesInAngle(player, 0.8, 25, 0.2)));
 		if (target != null)
 			bullet.setTarget(target);
-
+		*/
 		//bullet.setVelocity(bullet.getVelocity().multiply(bulletVelocity));
 
 		player.getWorld().playSound(spawnAt, Sound.ENTITY_SHULKER_SHOOT, 0.7f, 1.2F);

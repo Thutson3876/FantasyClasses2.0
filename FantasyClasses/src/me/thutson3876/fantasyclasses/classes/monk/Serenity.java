@@ -9,7 +9,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Serenity extends AbstractAbility {
 
-	private double modPerTick = 0.01;
+	private double modPerTick = 0.2;
 	
 	public Serenity(Player p) {
 		super(p);
@@ -42,7 +42,7 @@ public class Serenity extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Your abilities cooldown &6" + AbilityUtils.doubleRoundToXDecimals(modPerTick * 20 * 100, 2) + "% &rfaster when used mid-air";
+		return "Your abilities cooldown &6" + AbilityUtils.doubleRoundToXDecimals(modPerTick * 100, 2) + "% &rfaster when used mid-air";
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Serenity extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		modPerTick = 0.01 * this.currentLevel;
+		modPerTick = 0.2 * this.currentLevel;
 	}
 
 }

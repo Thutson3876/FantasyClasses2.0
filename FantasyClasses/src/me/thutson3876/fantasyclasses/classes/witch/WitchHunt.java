@@ -76,5 +76,13 @@ public class WitchHunt extends AbstractAbility {
 	@Override
 	public void applyLevelModifiers() {
 	}
+	
+	@Override
+	protected void init() {
+		if(fplayer == null)
+			return;
+		
+		this.fplayer.setArmorType(6);
+	}
 
 }

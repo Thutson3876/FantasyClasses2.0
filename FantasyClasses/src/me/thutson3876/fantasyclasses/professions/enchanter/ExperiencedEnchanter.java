@@ -10,7 +10,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class ExperiencedEnchanter extends AbstractAbility {
 
-	private double expMod = 0.1;
+	private double expMod = 0.06;
 	
 	public ExperiencedEnchanter(Player p) {
 		super(p);
@@ -54,7 +54,7 @@ public class ExperiencedEnchanter extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.expMod = 0.1 * this.currentLevel;
+		this.expMod = 0.06 * this.currentLevel;
 	}
 
 }

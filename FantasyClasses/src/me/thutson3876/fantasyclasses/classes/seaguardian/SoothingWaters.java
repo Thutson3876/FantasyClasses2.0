@@ -31,10 +31,10 @@ public class SoothingWaters extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 18 * 20;
+		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Soothing Waters";
 		this.skillPointCost = 1;
-		this.maximumLevel = 3;
+		this.maximumLevel = 2;
 
 		this.createItemStack(Material.WATER_BUCKET);
 	}
@@ -69,6 +69,7 @@ public class SoothingWaters extends AbstractAbility implements Bindable {
 		
 		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, duration, newAmp));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, duration, amp));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, amp));
 		GeneralParticleEffects.helix(target, new CustomParticle(Particle.DOLPHIN), target.getWidth(), 2 * 6.3, duration, 2, 0.1);
 		target.getWorld().playSound(target, Sound.ENTITY_DOLPHIN_PLAY, 3.0f, 1.05f);
 		target.getWorld().playSound(target, Sound.ENTITY_DOLPHIN_SPLASH, 1.0f, 1.05f);
@@ -84,7 +85,8 @@ public class SoothingWaters extends AbstractAbility implements Bindable {
 
 	@Override
 	public String getDescription() {
-		return "Grant your target (or yourself) a short burst of speed and regeneration &6" + (amp + 1) + " &r. When used on another target, healing is increased";
+		return "Grant your target (or yourself) a short burst of speed and regeneration &6" + (amp + 1) + " &r. When used on another target, healing is increased. This effect has a cooldown of &6" + 
+	AbilityUtils.doubleRoundToXDecimals(coolDowninTicks, 1) + " &rseconds";
 	}
 
 	@Override
@@ -95,7 +97,7 @@ public class SoothingWaters extends AbstractAbility implements Bindable {
 	@Override
 	public void applyLevelModifiers() {
 		amp = currentLevel - 1;
-		this.coolDowninTicks = (20 - 2 * currentLevel) * 20;
+		this.coolDowninTicks = (14 - 4 * currentLevel) * 20;
 	}
 
 	@Override

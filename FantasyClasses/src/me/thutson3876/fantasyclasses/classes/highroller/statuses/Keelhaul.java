@@ -56,7 +56,7 @@ public class Keelhaul extends HighRollerStatus {
 			tnt.setSource(leHost);
 			tnt.setVelocity(AbilityUtils.getVectorBetween2Points(leHost.getLocation(), victimLoc, 0.15)
 					.add(new Vector(0, 1.25, 0)).normalize());
-			tnt.setYield(3.0f);
+			tnt.setYield(3.5f);
 			tnt.setFuseTicks(30);
 			tnt.setGravity(true);
 			tnt.setMetadata("noexplodeblocks", new NoExplodeBlocks());

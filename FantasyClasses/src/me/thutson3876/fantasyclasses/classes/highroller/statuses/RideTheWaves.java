@@ -9,9 +9,7 @@ import org.bukkit.event.EventHandler;
 
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.events.DamageModifier;
-import me.thutson3876.fantasyclasses.events.RemoveStatusEvent;
 import me.thutson3876.fantasyclasses.status.ApplyCause;
-import me.thutson3876.fantasyclasses.status.StatusType;
 import me.thutson3876.fantasyclasses.status.general.Strider;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 

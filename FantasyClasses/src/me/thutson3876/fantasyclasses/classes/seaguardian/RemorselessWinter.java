@@ -63,7 +63,7 @@ public class RemorselessWinter extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 16 * 20;
+		this.coolDowninTicks = 12 * 20;
 		this.displayName = "Remorseless Winter";
 		this.skillPointCost = 1;
 		this.maximumLevel = 3;

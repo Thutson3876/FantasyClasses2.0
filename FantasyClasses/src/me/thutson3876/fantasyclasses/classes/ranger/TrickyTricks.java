@@ -8,7 +8,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class TrickyTricks extends AbstractAbility {
 
-	private double procChance = 0.05;
+	private double procChance = 0.1;
 	
 	public TrickyTricks(Player p) {
 		super(p);
@@ -41,7 +41,7 @@ public class TrickyTricks extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		procChance = 0.05 * this.currentLevel;
+		procChance = 0.1 * this.currentLevel;
 		
 		if(fplayer == null || fplayer.getChosenClass() == null)
 			return;

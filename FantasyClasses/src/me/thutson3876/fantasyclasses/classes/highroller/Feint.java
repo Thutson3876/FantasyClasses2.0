@@ -11,9 +11,9 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class Feint extends AbstractAbility {
 
-	private static final double REDUCTION_PER_LEVEL = 0.15;
+	private static final double REDUCTION_PER_LEVEL = 0.35;
 	
-	private int minDuration = 3 * 20;
+	private int minDuration = 5 * 20;
 	private double dmgReduction = REDUCTION_PER_LEVEL;
 	
 	private boolean isOn = false;

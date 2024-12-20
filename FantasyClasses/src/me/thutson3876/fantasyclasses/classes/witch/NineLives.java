@@ -30,6 +30,9 @@ public class NineLives extends AbstractAbility {
 		if(!e.getEntity().equals(player))
 			return;
 		
+		if(isOnCooldown())
+			return;
+		
 		if(!DamageType.ENVIRONMENTAL.getDamageCauseList().contains(e.getCause()))
 			return;
 		
@@ -40,7 +43,7 @@ public class NineLives extends AbstractAbility {
 
 	@Override
 	public String getInstructions() {
-		return "Take magical damage";
+		return "Take environmental damage";
 	}
 
 	@Override

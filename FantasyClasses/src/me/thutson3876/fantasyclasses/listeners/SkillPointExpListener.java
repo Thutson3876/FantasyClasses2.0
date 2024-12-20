@@ -70,6 +70,9 @@ public class SkillPointExpListener implements Listener {
 		entityTypeExpDrop.put(EntityType.PHANTOM, 3);
 		entityTypeExpDrop.put(EntityType.SLIME, 1);
 		entityTypeExpDrop.put(EntityType.MAGMA_CUBE, 1);
+		
+		entityTypeExpDrop.put(EntityType.BOGGED, 1);
+		entityTypeExpDrop.put(EntityType.BREEZE, 2);
 
 		entityTypeExpDrop.put(EntityType.PIGLIN, 3);
 		entityTypeExpDrop.put(EntityType.ZOMBIFIED_PIGLIN, 0);
@@ -90,7 +93,7 @@ public class SkillPointExpListener implements Listener {
 		entityTypeExpDrop.put(EntityType.EVOKER, 12);
 		entityTypeExpDrop.put(EntityType.ILLUSIONER, 8);
 		entityTypeExpDrop.put(EntityType.ELDER_GUARDIAN, 20);
-		entityTypeExpDrop.put(EntityType.WARDEN, 20);
+		entityTypeExpDrop.put(EntityType.WARDEN, 10);
 
 		entityTypeExpDrop.put(EntityType.WITHER, 30);
 
@@ -104,12 +107,14 @@ public class SkillPointExpListener implements Listener {
 		blockTypeExpDrop.put(Material.DEEPSLATE_LAPIS_ORE, 2);
 		blockTypeExpDrop.put(Material.REDSTONE_ORE, 1);
 		blockTypeExpDrop.put(Material.DEEPSLATE_REDSTONE_ORE, 1);
+		blockTypeExpDrop.put(Material.NETHER_QUARTZ_ORE, 1);
 
 		blockTypeExpDrop.put(Material.IRON_ORE, 1);
 		blockTypeExpDrop.put(Material.DEEPSLATE_IRON_ORE, 1);
 		blockTypeExpDrop.put(Material.GOLD_ORE, 3);
 		blockTypeExpDrop.put(Material.DEEPSLATE_GOLD_ORE, 3);
 		// Smelt Types
+		smeltTypeExpDrop.put(Material.COPPER_INGOT, 2);
 		smeltTypeExpDrop.put(Material.IRON_INGOT, 4);
 		smeltTypeExpDrop.put(Material.GOLD_INGOT, 8);
 		smeltTypeExpDrop.put(Material.NETHERITE_SCRAP, 16);
@@ -117,6 +122,9 @@ public class SkillPointExpListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+		if(e.isCancelled())
+			return;
+		
 		if (e.getEntity() instanceof Mob) {
 			if (!(e.getEntity() instanceof LivingEntity))
 				return;
@@ -192,7 +200,7 @@ public class SkillPointExpListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerFishEvent(PlayerFishEvent e) {
 		if (e.getState().equals(State.CAUGHT_FISH))
-			plugin.getPlayerManager().getPlayer(e.getPlayer()).addSkillExp(3);
+			plugin.getPlayerManager().getPlayer(e.getPlayer()).addSkillExp(1);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -219,7 +227,9 @@ public class SkillPointExpListener implements Listener {
 	
 	@EventHandler
 	public void onMobSpawnEvent(CreatureSpawnEvent e) {
-		if(e.getSpawnReason().equals(SpawnReason.SPAWNER)) {
+		Collection<SpawnReason> invalidReasons = Arrays.asList(SpawnReason.SPAWNER, SpawnReason.INFECTION, SpawnReason.SPELL);
+		SpawnReason reason = e.getSpawnReason();
+		if(invalidReasons.contains(reason)) {
 			e.getEntity().setMetadata("noexpdrop", new NoExpDrop());
 		}
 	}

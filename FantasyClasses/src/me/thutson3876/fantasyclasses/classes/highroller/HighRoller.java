@@ -22,7 +22,7 @@ public class HighRoller extends AbstractFantasyClass {
 		
 		Skill blindside = new Skill(new Blindside(p));
 		
-		blindside.addChild(new Acrobat(p));
+		blindside.addChild(new Acrobat(p)).addChild(new FleetFoot(p));
 		blindside.addChild(new PreciseStrikes(p));
 		
 		skillTree.addChild(blindside);
@@ -49,6 +49,7 @@ public class HighRoller extends AbstractFantasyClass {
 		//Blindside branch //Total Cost: 15 (1 + 5 + 6 = 12)
 		setSkillInMap(2, blindside);
 		setSkillInMap(0, blindside.getNext().get(0));
+		setSkillInMap(18 + 0, blindside.getNext().get(0).getNext().get(0));
 		setSkillInMap(9 + 1, blindside.getNext().get(1));
 		
 		//Broadside branch //Total Cost: 15 (1 + 5 + 6 = 12)

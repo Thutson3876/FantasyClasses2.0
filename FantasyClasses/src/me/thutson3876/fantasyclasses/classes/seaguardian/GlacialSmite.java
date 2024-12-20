@@ -12,6 +12,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -20,7 +21,6 @@ import org.bukkit.projectiles.ProjectileSource;
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
-import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 import me.thutson3876.fantasyclasses.util.geometry.EntityBodyPosition;
 import me.thutson3876.fantasyclasses.util.particles.CustomParticle;
@@ -79,21 +79,15 @@ public class GlacialSmite extends AbstractAbility {
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}*/
 	
-	//trigger on trident hit
 	@EventHandler
-	public void onCustomLivingEntityDamageEvent(CustomLivingEntityDamageEvent e) {
+	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
 		if(e.isCancelled())
 			return;
 		
-		if(!(e.getDamager() instanceof Trident))
+		if(!AbilityUtils.isTrueCause(player, e.getDamager()))
 			return;
 		
-		if(e.getInitialDamage() <= 0.0)
-			return;
-		
-		Trident trident = (Trident) e.getDamager();
-		
-		if(trident.getShooter() == null || !trident.getShooter().equals(player))
+		if(e.getDamage() <= 0.0)
 			return;
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
@@ -101,8 +95,13 @@ public class GlacialSmite extends AbstractAbility {
 		if (thisEvent.isCancelled())
 			return;
 		
-		Entity victim = e.getVictim();	
-		victim.setFreezeTicks(victim.getFreezeTicks() + freezeAmt);
+		Entity victim = e.getEntity();	
+		int newFreeze = freezeAmt;
+		
+		if(e.getDamager() instanceof Trident)
+			newFreeze *= 2;
+		
+		victim.setFreezeTicks(victim.getFreezeTicks() + newFreeze);
 		
 		if(victim instanceof LivingEntity)
 			applyPotionEffects((LivingEntity)victim);
@@ -137,12 +136,12 @@ public class GlacialSmite extends AbstractAbility {
 
 	@Override
 	public String getInstructions() {
-		return "Hit an entity with a trident";
+		return "Hit an entity with an attack";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Your trident throws chill your target applying freeze, slowness, and mining fatigue for &6" + AbilityUtils.doubleRoundToXDecimals(duration / 20, 1)  + " &rseconds";
+		return "Your attacks chill your target applying freeze, slowness, and mining fatigue for &6" + AbilityUtils.doubleRoundToXDecimals(duration / 20, 1)  + " &rseconds. Thrown tridents apply double the freeze amount";
 	}
 
 	@Override

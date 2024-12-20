@@ -27,7 +27,7 @@ public class IgnorePain extends AbstractAbility implements Bindable {
 	private boolean isOn = false;
 	
 	private int duration = 4 * 20;
-	private double dmgReduction = 0.2;
+	private double dmgReduction = 0.25;
 	
 	public IgnorePain(Player p) {
 		super(p, Priority.HIGH);
@@ -35,7 +35,7 @@ public class IgnorePain extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 12 * 20;
+		this.coolDowninTicks = 10 * 20;
 		this.displayName = "Ignore Pain";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;
@@ -119,7 +119,7 @@ public class IgnorePain extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmgReduction = 0.2 * this.currentLevel;
+		dmgReduction = 0.25 * this.currentLevel;
 	}
 
 	@Override

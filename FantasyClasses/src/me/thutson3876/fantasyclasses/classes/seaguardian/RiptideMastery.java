@@ -51,7 +51,7 @@ public class RiptideMastery extends AbstractAbility {
 
 	@Override
 	public String getInstructions() {
-		return "Use a trident with riptide";
+		return "Use a trident with Riptide";
 	}
 
 	@Override

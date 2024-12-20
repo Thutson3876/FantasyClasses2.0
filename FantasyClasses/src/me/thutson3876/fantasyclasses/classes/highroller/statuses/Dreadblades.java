@@ -10,10 +10,10 @@ import me.thutson3876.fantasyclasses.status.general.Leech;
 
 public class Dreadblades extends HighRollerStatus {
 
-	//Gain 20% lifesteal
+	//Gain 30% lifesteal
 	//Haste 4
 	
-	private static final int STACK_AMT = 2;
+	private static final int STACK_AMT = 3;
 	//private static final double RIPOSTE_PERCENT = 1.00;
 	
 	//private double storedDamage = 0.0;

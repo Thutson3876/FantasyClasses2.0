@@ -76,6 +76,9 @@ public enum Horde {
 		if(horde == null)
 			return null;
 		
+		if(meta == null || meta.getLore() == null)
+			return null;
+		
 		if(meta.getLore().contains("Place on ground to start Horde invasion!") && meta.getLore().contains("Warning: Do not place near residences"))
 			return horde;
 		

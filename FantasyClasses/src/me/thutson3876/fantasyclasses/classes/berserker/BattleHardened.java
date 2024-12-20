@@ -40,6 +40,9 @@ public class BattleHardened extends AbstractAbility {
 		if(this.isOnCooldown())
 			return;
 		
+		if(e.getDamager() == null)
+			return;
+		
 		if(e.getDamager().equals(this.player)) {
 			if(player.getAttackCooldown() < 1.0)
 				return;

@@ -43,6 +43,9 @@ public class EnhancedRepitoire extends AbstractAbility{
 		if(!e.getPlayer().equals(player))
 			return;
 		
+		if(e.getHand() == null || player.getInventory().getItem(e.getHand()) == null)
+			return;
+		
 		if(!player.getInventory().getItem(e.getHand()).getType().equals(Material.STICK))
 			return;
 		
@@ -68,7 +71,8 @@ public class EnhancedRepitoire extends AbstractAbility{
 			if(ent.getType().equals(EntityType.ITEM)) {
 				Item i = (Item) ent;
 				ingredients.add(i.getItemStack());
-				containsWart = i.getItemStack().getType().equals(Material.NETHER_WART);
+				if(i.getItemStack().getType().equals(Material.NETHER_WART))
+					containsWart = true;
 			}
 		}
 		

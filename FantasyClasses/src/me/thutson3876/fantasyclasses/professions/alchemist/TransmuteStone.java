@@ -32,7 +32,7 @@ public class TransmuteStone extends AbstractAbility {
 	@Override
 	public void setDefaults() {
 		this.coolDowninTicks = 30;
-		this.displayName = "Transmute: Metal";
+		this.displayName = "Transmute: Stone";
 		this.skillPointCost = 1;
 		this.maximumLevel = 1;
 

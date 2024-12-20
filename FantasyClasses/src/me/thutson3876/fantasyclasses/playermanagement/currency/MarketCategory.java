@@ -104,9 +104,9 @@ public enum MarketCategory {
 		MISC.stock.add(new Purchasable(Material.LEATHER, 5));
 		MISC.stock.add(new Purchasable(Material.GLASS, 10));
 		MISC.stock.add(new Purchasable(Material.SLIME_BALL, 10));
-		MISC.stock.add(new Purchasable(Material.AMETHYST_CLUSTER, 500));
+		MISC.stock.add(new Purchasable(Material.AMETHYST_CLUSTER, 1000));
 		MISC.stock.add(new Purchasable(Material.NAUTILUS_SHELL, 500));
-		MISC.stock.add(new Purchasable(Material.TRIDENT, 1000));
+		MISC.stock.add(new Purchasable(Material.TRIDENT, 700));
 		
 		MISC.item = MISC.generateCategoryItem(Material.TRIDENT);
 		MISC.generateStockItems();

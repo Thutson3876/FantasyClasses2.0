@@ -15,7 +15,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class RagingBlows extends AbstractAbility {
 
-	private double dmgConversion = 0.2;
+	private double dmgConversion = 0.25;
 	private double radius = 1.5;
 	
 	public RagingBlows(Player p) {
@@ -87,7 +87,7 @@ public class RagingBlows extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		this.dmgConversion = 0.2 * this.currentLevel;
+		this.dmgConversion = 0.25 * this.currentLevel;
 	}
 
 }

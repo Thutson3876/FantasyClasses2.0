@@ -12,6 +12,7 @@ import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_Help;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_OpenMenu;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ResetSkills;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ToggleArrowVelocityTracker;
+import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ToggleBuildMode;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ToggleDamageMeters;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ToggleDetailedDamageMeters;
 import me.thutson3876.fantasyclasses.commands.commandexecutors.Command_ToggleFriendlyFire;
@@ -31,6 +32,7 @@ public class CommandManager {
 		commands.add(new Command_ToggleFriendlyFire());
 		commands.add(new Command_ToggleArrowVelocityTracker());
 		commands.add(new Command_ToggleStatusEffectMessages());
+		commands.add(new Command_ToggleBuildMode());
 		commands.add(new Command_GenerateRandomLore());
 		
 		this.registerCommands();
@@ -44,6 +46,12 @@ public class CommandManager {
 			plugin.getCommand(command.getCommandName()).setAliases(Arrays.asList(command.getAliases()));
 			plugin.getCommand(command.getCommandName()).setTabCompleter(command);
 			plugin.getCommand(command.getCommandName()).setExecutor(command);
+		}
+	}
+	
+	public void deInit() {
+		for(AbstractCommand command : this.commands) {
+			command.deInit();
 		}
 	}
 }

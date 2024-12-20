@@ -12,7 +12,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class UnarmoredDexterity extends AbstractAbility {
 
-	private double damageMod = 0.15;
+	private double damageMod = 0.2;
 	
 	public UnarmoredDexterity(Player p) {
 		super(p);
@@ -60,7 +60,7 @@ public class UnarmoredDexterity extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		damageMod = (0.15 * currentLevel);
+		damageMod = (0.2 * currentLevel);
 	}
 
 }

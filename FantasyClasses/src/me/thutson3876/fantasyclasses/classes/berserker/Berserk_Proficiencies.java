@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -39,7 +40,11 @@ public class Berserk_Proficiencies extends AbstractAbility {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDamageByEntityEvent(CustomLivingEntityDamageEvent e) {
-		if (!AbilityUtils.getTrueCause(e.getDamager()).equals(player))
+		if(e.getDamager() == null)
+			return;
+		
+		Entity trueCause = AbilityUtils.getTrueCause(e.getDamager());
+		if (trueCause == null || !trueCause.equals(player))
 			return;
 
 		e.addModifier(dmgMod);

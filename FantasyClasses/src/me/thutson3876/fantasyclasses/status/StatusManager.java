@@ -26,9 +26,9 @@ public class StatusManager {
 			if(container == null)
 				continue;
 			
-			for (Status s : container.getStatuses()) {
+			/*for (Status s : container.getStatuses()) {
 				s.getType().remove(container.getHost(), RemoveCause.DISCONNECT);
-			}
+			}*/
 		}
 
 		Bukkit.getScheduler().cancelTask(this.taskId);

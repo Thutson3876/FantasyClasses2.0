@@ -11,21 +11,18 @@ import java.util.Random;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.ExpBottleEvent;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.thutson3876.fantasyclasses.FantasyClasses;
 import me.thutson3876.fantasyclasses.playermanagement.FantasyPlayer;
-import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
+import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;  
 
 public class EnchantingListener implements Listener {
 
@@ -33,15 +30,142 @@ public class EnchantingListener implements Listener {
 
 	private static final Random rng = new Random();
 
-	private List<EnchantmentEventStorage> eventStorageList = new ArrayList<>();
+	//private List<EnchantmentEventStorage> eventStorageList = new ArrayList<>();
+	
+	private Map<Player, EnchantmentOffer[]> offerMap = new HashMap<>();
 
 	public EnchantingListener() {
 		plugin.registerEvents(this);
 	}
 
+	@EventHandler
+	public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent e) {
+		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(e.getEnchanter());
+
+		if (fplayer == null) {
+			plugin.log("Enchanting Player not fantasy player...");
+			return;
+		}
+		
+		if(e.getOffers() == null || e.getOffers().length == 0)
+			return;
+
+		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(false);
+		
+		Map<Enchantment, Integer> availableEnchantmentMap = new HashMap<>();
+		for (Entry<Enchantments, Integer> entry : availableEnchantments.entrySet()) {
+			for (Enchantment ench : entry.getKey().getEnchants())
+				availableEnchantmentMap.put(ench, entry.getValue());
+		}
+		
+		final List<EnchantmentOffer> currentOffers = Arrays.asList(e.getOffers().clone());
+
+		for (EnchantmentOffer preparedEnchantOffer : currentOffers) {
+			if (preparedEnchantOffer == null)
+				continue;
+
+			if (availableEnchantmentMap.containsKey(preparedEnchantOffer.getEnchantment())) {
+				int maxLevel = availableEnchantmentMap.get(preparedEnchantOffer.getEnchantment());
+				if (preparedEnchantOffer.getEnchantmentLevel() > maxLevel) {
+					preparedEnchantOffer.setEnchantmentLevel(Math.max(maxLevel, 1));
+				}
+
+				continue;
+			} else {
+				Map<Enchantment, Integer> newEnchant = generateRandomEnchantment(e.getItem(), new ArrayList<>(),
+						fplayer, preparedEnchantOffer.getEnchantmentLevel());
+
+				if (newEnchant == null) {
+					preparedEnchantOffer = null;
+					continue;
+				}
+
+				for (Entry<Enchantment, Integer> entry : newEnchant.entrySet()) {
+					preparedEnchantOffer.setEnchantment(entry.getKey());
+					preparedEnchantOffer.setEnchantmentLevel(entry.getValue());
+				}
+			}
+		}
+		
+		EnchantmentOffer[] finalOffers = currentOffers.toArray(new EnchantmentOffer[currentOffers.size()]);
+		
+		/*plugin.log(fplayer.getPlayer().getDisplayName() + " Available Enchants: ");
+		
+		for(Entry<Enchantments, Integer> entry : fplayer.getAvailableEnchantments(false).entrySet())
+			plugin.log("" + entry.getKey() + ": " + entry.getValue());
+				
+		plugin.log(fplayer.getPlayer().getDisplayName() + " Enchant Offers Size: " + finalOffers.length);
+		
+		for(EnchantmentOffer offer : finalOffers)
+			plugin.log("" + offer.getEnchantment() + ": " + offer.getEnchantmentLevel());
+		
+		plugin.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+		*/
+		try {
+			e.getView().setOffers(finalOffers);
+		}
+		catch(Exception exc) {
+			plugin.log(exc.getMessage());
+		}
+		
+		offerMap.put(fplayer.getPlayer(), finalOffers);
+	}
+	
+	@EventHandler
+	public void onEnchantItemEvent(EnchantItemEvent e) {
+		Player player = e.getEnchanter();
+		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(player);
+		if (fplayer == null)
+			return;
+		
+		if(!offerMap.containsKey(player))
+			return;
+		
+		Map<Enchantments, Integer> availableEnchantmentMap = fplayer.getAvailableEnchantments(false);
+		
+		EnchantmentOffer offer = offerMap.get(player)[e.whichButton()];
+		
+		Map<Enchantment, Integer> enchantMap = e.getEnchantsToAdd();
+		
+		enchantMap.put(offer.getEnchantment(), offer.getEnchantmentLevel());
+		
+		for(Entry<Enchantment, Integer> entry : enchantMap.entrySet()) {
+			Enchantment enchant = entry.getKey();
+			int level = entry.getValue();
+			
+			for(Entry<Enchantments, Integer> k : availableEnchantmentMap.entrySet()) {
+				if (k.getKey().getEnchants().contains(enchant)) {
+					int maxLevel = k.getValue();
+					if (level > maxLevel) {
+						enchantMap.put(enchant, Math.max(maxLevel, 1));
+					}
+
+					continue;
+				} 
+				else {
+					
+					Map<Enchantment, Integer> newEnchant;
+					
+					newEnchant = generateRandomEnchantment(e.getItem(), enchantMap.keySet(),
+							fplayer, level);
+					
+					if (newEnchant == null) {
+						enchantMap.remove(enchant);
+						break;
+					}
+					
+					for (Entry<Enchantment, Integer> j : newEnchant.entrySet()) {
+						enchantMap.put(j.getKey(), j.getValue());
+					}
+				}
+			}
+			
+		}
+	}
+	
 	// Try to fix this spaghetti
 	// putting on curses when it has no other option for some reason
-	@EventHandler
+	/*@EventHandler
 	public void onPrepareItemEnchantEvent(PrepareItemEnchantEvent e) {
 		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(e.getEnchanter());
 
@@ -52,10 +176,6 @@ public class EnchantingListener implements Listener {
 
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(false);
 		
-		/*plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
-		for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
-			plugin.log(entry.getKey().toString() + " : " + entry.getValue());
-		*/
 		Map<Enchantment, Integer> availableEnchantmentMap = new HashMap<>();
 		for (Entry<Enchantments, Integer> entry : availableEnchantments.entrySet()) {
 			for (Enchantment ench : entry.getKey().getEnchants())
@@ -191,9 +311,9 @@ public class EnchantingListener implements Listener {
 		}
 
 		this.eventStorageList.remove(eventStorage);
-	}
+	}*/
 
-	@EventHandler
+	/*@EventHandler
 	public void onPrepareAnvilEvent(PrepareAnvilEvent e) {
 		FantasyPlayer fplayer = null;
 		for (HumanEntity ent : e.getViewers()) {
@@ -207,14 +327,12 @@ public class EnchantingListener implements Listener {
 			return;
 		}
 			
-
 		Map<Enchantments, Integer> availableEnchantments = fplayer.getAvailableEnchantments(true);
 
-		
 		//plugin.log(fplayer.getPlayer().getDisplayName() + "'s available Enchantments: ");
 		/*for(Entry<Enchantments, Integer> entry : availableEnchantments.entrySet())
 			plugin.log(entry.getKey().toString() + " : " + entry.getValue());*/
-		
+		/*
 		ItemStack result = e.getResult();
 		Map<Enchantment, Integer> newEnchants = new HashMap<>();
 		for (Entry<Enchantment, Integer> enchant : result.getEnchantments().entrySet()) {
@@ -239,7 +357,7 @@ public class EnchantingListener implements Listener {
 		result.addEnchantments(newEnchants);
 
 		e.setResult(result);
-	}
+	}*/
 	
 	@EventHandler
 	public void onExpBottleEvent(ExpBottleEvent e) {
@@ -297,7 +415,7 @@ public class EnchantingListener implements Listener {
 			enchantOptions.add(ench);
 		}
 
-		if (enchantOptions.isEmpty()) {
+		/*if (enchantOptions.isEmpty()) {
 			int i = 0;
 			int randomIndex = rng.nextInt(availableEnchantmentMap.keySet().size());
 			Enchantment randomEnchant = null;
@@ -311,7 +429,9 @@ public class EnchantingListener implements Listener {
 
 			returnEnchant.put(randomEnchant, rng.nextInt(availableEnchantmentMap.get(randomEnchant)));
 			return returnEnchant;
-		}
+		}*/
+		if (enchantOptions.isEmpty())
+			return null;
 
 		Enchantment newEnchantment = enchantOptions.get(rng.nextInt(enchantOptions.size()));
 		int currentLevel = enchLevel;
@@ -356,7 +476,7 @@ public class EnchantingListener implements Listener {
 	 * return newEnchant; }
 	 */
 
-	private class EnchantmentEventStorage {
+	/*private class EnchantmentEventStorage {
 
 		private final Player player;
 		private final Inventory inv;
@@ -386,5 +506,5 @@ public class EnchantingListener implements Listener {
 		public List<EnchantmentOffer> getOffersToBeReplaced() {
 			return offersToBeReplaced;
 		}
-	}
+	}*/
 }

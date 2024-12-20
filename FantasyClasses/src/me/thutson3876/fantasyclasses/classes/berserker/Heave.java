@@ -39,9 +39,9 @@ public class Heave extends AbstractAbility {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 16 * 20;
+		this.coolDowninTicks = 8 * 20;
 		this.displayName = "Heave";
-		this.skillPointCost = 2;
+		this.skillPointCost = 1;
 		this.maximumLevel = 2;
 
 		this.createItemStack(Material.PISTON);

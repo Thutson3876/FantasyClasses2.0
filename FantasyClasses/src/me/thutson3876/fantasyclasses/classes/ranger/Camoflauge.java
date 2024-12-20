@@ -43,7 +43,7 @@ public class Camoflauge extends AbstractAbility implements Bindable {
 	
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 20 * 20;
+		this.coolDowninTicks = 12 * 20;
 		this.displayName = "Camoflauge";
 		this.skillPointCost = 1;
 		this.maximumLevel = 2;

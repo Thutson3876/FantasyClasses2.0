@@ -41,7 +41,7 @@ public class MobSpawnListener implements Listener {
 	public void onMobSpawnEvent(CreatureSpawnEvent e) {
 		if(e.getSpawnReason().equals(SpawnReason.SPAWNER) || e.getSpawnReason().equals(SpawnReason.CUSTOM))
 			return;
-		
+
 		Random rng = new Random();
 		Location loc = e.getLocation();
 		double chance = rng.nextDouble();

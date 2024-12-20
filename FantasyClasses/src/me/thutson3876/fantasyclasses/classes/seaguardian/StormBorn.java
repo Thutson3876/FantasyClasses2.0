@@ -14,7 +14,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class StormBorn extends AbstractAbility {
 
-	private static final double BASE_DAMAGE = 0.15;
+	private static final double BASE_DAMAGE = 0.4;
 	private double dmgMod = BASE_DAMAGE;
 	
 	public StormBorn(Player p) {

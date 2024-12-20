@@ -1,20 +1,20 @@
 package me.thutson3876.fantasyclasses.classes.seaguardian;
 
 import org.bukkit.Material;
-import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
 import me.thutson3876.fantasyclasses.events.CustomLivingEntityDamageEvent;
-import me.thutson3876.fantasyclasses.events.DamageModifier;
 import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class PolearmMastery extends AbstractAbility {
 
-	private double dmg = 1.0;
+	private PotionEffect haste = new PotionEffect(PotionEffectType.HASTE, 4 * 20, 1);
 	
 	public PolearmMastery(Player p) {
 		super(p);
@@ -24,8 +24,8 @@ public class PolearmMastery extends AbstractAbility {
 	public void setDefaults() {
 		this.coolDowninTicks = 30;
 		this.displayName = "Polearm Mastery";
-		this.skillPointCost = 1;
-		this.maximumLevel = 3;
+		this.skillPointCost = 2;
+		this.maximumLevel = 1;
 
 		this.createItemStack(Material.TRIDENT);
 	}
@@ -48,7 +48,7 @@ public class PolearmMastery extends AbstractAbility {
 		if (thisEvent.isCancelled())
 			return;
 		
-		e.addModifier(new DamageModifier(displayName, Operation.ADD_NUMBER, dmg));
+		AbilityUtils.applyStackingPotionEffect(haste, player, 10, 4 * 20);
 		
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
@@ -60,7 +60,7 @@ public class PolearmMastery extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Your thrown tridents strike with precision, dealing &6" + AbilityUtils.doubleRoundToXDecimals(dmg, 2) + "&r bonus damage.";
+		return "Your thrown tridents empower you. Each thrown trident hit grants you stacking &dHaste";
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class PolearmMastery extends AbstractAbility {
 
 	@Override
 	public void applyLevelModifiers() {
-		dmg = 1.0 * currentLevel;
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package me.thutson3876.fantasyclasses.commands.commandexecutors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,13 +23,26 @@ public class Command_ResetSkills extends AbstractCommand implements Listener {
 			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));
 			return true;
 		}
-		if (args.length != 0) {
+		if (args.length > 1) {
 			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Improper use of command"));
 			return false;
 		}
-
+		
 		Player player = (Player) sender;
-
+		
+		if (args.length == 1) {
+			try {
+				for(Player p : Bukkit.getOnlinePlayers()) {
+					if(args[0].equalsIgnoreCase(p.getDisplayName())) {
+						player = p;
+						break;
+					}
+				}
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		}
+		
 		FantasyPlayer fplayer = plugin.getPlayerManager().getPlayer(player);
 		if (fplayer == null) {
 			sender.sendMessage(ChatUtils.chat(ColorCode.ERROR + "Error: Must be a player to use this command"));

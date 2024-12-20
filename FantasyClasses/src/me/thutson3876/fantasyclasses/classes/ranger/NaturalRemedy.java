@@ -30,6 +30,9 @@ public class NaturalRemedy extends AbstractAbility {
 
 	@EventHandler
 	public void onAbilityTriggerEvent(AbilityTriggerEvent e) {
+		if(!e.getFplayer().equals(fplayer))
+			return;
+		
 		if(!(e.getAbility() instanceof Camoflauge))
 			return;
 		

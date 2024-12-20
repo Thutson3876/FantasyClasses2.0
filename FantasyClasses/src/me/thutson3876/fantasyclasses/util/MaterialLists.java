@@ -221,6 +221,8 @@ public enum MaterialLists {
 		STONE.matList.add(Material.DIORITE);
 		STONE.matList.add(Material.TUFF);
 		STONE.matList.add(Material.BASALT);
+		STONE.matList.add(Material.SMOOTH_BASALT);
+		STONE.matList.add(Material.CALCITE);
 		STONE.matList.add(Material.DEEPSLATE);
 		STONE.matList.add(Material.BONE_BLOCK);
 		STONE.matList.add(Material.OBSIDIAN);

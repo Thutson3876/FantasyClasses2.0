@@ -25,6 +25,7 @@ public class Witchcraft extends AbstractFantasyClass {
 		wand.addChild(new WitherWand(p));
 		wand.addChild(new FireballWand(p));
 		wand.addChild(new ConfusionWand(p));
+		wand.addChild(new WitchCurse(p));
 		
 		skillTree.addChild(wand);
 		Skill cauldron = new Skill(new WitchesCauldron(p));
@@ -36,6 +37,10 @@ public class Witchcraft extends AbstractFantasyClass {
 		
 		skillTree.addChild(new NineLives(p)).addChild(new NoBroomNeeded(p));
 		
+		Skill misty = new Skill(new MistyStep(p));
+		
+		skillTree.addChild(misty);
+		
 		setSkillInMap(27 + 4, skillTree);
 		
 		setSkillInMap(27 + 2, wand);
@@ -43,6 +48,7 @@ public class Witchcraft extends AbstractFantasyClass {
 		setSkillInMap(9 + 0, wand.getNext().get(1));
 		setSkillInMap(18 + 0, wand.getNext().get(2));
 		setSkillInMap(27 + 0, wand.getNext().get(3));
+		setSkillInMap(18 + 2, wand.getNext().get(4));
 		
 		setSkillInMap(27 + 6, cauldron);
 		setSkillInMap(18 + 7, cauldron.getNext().get(0));
@@ -51,6 +57,8 @@ public class Witchcraft extends AbstractFantasyClass {
 		
 		setSkillInMap(36 + 4, skillTree.getNext().get(2));
 		setSkillInMap(45 + 4, skillTree.getNext().get(2).getNext().get(0));
+		
+		setSkillInMap(9 + 4, misty);
 		
 		this.setPrerequisites();
 	}

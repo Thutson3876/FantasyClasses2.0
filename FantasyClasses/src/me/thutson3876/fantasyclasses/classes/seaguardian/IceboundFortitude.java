@@ -12,7 +12,7 @@ import me.thutson3876.fantasyclasses.util.math.MathUtils;
 
 public class IceboundFortitude extends AbstractAbility {
 
-	private static final double DMG_MOD_PER_LEVEL = 0.05;
+	private static final double DMG_MOD_PER_LEVEL = 0.07;
 	private double dmgMod = DMG_MOD_PER_LEVEL;
 	
 	public IceboundFortitude(Player p) {

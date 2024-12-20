@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
@@ -56,8 +57,17 @@ public class NoBroomNeeded extends AbstractAbility implements Bindable {
 
 		player.setVelocity(player.getVelocity().add(new Vector(0, 2, 0)));
 
-		isGliding = true;
-		player.setGliding(true);
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				isGliding = true;
+				player.setGliding(true);
+			}
+			
+		}.runTaskLater(plugin, 10);
+		
+		
 		
 		this.onTrigger(true);
 	}

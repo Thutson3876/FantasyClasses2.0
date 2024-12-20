@@ -35,6 +35,9 @@ public class Broadsided extends StatusType {
 		if(status == null)
 			return;
 		
+		if(e.getDamager() == null)
+			return;
+		
 		if(!e.getDamager().equals(status.getApplicator()))
 			return;
 		

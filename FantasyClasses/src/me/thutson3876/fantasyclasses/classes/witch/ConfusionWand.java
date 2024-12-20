@@ -26,8 +26,8 @@ import me.thutson3876.fantasyclasses.util.geometry.Sphere;
 public class ConfusionWand extends AbstractAbility implements Bindable {
 
 	private Material boundType = null;
-	private double radius = 6.0;
-	private int duration = 10 * 20;
+	private double radius = 3;
+	private int duration = 4 * 20;
 	private List<PotionEffect> effects = new ArrayList<>();
 
 	public ConfusionWand(Player p) {
@@ -36,10 +36,10 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void setDefaults() {
-		this.coolDowninTicks = 25 * 20;
+		this.coolDowninTicks = 14 * 20;
 		this.displayName = "Confusion Wand";
 		this.skillPointCost = 1;
-		this.maximumLevel = 2;
+		this.maximumLevel = 3;
 		
 		this.createItemStack(Material.ENDER_EYE);
 	}
@@ -64,9 +64,11 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 		Random rng = new Random();
 		List<LivingEntity> entities = AbilityUtils.getNearbyLivingEntities(player, radius, radius, radius);
 		for(LivingEntity ent : entities) {
-				((LivingEntity)ent).addPotionEffects(effects);
-				if(ent instanceof Creature)
-					((Creature)ent).setTarget(entities.get(rng.nextInt(entities.size())));
+			if(ent instanceof Player && !fplayer.hasFriendlyFire())
+				continue;
+			((LivingEntity)ent).addPotionEffects(effects);
+			if(ent instanceof Creature)
+				((Creature)ent).setTarget(entities.get(rng.nextInt(entities.size())));
 		}
 		
 		
@@ -97,14 +99,14 @@ public class ConfusionWand extends AbstractAbility implements Bindable {
 
 	@Override
 	public void applyLevelModifiers() {
-		radius = 4.0 * currentLevel;
-		duration = (4 + 4 * currentLevel) * 20;
+		radius = 2 + 1.0 * currentLevel;
+		duration = (4 * currentLevel) * 20;
 
 		effects.clear();
 		effects.add(new PotionEffect(PotionEffectType.NAUSEA, duration, 0));
 		effects.add(new PotionEffect(PotionEffectType.BLINDNESS, duration, 0));
 		if(currentLevel >= this.maximumLevel) {
-			effects.add(new PotionEffect(PotionEffectType.SLOWNESS, duration, 0));
+			effects.add(new PotionEffect(PotionEffectType.SLOWNESS, duration, 1));
 			effects.add(new PotionEffect(PotionEffectType.UNLUCK, duration, 0));
 		}	
 	}

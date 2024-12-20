@@ -1,8 +1,6 @@
 package me.thutson3876.fantasyclasses;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Registry;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,10 +14,10 @@ import me.thutson3876.fantasyclasses.listeners.GeneralAbilityListener;
 import me.thutson3876.fantasyclasses.listeners.MobSpawnListener;
 import me.thutson3876.fantasyclasses.listeners.PlayerRegistryListener;
 import me.thutson3876.fantasyclasses.listeners.ScalingListener;
+import me.thutson3876.fantasyclasses.listeners.ShenanigansListener;
 import me.thutson3876.fantasyclasses.listeners.SkillPointExpListener;
 import me.thutson3876.fantasyclasses.listeners.WitchesBrewListener;
 import me.thutson3876.fantasyclasses.playermanagement.PlayerManager;
-import me.thutson3876.fantasyclasses.professions.enchanter.customenchantments.Enchantments;
 import me.thutson3876.fantasyclasses.status.StatusManager;
 
 public class FantasyClasses extends JavaPlugin {
@@ -76,6 +74,8 @@ public class FantasyClasses extends JavaPlugin {
 		new SkillPointExpListener();
 		new MobSpawnListener();
 		new WitchesBrewListener();
+		
+		new ShenanigansListener();
 	}
 
 	public void registerEvents(Listener listener) {
@@ -85,7 +85,7 @@ public class FantasyClasses extends JavaPlugin {
 	}
 	
 	private void loadCustomEnchantments() {
-		Registry<Enchantment> enchantsRegistry = Registry.ENCHANTMENT;
+		//Registry<Enchantment> enchantsRegistry = Registry.ENCHANTMENT;
 		
 		
 		//if(!Enchantment.)

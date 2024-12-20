@@ -3,6 +3,7 @@ package me.thutson3876.fantasyclasses.classes.highroller.statuses;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -15,17 +16,17 @@ import me.thutson3876.fantasyclasses.status.StatusType;
 public class Ruthlessness extends HighRollerStatus {
 
 	//Consumption of blindside increases the damage bonus of the next consumption of broadside by 10% stacking (and vice versa)
-	//Gain resistance 1
+	//Gain resistance 2
 	
 	public Ruthlessness() {
 		super("Ruthlessness", 99, null, (host, duration, stacks) -> {
 			
-			host.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 0));
+			host.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) duration, 1));
 			playerFeedback(host, "Ruthlessness", Sound.BLOCK_ANVIL_LAND);
 		});
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void onStatusRemoveEvent(RemoveStatusEvent e) {
 		StatusType statusType = e.getStatus().getType();
 		

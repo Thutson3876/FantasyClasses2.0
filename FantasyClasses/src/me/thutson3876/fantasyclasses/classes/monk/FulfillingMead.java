@@ -23,7 +23,7 @@ public class FulfillingMead extends AbstractAbility {
 			new PotionEffect(PotionEffectType.REGENERATION, duration, 1), new PotionEffect(PotionEffectType.RESISTANCE, duration, 1)});
 	//Offensives
 	private static List<PotionEffect> offensives = Arrays.asList(new PotionEffect[]{
-			new PotionEffect(PotionEffectType.STRENGTH, duration, 1), new PotionEffect(PotionEffectType.SPEED, duration, 1)});
+			new PotionEffect(PotionEffectType.STRENGTH, duration, 2), new PotionEffect(PotionEffectType.SPEED, duration, 1)});
 	
 	private boolean isOffensive = false;
 	
@@ -59,6 +59,7 @@ public class FulfillingMead extends AbstractAbility {
 		
 		player.addPotionEffect(saturation);
 		player.setExhaustion(0.0f);
+		player.setSaturation(player.getSaturation() + 20);
 		
 		if(isOffensive) {
 			player.addPotionEffects(offensives);
