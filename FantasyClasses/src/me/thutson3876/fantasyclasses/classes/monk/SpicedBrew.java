@@ -29,7 +29,7 @@ public class SpicedBrew extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Your &6Fulfilling Mead &rnow heals you for a small amount and applies Strength and Speed instead of Regeneration and Resistance";
+		return "Your &6Fulfilling Mead &rnow heals you for a small amount and applies Strength, Speed, and Fire Resistance instead of Regeneration and Resistance";
 	}
 
 	@Override

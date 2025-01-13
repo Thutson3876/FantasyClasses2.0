@@ -27,8 +27,10 @@ public class CooldownList extends LinkedList<CooldownContainer> {
 
 	public CooldownContainer remove(Player player, Ability ability) {
 		CooldownContainer container = get(player, ability);
-		if (container != null)
+		if (container != null) {
 			remove(container);
+		}
+			
 		return container;
 	}
 

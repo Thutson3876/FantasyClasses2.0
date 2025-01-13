@@ -46,23 +46,24 @@ public class PlayerCooldownDragonBar {
 			Ability ability = entry.getKey();
 			double remaining = entry.getValue();
 			double max = ability.getCooldown();
+			double minAmt = ability.getCooldownContainer().getReductionPerTick() + 1;
 			BossBar bar = this.map.get(ability);
-			if (bar == null && remaining <= 1) {
+			if (bar == null && remaining <= minAmt) {
 				continue;
 			}
 
-			if (bar == null && remaining > 1) {
+			if (bar == null && remaining > minAmt) {
 				bar = Bukkit.createBossBar(ability.getName(), BarColor.RED, BarStyle.SEGMENTED_20,
 						new org.bukkit.boss.BarFlag[0]);
 				bar.addPlayer(player);
 				this.map.put(ability, bar);
 				continue;
 			}
-			if (bar != null && remaining <= 1) {
+			if (bar != null && remaining <= minAmt) {
 				bar.setVisible(false);
 				continue;
 			}
-			if (bar != null && remaining > 1) {
+			if (bar != null && remaining > minAmt) {
 				double value = remaining / max;
 				value = Math.min(Math.max(0.0D, value), 1.0D);
 				bar.setProgress(value);

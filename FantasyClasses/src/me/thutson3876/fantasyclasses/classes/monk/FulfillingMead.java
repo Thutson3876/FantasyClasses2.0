@@ -23,7 +23,7 @@ public class FulfillingMead extends AbstractAbility {
 			new PotionEffect(PotionEffectType.REGENERATION, duration, 1), new PotionEffect(PotionEffectType.RESISTANCE, duration, 1)});
 	//Offensives
 	private static List<PotionEffect> offensives = Arrays.asList(new PotionEffect[]{
-			new PotionEffect(PotionEffectType.STRENGTH, duration, 2), new PotionEffect(PotionEffectType.SPEED, duration, 1)});
+			new PotionEffect(PotionEffectType.STRENGTH, duration, 2), new PotionEffect(PotionEffectType.SPEED, duration, 1), new PotionEffect(PotionEffectType.FIRE_RESISTANCE, duration, 0)});
 	
 	private boolean isOffensive = false;
 	
@@ -63,7 +63,7 @@ public class FulfillingMead extends AbstractAbility {
 		
 		if(isOffensive) {
 			player.addPotionEffects(offensives);
-			AbilityUtils.heal(player, 4.0, player);
+			AbilityUtils.heal(player, 5.0, player);
 		}	
 		else
 			player.addPotionEffects(defensives);
@@ -78,7 +78,7 @@ public class FulfillingMead extends AbstractAbility {
 
 	@Override
 	public String getDescription() {
-		return "Drinking a bottle of honey (mead) will greatly improve your stamina for a short time, granting you Saturation, Regeneration, and Resistance for &6" + (duration / 20) + " &rseconds";
+		return "Drinking a bottle of mead (honey) will greatly improve your stamina for a short time, granting you Saturation, Regeneration, and Resistance for &6" + (duration / 20) + " &rseconds";
 	}
 
 	@Override

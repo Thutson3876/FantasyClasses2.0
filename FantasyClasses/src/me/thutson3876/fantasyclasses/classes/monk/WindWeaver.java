@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -86,17 +87,14 @@ public class WindWeaver extends AbstractAbility {
 					continue;
 				}
 			}
+			else if(ent instanceof Tameable && ((Tameable)ent).getOwner() != null)
+				continue;
 
 			ent.setVelocity(ent.getVelocity().add(new Vector(0, yBoost, 0)).multiply(0.6)
 					.add(player.getEyeLocation().getDirection().multiply(velocity)));
 
 			if (ent instanceof LivingEntity) {
-				((LivingEntity) ent).damage(damage, player);
-			}
-		}
-		for (Entity ent : enemies) {
-			if (ent instanceof Player) {
-				AbilityUtils.heal(player, damage, (Player) ent);
+				((LivingEntity) ent).damage(1.0, player);
 			}
 		}
 

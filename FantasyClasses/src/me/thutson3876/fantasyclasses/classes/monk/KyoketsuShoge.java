@@ -23,7 +23,7 @@ import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class KyoketsuShoge extends AbstractAbility implements Bindable {
 
-	private double velocityMod = 2.5;
+	private double velocityMod = 3.5;
 	private double damage = 4.0;
 	private Arrow arrow = null;
 	//private double yMod = 1.0;
@@ -92,7 +92,7 @@ public class KyoketsuShoge extends AbstractAbility implements Bindable {
 	}
 
 	private void fireArrow() {
-		Vector velocity = player.getEyeLocation().getDirection().multiply(this.velocityMod);
+		Vector velocity = player.getEyeLocation().getDirection().multiply(this.velocityMod).add(player.getVelocity());
 		Location spawnAt = player.getEyeLocation().toVector().add(player.getEyeLocation().getDirection())
 				.toLocation(player.getWorld());
 		arrow = player.getWorld().spawnArrow(spawnAt, velocity, 1F, 1F);

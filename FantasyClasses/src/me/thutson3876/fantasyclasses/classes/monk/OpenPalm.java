@@ -5,15 +5,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.potion.PotionEffectType;
 
 import me.thutson3876.fantasyclasses.abilities.AbstractAbility;
 import me.thutson3876.fantasyclasses.abilities.Priority;
 import me.thutson3876.fantasyclasses.classes.AbstractFantasyClass;
 import me.thutson3876.fantasyclasses.events.AbilityTriggerEvent;
+import me.thutson3876.fantasyclasses.util.AbilityUtils;
 
 public class OpenPalm extends AbstractAbility {
 
-	private static double damageModPerLevel = 4.0;
+	private static double damageModPerLevel = 3.0;
 	private double damageMod = damageModPerLevel;
 	
 	public OpenPalm(Player p) {
@@ -47,8 +49,11 @@ public class OpenPalm extends AbstractAbility {
 		
 		AbilityTriggerEvent thisEvent = this.callEvent();
 		
-		plugin.log("Event DamageMod: " + damageMod);
-		e.setDamage(e.getDamage() + damageMod);
+		double damage = damageMod + (player.hasPotionEffect(PotionEffectType.STRENGTH) ? 3 * (player.getPotionEffect(PotionEffectType.STRENGTH).getAmplifier() + 1) : 0);
+		if(AbilityUtils.isCritical(player))
+			damage *= 1.5;
+		
+		e.setDamage(e.getDamage() + damage);
 		this.triggerCooldown(thisEvent.getCooldown(), thisEvent.getCooldownReductionPerTick());
 	}
 
